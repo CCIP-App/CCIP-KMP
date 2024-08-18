@@ -1,3 +1,8 @@
+/*
+ * SPDX-FileCopyrightText: 2024 OPass
+ * SPDX-License-Identifier: GPL-3.0-only
+ */
+
 plugins {
     //trick: for the same plugin versions in all sub-modules
     alias(libs.plugins.androidApplication).apply(false)

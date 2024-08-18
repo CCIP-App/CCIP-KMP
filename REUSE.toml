@@ -1,0 +1,20 @@
+# SPDX-FileCopyrightText: 2024 OPass
+# SPDX-License-Identifier: GPL-3.0-only
+
+# This file describes the licensing and copyright situation for files that
+# cannot be annotated directly, for example because of being simply
+# uncommentable. Unless this is the case, a file should be annotated directly.
+#
+# This follows the REUSE specification: https://reuse.software/spec-3.2/#reusetoml
+
+version = 1
+
+[[annotations]]
+path = [
+    "gradlew",
+    "gradlew.bat",
+    "gradle/wrapper/*"
+]
+precedence = "closest"
+SPDX-FileCopyrightText = "2024 OPass"
+SPDX-License-Identifier = "GPL-3.0-only"
