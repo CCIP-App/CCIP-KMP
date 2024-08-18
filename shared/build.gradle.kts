@@ -42,9 +42,9 @@ kotlin {
 
 android {
     namespace = "app.opass.ccip"
-    compileSdk = 34
+    compileSdk = rootProject.extra["androidTargetSdk"] as Int
     defaultConfig {
-        minSdk = 21
+        minSdk = rootProject.extra["androidMinSdk"] as Int
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17

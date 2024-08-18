@@ -11,13 +11,15 @@ plugins {
 
 android {
     namespace = "app.opass.ccip.android"
-    compileSdk = 34
+    compileSdk = rootProject.extra["androidTargetSdk"] as Int
     defaultConfig {
-        applicationId = "app.opass.ccip.android"
-        minSdk = 21
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        applicationId = "app.opass.ccip"
+        minSdk = rootProject.extra["androidMinSdk"] as Int
+        targetSdk = rootProject.extra["androidTargetSdk"] as Int
+        versionCode = 56
+        versionName = "3.6.0"
+
+        manifestPlaceholders["manifestApplicationId"] = "$applicationId"
     }
     buildFeatures {
         compose = true

@@ -11,3 +11,7 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform).apply(false)
     alias(libs.plugins.compose.compiler).apply(false)
 }
+
+// Extra properties
+val androidMinSdk by extra(21)
+val androidTargetSdk by extra(35)
