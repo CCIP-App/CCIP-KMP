@@ -32,6 +32,10 @@ android {
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro",
+            )
         }
     }
     compileOptions {
@@ -40,6 +44,12 @@ android {
     }
     kotlinOptions {
         jvmTarget = "17"
+    }
+    lint {
+        lintConfig = file("lint.xml")
+    }
+    androidResources {
+        generateLocaleConfig = true
     }
 }
 
