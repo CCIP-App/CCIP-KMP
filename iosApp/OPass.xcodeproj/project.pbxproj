@@ -17,6 +17,7 @@
 		D3C398162C73A327002FFD42 /* OneSignalFramework in Frameworks */ = {isa = PBXBuildFile; productRef = D3C398152C73A327002FFD42 /* OneSignalFramework */; };
 		D3C398182C73A327002FFD42 /* OneSignalInAppMessages in Frameworks */ = {isa = PBXBuildFile; productRef = D3C398172C73A327002FFD42 /* OneSignalInAppMessages */; };
 		D3C3981A2C73A327002FFD42 /* OneSignalLocation in Frameworks */ = {isa = PBXBuildFile; productRef = D3C398192C73A327002FFD42 /* OneSignalLocation */; };
+		D3D1B8A02C7475A00075A747 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D1B89F2C7475A00075A747 /* SettingsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		D3C398072C73A190002FFD42 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		D3C398092C73A190002FFD42 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D3C398112C73A268002FFD42 /* OneSignalNotificationServiceExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OneSignalNotificationServiceExtension.entitlements; sourceTree = "<group>"; };
+		D3D1B89F2C7475A00075A747 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 			children = (
 				D34BEECA2C723BC6008F9A4C /* OPassApp.swift */,
 				D34BEECC2C723BC6008F9A4C /* ContentView.swift */,
+				D3D1B89F2C7475A00075A747 /* SettingsView.swift */,
 			);
 			path = OPass;
 			sourceTree = "<group>";
@@ -262,6 +265,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3D1B8A02C7475A00075A747 /* SettingsView.swift in Sources */,
 				D34BEECD2C723BC6008F9A4C /* ContentView.swift in Sources */,
 				D34BEECB2C723BC6008F9A4C /* OPassApp.swift in Sources */,
 			);

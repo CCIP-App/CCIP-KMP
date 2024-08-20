@@ -13,10 +13,12 @@ import OneSignalFramework
 @main
 struct OPassApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
+    @AppStorage("DarkMode") private var darkMode: DarkMode = .system
 
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .preferredColorScheme(darkMode.colorScheme)
         }
     }
 }
@@ -31,5 +33,17 @@ class AppDelegate: NSObject, UIApplicationDelegate {
             self.logger.info("User accepted notifications: \(accepted)")
         }, fallbackToSettings: false)
        return true
+    }
+}
+
+enum DarkMode: String, Identifiable, CaseIterable {
+    case system, enable, disable
+    internal var id: Self { self }
+    var colorScheme: ColorScheme? {
+        switch self {
+        case .system: return nil
+        case .enable: return .dark
+        case .disable: return .light
+        }
     }
 }

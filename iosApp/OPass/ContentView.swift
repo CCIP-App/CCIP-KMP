@@ -6,18 +6,31 @@
 //  2024 OPass.
 //
 
-import SwiftUI
 import shared
+import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text(Greeting().greet())
+        NavigationStack {
+            VStack {
+                Image(systemName: "globe")
+                    .imageScale(.large)
+                    .foregroundStyle(.tint)
+                Text(Greeting().greet())
+            }
+            .toolbar { toolbar() }
         }
-        .padding()
+    }
+
+    @ToolbarContentBuilder
+    private func toolbar() -> some ToolbarContent {
+        ToolbarItem(placement: .topBarTrailing) {
+            NavigationLink {
+                SettingsView()
+            } label: {
+                Image(systemName: "gearshape")
+            }
+        }
     }
 }
 

@@ -1,7 +1,44 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "Appearance" : {
 
+    },
+    "Dark Mode" : {
+
+    },
+    "Disable" : {
+
+    },
+    "Enable" : {
+
+    },
+    "Made with Love" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Made with Love"
+          }
+        }
+      }
+    },
+    "Settings" : {
+
+    },
+    "System" : {
+
+    },
+    "Version %@ (%@)" : {
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Version %@ (%@)"
+          }
+        }
+      }
+    }
   },
   "version" : "1.0"
 }
