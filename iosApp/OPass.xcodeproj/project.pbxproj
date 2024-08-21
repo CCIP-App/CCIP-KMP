@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D307A8812C76039D00BB00FB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D307A8802C76039D00BB00FB /* GoogleService-Info.plist */; };
+		D307A8842C76055F00BB00FB /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = D307A8832C76055F00BB00FB /* FirebaseAnalyticsWithoutAdIdSupport */; };
+		D307A8862C76055F00BB00FB /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = D307A8852C76055F00BB00FB /* FirebaseAppCheck */; };
+		D307A8882C76055F00BB00FB /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = D307A8872C76055F00BB00FB /* FirebaseAuth */; };
+		D307A88A2C76055F00BB00FB /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = D307A8892C76055F00BB00FB /* FirebaseCrashlytics */; };
+		D307A88C2C76055F00BB00FB /* FirebaseDynamicLinks in Frameworks */ = {isa = PBXBuildFile; productRef = D307A88B2C76055F00BB00FB /* FirebaseDynamicLinks */; };
+		D307A88E2C76055F00BB00FB /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = D307A88D2C76055F00BB00FB /* FirebaseFunctions */; };
+		D307A8902C76055F00BB00FB /* FirebasePerformance in Frameworks */ = {isa = PBXBuildFile; productRef = D307A88F2C76055F00BB00FB /* FirebasePerformance */; };
+		D307A8932C760F8E00BB00FB /* AppearanceSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D307A8922C760F8E00BB00FB /* AppearanceSettingsView.swift */; };
 		D34BEECB2C723BC6008F9A4C /* OPassApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34BEECA2C723BC6008F9A4C /* OPassApp.swift */; };
 		D34BEECD2C723BC6008F9A4C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34BEECC2C723BC6008F9A4C /* ContentView.swift */; };
 		D34BEECF2C723BC7008F9A4C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D34BEECE2C723BC7008F9A4C /* Assets.xcassets */; };
@@ -45,6 +54,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D307A8802C76039D00BB00FB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D307A8922C760F8E00BB00FB /* AppearanceSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceSettingsView.swift; sourceTree = "<group>"; };
 		D34BEEC72C723BC6008F9A4C /* OPass.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OPass.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D34BEECA2C723BC6008F9A4C /* OPassApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OPassApp.swift; sourceTree = "<group>"; };
 		D34BEECC2C723BC6008F9A4C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -65,8 +76,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3C398182C73A327002FFD42 /* OneSignalInAppMessages in Frameworks */,
+				D307A8882C76055F00BB00FB /* FirebaseAuth in Frameworks */,
+				D307A8902C76055F00BB00FB /* FirebasePerformance in Frameworks */,
 				D3C3981A2C73A327002FFD42 /* OneSignalLocation in Frameworks */,
+				D307A88E2C76055F00BB00FB /* FirebaseFunctions in Frameworks */,
+				D307A88C2C76055F00BB00FB /* FirebaseDynamicLinks in Frameworks */,
+				D307A88A2C76055F00BB00FB /* FirebaseCrashlytics in Frameworks */,
 				D3C398162C73A327002FFD42 /* OneSignalFramework in Frameworks */,
+				D307A8862C76055F00BB00FB /* FirebaseAppCheck in Frameworks */,
+				D307A8842C76055F00BB00FB /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +99,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D307A8912C760F5100BB00FB /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				D3D1B89F2C7475A00075A747 /* SettingsView.swift */,
+				D307A8922C760F8E00BB00FB /* AppearanceSettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		D34BEEBE2C723BC6008F9A4C = {
 			isa = PBXGroup;
 			children = (
@@ -105,7 +132,7 @@
 			children = (
 				D34BEECA2C723BC6008F9A4C /* OPassApp.swift */,
 				D34BEECC2C723BC6008F9A4C /* ContentView.swift */,
-				D3D1B89F2C7475A00075A747 /* SettingsView.swift */,
+				D307A8912C760F5100BB00FB /* Settings */,
 			);
 			path = OPass;
 			sourceTree = "<group>";
@@ -125,6 +152,7 @@
 			children = (
 				D3C397FF2C73A13A002FFD42 /* OPass.entitlements */,
 				D3C398002C73A14C002FFD42 /* Info.plist */,
+				D307A8802C76039D00BB00FB /* GoogleService-Info.plist */,
 				D34BEECE2C723BC7008F9A4C /* Assets.xcassets */,
 				D3C397FD2C73A079002FFD42 /* Localizable.xcstrings */,
 			);
@@ -154,6 +182,13 @@
 				D3C398152C73A327002FFD42 /* OneSignalFramework */,
 				D3C398172C73A327002FFD42 /* OneSignalInAppMessages */,
 				D3C398192C73A327002FFD42 /* OneSignalLocation */,
+				D307A8832C76055F00BB00FB /* FirebaseAnalyticsWithoutAdIdSupport */,
+				D307A8852C76055F00BB00FB /* FirebaseAppCheck */,
+				D307A8872C76055F00BB00FB /* FirebaseAuth */,
+				D307A8892C76055F00BB00FB /* FirebaseCrashlytics */,
+				D307A88B2C76055F00BB00FB /* FirebaseDynamicLinks */,
+				D307A88D2C76055F00BB00FB /* FirebaseFunctions */,
+				D307A88F2C76055F00BB00FB /* FirebasePerformance */,
 			);
 			productName = OPass;
 			productReference = D34BEEC72C723BC6008F9A4C /* OPass.app */;
@@ -209,6 +244,7 @@
 			mainGroup = D34BEEBE2C723BC6008F9A4C;
 			packageReferences = (
 				D3C398122C73A327002FFD42 /* XCRemoteSwiftPackageReference "OneSignal-XCFramework" */,
+				D307A8822C76055F00BB00FB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = D34BEEC82C723BC6008F9A4C /* Products */;
 			projectDirPath = "";
@@ -227,6 +263,7 @@
 			files = (
 				D3C397FE2C73A079002FFD42 /* Localizable.xcstrings in Resources */,
 				D34BEECF2C723BC7008F9A4C /* Assets.xcassets in Resources */,
+				D307A8812C76039D00BB00FB /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,6 +305,7 @@
 				D3D1B8A02C7475A00075A747 /* SettingsView.swift in Sources */,
 				D34BEECD2C723BC6008F9A4C /* ContentView.swift in Sources */,
 				D34BEECB2C723BC6008F9A4C /* OPassApp.swift in Sources */,
+				D307A8932C760F8E00BB00FB /* AppearanceSettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -576,6 +614,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		D307A8822C76055F00BB00FB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.1.0;
+			};
+		};
 		D3C398122C73A327002FFD42 /* XCRemoteSwiftPackageReference "OneSignal-XCFramework" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/OneSignal/OneSignal-XCFramework";
@@ -587,6 +633,41 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		D307A8832C76055F00BB00FB /* FirebaseAnalyticsWithoutAdIdSupport */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D307A8822C76055F00BB00FB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsWithoutAdIdSupport;
+		};
+		D307A8852C76055F00BB00FB /* FirebaseAppCheck */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D307A8822C76055F00BB00FB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAppCheck;
+		};
+		D307A8872C76055F00BB00FB /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D307A8822C76055F00BB00FB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		D307A8892C76055F00BB00FB /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D307A8822C76055F00BB00FB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
+		};
+		D307A88B2C76055F00BB00FB /* FirebaseDynamicLinks */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D307A8822C76055F00BB00FB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDynamicLinks;
+		};
+		D307A88D2C76055F00BB00FB /* FirebaseFunctions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D307A8822C76055F00BB00FB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFunctions;
+		};
+		D307A88F2C76055F00BB00FB /* FirebasePerformance */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D307A8822C76055F00BB00FB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebasePerformance;
+		};
 		D3C398132C73A327002FFD42 /* OneSignalExtension */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D3C398122C73A327002FFD42 /* XCRemoteSwiftPackageReference "OneSignal-XCFramework" */;

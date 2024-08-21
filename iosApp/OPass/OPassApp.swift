@@ -8,6 +8,12 @@
 
 import OSLog
 import SwiftUI
+import FirebaseCore
+import FirebaseAppCheck
+import FirebaseAnalytics
+import FirebasePerformance
+import FirebaseCrashlytics
+import FirebaseDynamicLinks
 import OneSignalFramework
 
 @main
@@ -27,7 +33,9 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     private let logger = Logger(subsystem: "OPassApp", category: "AppDelegate")
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-        // MARK: - Configure OneSignal
+        // MARK: Firebase
+        FirebaseApp.configure()
+        // MARK: OneSignal
         OneSignal.initialize("b6213f49-e356-4b48-aa9d-7cf10ce1904d", withLaunchOptions: launchOptions)
         OneSignal.Notifications.requestPermission({ accepted in
             self.logger.info("User accepted notifications: \(accepted)")

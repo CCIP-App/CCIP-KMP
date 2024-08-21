@@ -1,6 +1,9 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "ABOUT" : {
+
+    },
     "Appearance" : {
 
     },
@@ -13,6 +16,9 @@
     "Enable" : {
 
     },
+    "GENERAL" : {
+
+    },
     "Made with Love" : {
       "localizations" : {
         "zh-Hant" : {
@@ -23,7 +29,16 @@
         }
       }
     },
+    "Official Website" : {
+
+    },
+    "Privacy Policy" : {
+
+    },
     "Settings" : {
+
+    },
+    "Source Code" : {
 
     },
     "System" : {
