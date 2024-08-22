@@ -6,7 +6,7 @@
 //  2024 OPass.
 //
 
-import shared
+import Shared
 import SwiftUI
 
 struct ContentView: View {

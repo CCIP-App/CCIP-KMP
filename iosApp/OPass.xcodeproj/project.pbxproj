@@ -19,6 +19,8 @@
 		D34BEECB2C723BC6008F9A4C /* OPassApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34BEECA2C723BC6008F9A4C /* OPassApp.swift */; };
 		D34BEECD2C723BC6008F9A4C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34BEECC2C723BC6008F9A4C /* ContentView.swift */; };
 		D34BEECF2C723BC7008F9A4C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D34BEECE2C723BC7008F9A4C /* Assets.xcassets */; };
+		D3B1E7802C774623002DBA07 /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B1E77F2C774623002DBA07 /* SafariView.swift */; };
+		D3B1E7822C775E7C002DBA07 /* CenterLabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B1E7812C775E7C002DBA07 /* CenterLabelStyle.swift */; };
 		D3C397FE2C73A079002FFD42 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = D3C397FD2C73A079002FFD42 /* Localizable.xcstrings */; };
 		D3C398082C73A190002FFD42 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C398072C73A190002FFD42 /* NotificationService.swift */; };
 		D3C3980C2C73A190002FFD42 /* OneSignalNotificationServiceExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = D3C398052C73A190002FFD42 /* OneSignalNotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -60,6 +62,8 @@
 		D34BEECA2C723BC6008F9A4C /* OPassApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OPassApp.swift; sourceTree = "<group>"; };
 		D34BEECC2C723BC6008F9A4C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D34BEECE2C723BC7008F9A4C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D3B1E77F2C774623002DBA07 /* SafariView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariView.swift; sourceTree = "<group>"; };
+		D3B1E7812C775E7C002DBA07 /* CenterLabelStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterLabelStyle.swift; sourceTree = "<group>"; };
 		D3C397FD2C73A079002FFD42 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		D3C397FF2C73A13A002FFD42 /* OPass.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OPass.entitlements; sourceTree = "<group>"; };
 		D3C398002C73A14C002FFD42 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -133,8 +137,18 @@
 				D34BEECA2C723BC6008F9A4C /* OPassApp.swift */,
 				D34BEECC2C723BC6008F9A4C /* ContentView.swift */,
 				D307A8912C760F5100BB00FB /* Settings */,
+				D3B1E77E2C774609002DBA07 /* General */,
 			);
 			path = OPass;
+			sourceTree = "<group>";
+		};
+		D3B1E77E2C774609002DBA07 /* General */ = {
+			isa = PBXGroup;
+			children = (
+				D3B1E77F2C774623002DBA07 /* SafariView.swift */,
+				D3B1E7812C775E7C002DBA07 /* CenterLabelStyle.swift */,
+			);
+			path = General;
 			sourceTree = "<group>";
 		};
 		D3C398062C73A190002FFD42 /* OneSignalNotificationServiceExtension */ = {
@@ -280,7 +294,7 @@
 		D34BEED82C723BE0008F9A4C /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
-			buildActionMask = 8;
+			buildActionMask = 12;
 			files = (
 			);
 			inputFileListPaths = (
@@ -291,7 +305,7 @@
 			);
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "cd \"$SRCROOT/..\"\n./gradlew :shared:embedAndSignAppleFrameworkForXcode\n";
 		};
@@ -306,6 +320,8 @@
 				D34BEECD2C723BC6008F9A4C /* ContentView.swift in Sources */,
 				D34BEECB2C723BC6008F9A4C /* OPassApp.swift in Sources */,
 				D307A8932C760F8E00BB00FB /* AppearanceSettingsView.swift in Sources */,
+				D3B1E7802C774623002DBA07 /* SafariView.swift in Sources */,
+				D3B1E7822C775E7C002DBA07 /* CenterLabelStyle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

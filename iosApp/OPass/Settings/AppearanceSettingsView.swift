@@ -14,6 +14,7 @@ struct AppearanceSettingsView: View {
 
     var body: some View {
         Form {
+            
             Section {
                 Picker(selection: self.$darkMode) {
                     Text("System").tag(DarkMode.system)
@@ -24,11 +25,19 @@ struct AppearanceSettingsView: View {
                         Text("Dark Mode")
                     } icon: {
                         Image(systemName: self.colorScheme == .light ? "sun.max.fill" : "moon.fill")
+                            .resizable()
+                            .scaledToFit()
                             .foregroundStyle(self.colorScheme == .light ? .yellow : .indigo)
                             .symbolEffect(.bounce, value: self.darkMode)
                     }
+                    .labelStyle(CenterLabelStyle())
                 }
             }
+
+            Button("Reset Appearance") {
+                darkMode = .system
+            }
+            .foregroundStyle(.red)
         }
         .analyticsScreen(name: "AppearanceSettingsView")
         .navigationBarTitleDisplayMode(.large)

@@ -10,22 +10,50 @@ import SwiftUI
 
 struct SettingsView: View {
     private let websiteURL = URL(string: "https://opass.app")!
-    private let gitHubURL = URL(string: "https://github.com/CCIP-App")!
+    private let gitHubURL = URL(string: "https://github.com/CCIP-App/CCIP-KMP")!
     private let policyURL = URL(string: "https://opass.app/privacy-policy.html")!
-    @Environment(\.colorScheme) private var colorScheme
 
+    @Environment(\.colorScheme) private var colorScheme
+    @State private var safariUrl = URL(string: "https://opass.app")!
+    @State private var safariPresented = false
+
+    // MARK: - Views
     var body: some View {
         Form {
+            introductionSection()
+
             generalSection()
 
             aboutSection()
 
             bottomText()
         }
+        .safariViewSheet(url: safariUrl, isPresented: $safariPresented)
         .analyticsScreen(name: "SettingsView")
         .navigationBarTitleDisplayMode(.large)
         .navigationTitle("Settings")
         .listSectionSpacing(0)
+    }
+
+    @ViewBuilder
+    private func introductionSection() -> some View {
+        VStack(spacing: 5) {
+            Image(.opassIcon)
+                .interpolation(.none)
+                .resizable()
+                .scaledToFit()
+                .frame(width: 100)
+                .clipShape(RoundedRectangle(cornerRadius: 15.625, style: .continuous))
+
+            Text("OPass")
+                .font(.title2)
+                .bold()
+
+            Text("Open Pass & All Pass - Community Checkin with Interactivity Project for iOS")
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 5)
+        }
+        .frame(maxWidth: .infinity, alignment: .center)
     }
 
     @ViewBuilder
@@ -38,8 +66,11 @@ struct SettingsView: View {
                     Text("Appearance")
                 } icon: {
                     Image(systemName: "sun.max.fill")
+                        .resizable()
+                        .scaledToFit()
                         .foregroundStyle(.yellow)
                 }
+                .labelStyle(CenterLabelStyle())
             }
         }
     }
@@ -48,73 +79,104 @@ struct SettingsView: View {
     private func aboutSection() -> some View {
         Section("ABOUT") {
             Button {
-                return
+                safariUrl = websiteURL
+                safariPresented.toggle()
             } label: {
                 Label {
-                    Text("Official Website")
+                    VStack(alignment: .leading) {
+                        Text("Official Website")
+                            .foregroundStyle(colorScheme == .light ? .black : .white)
+                        Text(websiteURL.absoluteString)
+                            .foregroundStyle(.gray)
+                            .font(.subheadline)
+                    }
                     Spacer()
-                    Image(systemName: "arrow.up.right.square")
-                        .symbolRenderingMode(.hierarchical)
+                    Image(.externalLink)
+                        .renderingMode(.template)
+                        .resizable()
+                        .scaledToFit()
+                        .foregroundStyle(.gray.opacity(0.7))
+                        .frame(width: 18)
                 } icon: {
                     Image(systemName: "safari")
+                        .resizable()
+                        .scaledToFit()
                         .symbolRenderingMode(.hierarchical)
                 }
             }
-            .buttonStyle(.plain)
+            .labelStyle(CenterLabelStyle())
 
             Button {
-                return
+                safariUrl = gitHubURL
+                safariPresented.toggle()
             } label: {
                 Label {
-                    Text("Source Code")
+                    VStack(alignment: .leading) {
+                        Text("Source Code")
+                            .foregroundStyle(colorScheme == .light ? .black : .white)
+                        Text(gitHubURL.absoluteString)
+                            .foregroundStyle(.gray)
+                            .font(.subheadline)
+                    }
                     Spacer()
-                    Image(systemName: "arrow.up.right.square")
-                        .symbolRenderingMode(.hierarchical)
+                    Image(.externalLink)
+                        .renderingMode(.template)
+                        .resizable()
+                        .scaledToFit()
+                        .foregroundStyle(.gray.opacity(0.7))
+                        .frame(width: 18)
                 } icon: {
                     Image(.githubMark)
                         .renderingMode(.template)
                         .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 23)
+                        .scaledToFit()
                         .foregroundStyle(colorScheme == .light ? .black : .white)
                 }
+                .labelStyle(CenterLabelStyle())
             }
-            .buttonStyle(.plain)
 
             Button {
-                return
+                safariUrl = policyURL
+                safariPresented.toggle()
             } label: {
                 Label {
-                    Text("Privacy Policy")
+                    VStack(alignment: .leading, spacing: 0) {
+                        Text("Privacy Policy")
+                            .foregroundStyle(colorScheme == .light ? .black : .white)
+                        Text(policyURL.absoluteString)
+                            .foregroundStyle(.gray)
+                            .font(.subheadline)
+                    }
                     Spacer()
-                    Image(systemName: "arrow.up.right.square")
-                        .symbolRenderingMode(.hierarchical)
+                    Image(.externalLink)
+                        .renderingMode(.template)
+                        .resizable()
+                        .scaledToFit()
+                        .foregroundStyle(.gray.opacity(0.7))
+                        .frame(width: 18)
                 } icon: {
                     Image(systemName: "doc.plaintext")
+                        .resizable()
+                        .scaledToFit()
                         .foregroundStyle(.gray)
                 }
             }
-            .buttonStyle(.plain)
+            .labelStyle(CenterLabelStyle())
         }
     }
 
     @ViewBuilder
     private func bottomText() -> some View {
-        Section {
-            HStack {
-                Spacer()
-                VStack {
-                    Text("Version \(Bundle.main.releaseVersionNumber ?? "") (\(Bundle.main.buildVersionNumber ?? ""))")
-                        .foregroundStyle(.gray)
-                        .font(.footnote)
-                    Text("Made with Love")
-                        .foregroundStyle(.gray)
-                        .font(.caption)
-                        .bold()
-                }
-                Spacer()
-            }
+        VStack {
+            Text("Version \(Bundle.main.releaseVersionNumber ?? "") (\(Bundle.main.buildVersionNumber ?? ""))")
+                .foregroundStyle(.gray)
+                .font(.footnote)
+            Text("Made with Love")
+                .foregroundStyle(.gray)
+                .font(.caption)
+                .bold()
         }
+        .frame(maxWidth: .infinity, alignment: .center)
         .listRowBackground(Color.clear)
         .padding(.bottom, 5)
     }
