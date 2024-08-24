@@ -31,11 +31,19 @@ object PortalClient {
         }
     }
 
-    suspend fun getEvents(): List<Event> {
-        return client.get("/events/").body()
+    suspend fun getEvents(): Result<List<Event>> {
+        return try {
+            Result.success(client.get("/events/").body())
+        } catch (exception: Exception) {
+            Result.failure(exception)
+        }
     }
 
-    suspend fun getEventConfig(eventId: String): EventConfig {
-        return client.get("/events/$eventId/").body()
+    suspend fun getEventConfig(eventId: String): Result<EventConfig> {
+        return try {
+            Result.success(client.get("/events/$eventId/").body())
+        } catch (exception: Exception) {
+            Result.failure(exception)
+        }
     }
 }
