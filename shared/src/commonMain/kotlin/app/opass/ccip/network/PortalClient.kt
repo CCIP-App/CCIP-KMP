@@ -5,8 +5,8 @@
 
 package app.opass.ccip.network
 
-import app.opass.ccip.network.models.Event
-import app.opass.ccip.network.models.EventConfig
+import app.opass.ccip.network.models.event.Event
+import app.opass.ccip.network.models.eventconfig.EventConfig
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation

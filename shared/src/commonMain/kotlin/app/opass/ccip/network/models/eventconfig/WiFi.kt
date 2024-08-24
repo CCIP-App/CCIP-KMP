@@ -3,12 +3,12 @@
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
-package app.opass.ccip.network.models
+package app.opass.ccip.network.models.eventconfig
 
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class LocalizedString(
-    val en: String,
-    val zh: String
+data class WiFi(
+    val SSID: String,
+    val password: String
 )

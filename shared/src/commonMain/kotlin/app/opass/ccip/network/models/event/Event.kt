@@ -3,8 +3,9 @@
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
-package app.opass.ccip.network.models
+package app.opass.ccip.network.models.event
 
+import app.opass.ccip.network.models.common.LocalizedString
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
