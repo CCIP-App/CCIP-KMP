@@ -5,4 +5,10 @@
 -->
 <resources>
     <string name="app_name" translatable="false">OPass</string>
+
+    <!-- EventPreview -->
+    <string name="select_event">Select Event</string>
+
+    <!-- Event -->
+    <string name="event">Event</string>
 </resources>

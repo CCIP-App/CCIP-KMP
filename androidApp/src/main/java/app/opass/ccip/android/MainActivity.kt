@@ -9,20 +9,40 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
+import androidx.activity.viewModels
 import androidx.compose.material3.Scaffold
-import androidx.compose.ui.Modifier
+import androidx.navigation.compose.rememberNavController
+import app.opass.ccip.android.ui.extensions.sharedPreferences
+import app.opass.ccip.android.ui.navigation.Screen
+import app.opass.ccip.android.ui.navigation.SetupNavGraph
 import app.opass.ccip.android.ui.theme.OPassTheme
+import app.opass.ccip.android.utils.Preferences.CURRENT_EVENT_ID
 
 class MainActivity : ComponentActivity() {
+
+    private val viewModel: MainViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
+
+        val currentEventId = sharedPreferences.getString(CURRENT_EVENT_ID, null)
+
         setContent {
             OPassTheme {
+                val navController = rememberNavController()
+
                 Scaffold {
-                    Column(modifier = Modifier.padding(it)) {}
+                    SetupNavGraph(
+                        viewModel = viewModel,
+                        navHostController = navController,
+                        paddingValues = it,
+                        startDestination = if (currentEventId.isNullOrBlank()) {
+                            Screen.EventPreview
+                        } else {
+                            Screen.Event(currentEventId)
+                        }
+                    )
                 }
             }
         }
