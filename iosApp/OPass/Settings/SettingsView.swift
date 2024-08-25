@@ -32,7 +32,7 @@ struct SettingsView: View {
         .analyticsScreen(name: "SettingsView")
         .navigationBarTitleDisplayMode(.large)
         .navigationTitle("Settings")
-        .listSectionSpacing(0)
+        .listSectionSpacing(.compact)
     }
 
     @ViewBuilder
@@ -43,13 +43,13 @@ struct SettingsView: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 100)
-                .clipShape(RoundedRectangle(cornerRadius: 15.625, style: .continuous))
+                .clipShape(.rect(cornerRadius: 15.625))
 
             Text("OPass")
                 .font(.title2)
                 .bold()
 
-            Text("Open Pass & All Pass - Community Checkin with Interactivity Project for iOS")
+            Text("Open Pass & All Pass - A Community Checkin with Interactivity Project for iOS")
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 5)
         }
@@ -178,7 +178,6 @@ struct SettingsView: View {
         }
         .frame(maxWidth: .infinity, alignment: .center)
         .listRowBackground(Color.clear)
-        .padding(.bottom, 5)
     }
 }
 

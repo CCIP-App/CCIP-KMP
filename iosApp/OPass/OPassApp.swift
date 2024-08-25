@@ -13,7 +13,6 @@ import FirebaseAppCheck
 import FirebaseAnalytics
 import FirebasePerformance
 import FirebaseCrashlytics
-import FirebaseDynamicLinks
 import OneSignalFramework
 
 @main
@@ -34,7 +33,10 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         // MARK: Firebase
+        let providerFactory = OPassAppCheckProviderFactory()
+        AppCheck.setAppCheckProviderFactory(providerFactory)
         FirebaseApp.configure()
+        Analytics.setAnalyticsCollectionEnabled(true)
         // MARK: OneSignal
         OneSignal.initialize("b6213f49-e356-4b48-aa9d-7cf10ce1904d", withLaunchOptions: launchOptions)
         OneSignal.Notifications.requestPermission({ accepted in
@@ -53,5 +55,15 @@ enum DarkMode: String, Identifiable, CaseIterable {
         case .enable: return .dark
         case .disable: return .light
         }
+    }
+}
+
+private class OPassAppCheckProviderFactory: NSObject, AppCheckProviderFactory {
+    func createProvider(with app: FirebaseApp) -> AppCheckProvider? {
+#if targetEnvironment(simulator)
+        return AppCheckDebugProvider(app: app)
+#else
+        return AppAttestProvider(app: app)
+#endif
     }
 }

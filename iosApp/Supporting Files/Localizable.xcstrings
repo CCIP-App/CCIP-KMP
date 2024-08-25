@@ -19,6 +19,9 @@
     "GENERAL" : {
 
     },
+    "Loading" : {
+
+    },
     "Made with Love" : {
       "localizations" : {
         "zh-Hant" : {
@@ -35,7 +38,7 @@
     "OPass" : {
 
     },
-    "Open Pass & All Pass - Community Checkin with Interactivity Project for iOS" : {
+    "Open Pass & All Pass - A Community Checkin with Interactivity Project for iOS" : {
 
     },
     "Privacy Policy" : {
@@ -44,7 +47,16 @@
     "Reset Appearance" : {
 
     },
+    "Search Event" : {
+
+    },
+    "Select Event" : {
+
+    },
     "Settings" : {
+
+    },
+    "Something went wrong" : {
 
     },
     "Source Code" : {

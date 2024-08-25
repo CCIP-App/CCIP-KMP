@@ -19,6 +19,9 @@
 		D34BEECB2C723BC6008F9A4C /* OPassApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34BEECA2C723BC6008F9A4C /* OPassApp.swift */; };
 		D34BEECD2C723BC6008F9A4C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34BEECC2C723BC6008F9A4C /* ContentView.swift */; };
 		D34BEECF2C723BC7008F9A4C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D34BEECE2C723BC7008F9A4C /* Assets.xcassets */; };
+		D39AC9D92C7B388C00084689 /* Shared+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39AC9D82C7B388C00084689 /* Shared+Extension.swift */; };
+		D39AC9DC2C7B395D00084689 /* SelectEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39AC9DB2C7B395D00084689 /* SelectEventView.swift */; };
+		D39AC9DE2C7B398E00084689 /* SelectEventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39AC9DD2C7B398E00084689 /* SelectEventViewModel.swift */; };
 		D3B1E7802C774623002DBA07 /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B1E77F2C774623002DBA07 /* SafariView.swift */; };
 		D3B1E7822C775E7C002DBA07 /* CenterLabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B1E7812C775E7C002DBA07 /* CenterLabelStyle.swift */; };
 		D3C397FE2C73A079002FFD42 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = D3C397FD2C73A079002FFD42 /* Localizable.xcstrings */; };
@@ -62,6 +65,9 @@
 		D34BEECA2C723BC6008F9A4C /* OPassApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OPassApp.swift; sourceTree = "<group>"; };
 		D34BEECC2C723BC6008F9A4C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D34BEECE2C723BC7008F9A4C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D39AC9D82C7B388C00084689 /* Shared+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Shared+Extension.swift"; sourceTree = "<group>"; };
+		D39AC9DB2C7B395D00084689 /* SelectEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectEventView.swift; sourceTree = "<group>"; };
+		D39AC9DD2C7B398E00084689 /* SelectEventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectEventViewModel.swift; sourceTree = "<group>"; };
 		D3B1E77F2C774623002DBA07 /* SafariView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariView.swift; sourceTree = "<group>"; };
 		D3B1E7812C775E7C002DBA07 /* CenterLabelStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterLabelStyle.swift; sourceTree = "<group>"; };
 		D3C397FD2C73A079002FFD42 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
@@ -136,10 +142,29 @@
 			children = (
 				D34BEECA2C723BC6008F9A4C /* OPassApp.swift */,
 				D34BEECC2C723BC6008F9A4C /* ContentView.swift */,
+				D39AC9DA2C7B394600084689 /* SelectEvent */,
 				D307A8912C760F5100BB00FB /* Settings */,
 				D3B1E77E2C774609002DBA07 /* General */,
+				D39AC9D72C7B384D00084689 /* Extension */,
 			);
 			path = OPass;
+			sourceTree = "<group>";
+		};
+		D39AC9D72C7B384D00084689 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				D39AC9D82C7B388C00084689 /* Shared+Extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		D39AC9DA2C7B394600084689 /* SelectEvent */ = {
+			isa = PBXGroup;
+			children = (
+				D39AC9DB2C7B395D00084689 /* SelectEventView.swift */,
+				D39AC9DD2C7B398E00084689 /* SelectEventViewModel.swift */,
+			);
+			path = SelectEvent;
 			sourceTree = "<group>";
 		};
 		D3B1E77E2C774609002DBA07 /* General */ = {
@@ -185,6 +210,7 @@
 				D34BEEC42C723BC6008F9A4C /* Frameworks */,
 				D34BEEC52C723BC6008F9A4C /* Resources */,
 				D3C398102C73A190002FFD42 /* Embed Foundation Extensions */,
+				D36EDF1A2C7B8A7A00E637D4 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -309,6 +335,28 @@
 			shellPath = /bin/sh;
 			shellScript = "cd \"$SRCROOT/..\"\n./gradlew :shared:embedAndSignAppleFrameworkForXcode\n";
 		};
+		D36EDF1A2C7B8A7A00E637D4 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${PRODUCT_NAME}",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Info.plist",
+				"$(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/GoogleService-Info.plist",
+				"$(TARGET_BUILD_DIR)/$(EXECUTABLE_PATH)",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -317,9 +365,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3D1B8A02C7475A00075A747 /* SettingsView.swift in Sources */,
+				D39AC9D92C7B388C00084689 /* Shared+Extension.swift in Sources */,
 				D34BEECD2C723BC6008F9A4C /* ContentView.swift in Sources */,
+				D39AC9DE2C7B398E00084689 /* SelectEventViewModel.swift in Sources */,
 				D34BEECB2C723BC6008F9A4C /* OPassApp.swift in Sources */,
 				D307A8932C760F8E00BB00FB /* AppearanceSettingsView.swift in Sources */,
+				D39AC9DC2C7B395D00084689 /* SelectEventView.swift in Sources */,
 				D3B1E7802C774623002DBA07 /* SafariView.swift in Sources */,
 				D3B1E7822C775E7C002DBA07 /* CenterLabelStyle.swift in Sources */,
 			);
@@ -378,7 +429,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;

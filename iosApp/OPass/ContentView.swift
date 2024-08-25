@@ -10,20 +10,31 @@ import Shared
 import SwiftUI
 
 struct ContentView: View {
+    @State private var selectEventSheetPresented = false
     var body: some View {
         NavigationStack {
             VStack {
                 Image(systemName: "globe")
                     .imageScale(.large)
                     .foregroundStyle(.tint)
-                Text(Greeting().greet())
             }
             .toolbar { toolbar() }
+            .sheet(isPresented: $selectEventSheetPresented) {
+                SelectEventView()
+            }
         }
     }
 
     @ToolbarContentBuilder
     private func toolbar() -> some ToolbarContent {
+        ToolbarItem(placement: .topBarLeading) {
+            Button {
+                selectEventSheetPresented.toggle()
+            } label: {
+                Image(systemName: "rectangle.stack")
+            }
+        }
+
         ToolbarItem(placement: .topBarTrailing) {
             NavigationLink {
                 SettingsView()
