@@ -1,0 +1,23 @@
+-- Schmea definations
+-- ------------------
+
+PRAGMA user_version = 1;
+
+-- Create events table
+CREATE TABLE events (
+    id TEXT PRIMARY KEY NOT NULL,
+    logoUrl TEXT NOT NULL,
+    nameEn TEXT NOT NULL,
+    nameZh TEXT NOT NULL
+);
+
+-- Named queries for events table
+
+selectAllEvents:
+SELECT * FROM events;
+
+deleteAllEvents:
+DELETE FROM events;
+
+insertEvent:
+INSERT INTO events (id, logoUrl, nameEn, nameZh) VALUES (:id, :logoUrl, :nameEn, :nameZh);

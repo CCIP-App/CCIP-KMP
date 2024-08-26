@@ -1,0 +1,20 @@
+<!--
+  ~ SPDX-FileCopyrightText: 2024 OPass
+  ~ SPDX-License-Identifier: GPL-3.0-only
+  -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application>
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            tools:node="merge">
+            <meta-data
+                android:name="utils.ContextInitializer"
+                android:value="androidx.startup" />
+        </provider>
+    </application>
+
+</manifest>

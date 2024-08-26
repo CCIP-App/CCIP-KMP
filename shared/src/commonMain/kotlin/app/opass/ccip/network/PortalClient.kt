@@ -15,9 +15,9 @@ import io.ktor.client.request.get
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
-object PortalClient {
+internal class PortalClient {
 
-    private const val BASE_URL = "https://portal.opass.app"
+    private val BASE_URL = "https://portal.opass.app"
 
     private val client = HttpClient {
         defaultRequest {
