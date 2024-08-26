@@ -12,6 +12,7 @@ androidx-activityCompose = "1.9.1"
 androidx-composeNavigation = "2.8.0-rc01"
 androidx-lifecycle = "2.8.4"
 coil = "2.7.0"
+material = "1.12.0"
 serialization = "1.7.1"
 
 [libraries]
@@ -25,6 +26,7 @@ compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
 compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
 compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
 compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "compose-material3" }
+google-material-components = { module = "com.google.android.material:material", version.ref = "material" }
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
 ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }

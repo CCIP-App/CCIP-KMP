@@ -72,4 +72,7 @@ dependencies {
     // Lifecycle
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.androidx.lifecycle.viewmodel)
+
+    // Material
+    implementation(libs.google.material.components)
 }

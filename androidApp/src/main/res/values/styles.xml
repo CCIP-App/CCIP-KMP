@@ -3,5 +3,5 @@
     SPDX-License-Identifier: GPL-3.0-only
 -->
 <resources>
-    <style name="AppTheme" parent="android:Theme.Material.NoActionBar"/>
+    <style name="AppTheme" parent="Theme.Material3.DayNight.NoActionBar"/>
 </resources>
