@@ -21,6 +21,9 @@ class MainViewModel: ViewModel() {
     private val _events: MutableStateFlow<List<Event>?> = MutableStateFlow(emptyList())
     val events = _events.asStateFlow()
 
+    private val _isRefreshing = MutableStateFlow(false)
+    val isRefreshing = _isRefreshing.asStateFlow()
+
     private val portalHelper = PortalHelper()
 
     init {
@@ -30,10 +33,13 @@ class MainViewModel: ViewModel() {
     fun getEvents(forceReload: Boolean = false) {
         viewModelScope.launch {
             try {
+                _isRefreshing.value = true
                 _events.value = portalHelper.getEvents(forceReload)
             } catch (exception: Exception) {
                 Log.e(TAG, "Failed to fetch events", exception)
                 _events.value = null
+            } finally {
+                _isRefreshing.value = false
             }
         }
     }

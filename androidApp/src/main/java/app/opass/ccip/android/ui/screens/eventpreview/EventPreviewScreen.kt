@@ -18,10 +18,12 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -45,6 +47,7 @@ import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
 
 @Composable
+@OptIn(ExperimentalMaterial3Api::class)
 fun Screen.EventPreview.EventPreviewScreen(
     navHostController: NavHostController,
     viewModel: MainViewModel
@@ -54,23 +57,30 @@ fun Screen.EventPreview.EventPreviewScreen(
         topBar = { TopAppBar(title = this.title) }
     ) { paddingValues ->
 
+        val isRefreshing by viewModel.isRefreshing.collectAsStateWithLifecycle()
         val events by viewModel.events.collectAsStateWithLifecycle()
 
-        LazyColumn(modifier = Modifier.padding(paddingValues)) {
-            if (events.isNullOrEmpty()) {
-                items(20) {
-                    EventPreviewItem(
-                        event = Event(
-                            name = LocalizedString(String(), String()),
-                            id = String(),
-                            logoUrl = String()
-                        ),
-                        isLoading = true
-                    )
-                }
-            } else {
-                items(items = events!!, key = { e -> e.id }) { event: Event ->
-                    EventPreviewItem(event = event)
+        PullToRefreshBox(
+            isRefreshing = isRefreshing,
+            onRefresh = { viewModel.getEvents(true) },
+            modifier = Modifier.padding(paddingValues)
+        ) {
+            LazyColumn {
+                if (events.isNullOrEmpty()) {
+                    items(20) {
+                        EventPreviewItem(
+                            event = Event(
+                                name = LocalizedString(String(), String()),
+                                id = String(),
+                                logoUrl = String()
+                            ),
+                            isLoading = true
+                        )
+                    }
+                } else {
+                    items(items = events!!, key = { e -> e.id }) { event: Event ->
+                        EventPreviewItem(event = event)
+                    }
                 }
             }
         }
