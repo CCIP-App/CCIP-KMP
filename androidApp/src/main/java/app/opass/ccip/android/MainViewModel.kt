@@ -8,7 +8,7 @@ package app.opass.ccip.android
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import app.opass.ccip.network.PortalClient
+import app.opass.ccip.helpers.PortalHelper
 import app.opass.ccip.network.models.event.Event
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -21,14 +21,16 @@ class MainViewModel: ViewModel() {
     private val _events: MutableStateFlow<List<Event>?> = MutableStateFlow(emptyList())
     val events = _events.asStateFlow()
 
+    private val portalHelper = PortalHelper()
+
     init {
         getEvents()
     }
 
-    fun getEvents() {
+    fun getEvents(forceReload: Boolean = false) {
         viewModelScope.launch {
             try {
-                _events.value = PortalClient.getEvents()
+                _events.value = portalHelper.getEvents(forceReload)
             } catch (exception: Exception) {
                 Log.e(TAG, "Failed to fetch events", exception)
                 _events.value = null
