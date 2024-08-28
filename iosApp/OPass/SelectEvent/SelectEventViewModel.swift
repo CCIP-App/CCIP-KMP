@@ -14,28 +14,38 @@ private let logger = Logger(subsystem: "OPassApp", category: "SelectEventViewMod
 
 @Observable
 class SelectEventViewModel {
-    var searchText = ""
-    var error: Error?
-    var listEvents: [Event]? {
-        if searchText.isEmpty { return events }
-        let components = searchText
-            .trimmingCharacters(in: .whitespacesAndNewlines)
-            .components(separatedBy: " ")
-            .compactMap {
-                let component = $0.trimmingCharacters(in: .whitespaces)
-                return component.isEmpty ? nil : component.lowercased()
-            }
-        return events?.filter { event in
-            let name = event.name.localized().lowercased()
-            for component in components {
-                guard name.contains(component) else {
-                    return false
-                }
-            }
-            return true
-        }
+    enum ViewState {
+        case ready([Event])
+        case loading
+        case error(Error)
     }
 
+    var searchText = ""
+    var viewState: ViewState {
+        guard error == nil else { return .error(error!) }
+        guard events != nil else { return .loading }
+        return .ready({
+            if searchText.isEmpty { return events! }
+            let components = searchText
+                .trimmingCharacters(in: .whitespacesAndNewlines)
+                .components(separatedBy: " ")
+                .compactMap {
+                    let component = $0.trimmingCharacters(in: .whitespaces)
+                    return component.isEmpty ? nil : component.lowercased()
+                }
+            return events!.filter { event in
+                let name = event.name.localized().lowercased()
+                for component in components {
+                    guard name.contains(component) else {
+                        return false
+                    }
+                }
+                return true
+            }
+        }())
+    }
+
+    private var error: Error?
     private var events: [Event]?
 
     func loadEvents() async {

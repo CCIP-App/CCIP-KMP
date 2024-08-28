@@ -46,7 +46,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     }
 }
 
-enum DarkMode: String, Identifiable, CaseIterable {
+enum DarkMode: Int, Identifiable {
     case system, enable, disable
     internal var id: Self { self }
     var colorScheme: ColorScheme? {

@@ -163,6 +163,7 @@ struct SettingsView: View {
             }
             .labelStyle(CenterLabelStyle())
         }
+        .sensoryFeedback(.selection, trigger: safariPresented) { return $1 }
     }
 
     @ViewBuilder

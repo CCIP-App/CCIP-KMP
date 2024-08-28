@@ -10,19 +10,25 @@ import Shared
 import SwiftUI
 
 struct ContentView: View {
+    @AppStorage("EventID") private var eventID = ""
     @State private var selectEventSheetPresented = false
+
     var body: some View {
         NavigationStack {
-            VStack {
-                Image(systemName: "globe")
-                    .imageScale(.large)
-                    .foregroundStyle(.tint)
+            Group {
+                if eventID.isEmpty {
+                    ProgressView("Loading")
+                        .onAppear { selectEventSheetPresented.toggle() }
+                } else {
+                    Text(eventID)
+                }
             }
             .toolbar { toolbar() }
             .sheet(isPresented: $selectEventSheetPresented) {
                 SelectEventView()
             }
         }
+        .analyticsScreen(name: "ContentView")
     }
 
     @ToolbarContentBuilder

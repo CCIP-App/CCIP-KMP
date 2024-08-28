@@ -31,6 +31,7 @@ struct AppearanceSettingsView: View {
                     }
                     .labelStyle(CenterLabelStyle())
                 }
+                .sensoryFeedback(.success, trigger: darkMode)
             }
 
             Button("Reset Appearance") {
