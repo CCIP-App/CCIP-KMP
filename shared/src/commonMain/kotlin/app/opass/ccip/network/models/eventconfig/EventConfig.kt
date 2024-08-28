@@ -5,6 +5,7 @@
 
 package app.opass.ccip.network.models.eventconfig
 
+import app.opass.ccip.extensions.localized
 import app.opass.ccip.network.models.common.DateTime
 import app.opass.ccip.network.models.common.LocalizedString
 import kotlinx.serialization.SerialName
@@ -13,7 +14,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class EventConfig(
     @SerialName("display_name")
-    val name: LocalizedString,
+    val _name: LocalizedString,
 
     @SerialName("event_id")
     val id: String,
@@ -30,4 +31,7 @@ data class EventConfig(
     val features: List<Feature>,
 
     val publish: DateTime
-)
+) {
+    val name: String
+        get() = _name.localized()
+}

@@ -24,7 +24,7 @@ internal class OPassDatabaseHelper {
         return withContext(Dispatchers.IO) {
             dbQuery.selectAllEvents().executeAsList().map {
                 Event(
-                    name = LocalizedString(en = it.nameEn, zh = it.nameZh),
+                    _name = LocalizedString(en = it.nameEn, zh = it.nameZh),
                     id = it.id,
                     logoUrl = it.logoUrl
                 )
@@ -40,8 +40,8 @@ internal class OPassDatabaseHelper {
                     dbQuery.insertEvent(
                         id = it.id,
                         logoUrl = it.logoUrl,
-                        nameEn = it.name.en,
-                        nameZh = it.name.zh
+                        nameEn = it._name.en,
+                        nameZh = it._name.zh
                     )
                 }
             }

@@ -5,6 +5,7 @@
 
 package app.opass.ccip.network.models.eventconfig
 
+import app.opass.ccip.extensions.localized
 import app.opass.ccip.network.models.common.LocalizedString
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -13,7 +14,7 @@ import kotlinx.serialization.Serializable
 data class Feature(
 
     @SerialName("display_text")
-    val label: LocalizedString,
+    val _label: LocalizedString,
 
     @SerialName("feature")
     val type: FeatureType,
@@ -24,4 +25,7 @@ data class Feature(
     val url: String,
 
     val wifi: List<WiFi>? = null
-)
+) {
+    val label: String
+        get() = _label.localized()
+}

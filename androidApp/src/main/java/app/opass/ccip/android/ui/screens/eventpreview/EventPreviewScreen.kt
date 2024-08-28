@@ -41,7 +41,6 @@ import app.opass.ccip.android.R
 import app.opass.ccip.android.ui.components.TopAppBar
 import app.opass.ccip.android.ui.extensions.shimmer
 import app.opass.ccip.android.ui.navigation.Screen
-import app.opass.ccip.network.models.common.LocalizedString
 import app.opass.ccip.network.models.event.Event
 import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
@@ -69,17 +68,14 @@ fun Screen.EventPreview.EventPreviewScreen(
                 if (events.isNullOrEmpty()) {
                     items(20) {
                         EventPreviewItem(
-                            event = Event(
-                                name = LocalizedString(String(), String()),
-                                id = String(),
-                                logoUrl = String()
-                            ),
+                            name = "                                   ",
+                            logoUrl = String(),
                             isLoading = true
                         )
                     }
                 } else {
                     items(items = events!!, key = { e -> e.id }) { event: Event ->
-                        EventPreviewItem(event = event)
+                        EventPreviewItem(name = event.name, logoUrl = event.logoUrl)
                     }
                 }
             }
@@ -88,12 +84,17 @@ fun Screen.EventPreview.EventPreviewScreen(
 }
 
 @Composable
-fun EventPreviewItem(event: Event, isLoading: Boolean = false, onClicked: () -> Unit = {}) {
+fun EventPreviewItem(
+    name: String,
+    logoUrl: String,
+    isLoading: Boolean = false,
+    onClicked: () -> Unit = {}
+) {
     Row(
         modifier = Modifier
+            .clickable { onClicked() }
             .padding(20.dp)
-            .fillMaxWidth()
-            .clickable { onClicked() },
+            .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
@@ -103,7 +104,7 @@ fun EventPreviewItem(event: Event, isLoading: Boolean = false, onClicked: () -> 
         ) {
             SubcomposeAsyncImage(
                 model = ImageRequest.Builder(LocalContext.current)
-                    .data(event.logoUrl)
+                    .data(logoUrl)
                     .placeholder(R.drawable.ic_event)
                     .crossfade(true)
                     .build(),
@@ -116,7 +117,7 @@ fun EventPreviewItem(event: Event, isLoading: Boolean = false, onClicked: () -> 
                 colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary)
             )
             Text(
-                text = if (!isLoading) event.name.en else "                                   ",
+                text = name,
                 fontSize = 20.sp,
                 modifier = Modifier.shimmer(isLoading),
                 maxLines = 1
