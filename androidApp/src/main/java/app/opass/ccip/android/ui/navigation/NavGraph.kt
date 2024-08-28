@@ -7,10 +7,7 @@ package app.opass.ccip.android.ui.navigation
 
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -22,7 +19,6 @@ import app.opass.ccip.android.ui.screens.eventpreview.EventPreviewScreen
 @Composable
 fun SetupNavGraph(
     navHostController: NavHostController,
-    paddingValues: PaddingValues,
     startDestination: Screen,
     viewModel: MainViewModel
 ) {
@@ -30,7 +26,6 @@ fun SetupNavGraph(
     NavHost(
         navController = navHostController,
         startDestination = startDestination,
-        modifier = Modifier.padding(paddingValues),
         enterTransition = { EnterTransition.None },
         exitTransition = { ExitTransition.None }
     ) {

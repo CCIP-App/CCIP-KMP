@@ -10,7 +10,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
-import androidx.compose.material3.Scaffold
 import androidx.navigation.compose.rememberNavController
 import app.opass.ccip.android.ui.extensions.sharedPreferences
 import app.opass.ccip.android.ui.navigation.Screen
@@ -32,18 +31,15 @@ class MainActivity : ComponentActivity() {
             OPassTheme {
                 val navController = rememberNavController()
 
-                Scaffold {
-                    SetupNavGraph(
-                        viewModel = viewModel,
-                        navHostController = navController,
-                        paddingValues = it,
-                        startDestination = if (currentEventId.isNullOrBlank()) {
-                            Screen.EventPreview
-                        } else {
-                            Screen.Event(currentEventId)
-                        }
-                    )
-                }
+                SetupNavGraph(
+                    viewModel = viewModel,
+                    navHostController = navController,
+                    startDestination = if (currentEventId.isNullOrBlank()) {
+                        Screen.EventPreview
+                    } else {
+                        Screen.Event(currentEventId)
+                    }
+                )
             }
         }
     }
