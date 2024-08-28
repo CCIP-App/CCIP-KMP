@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2024 OPass
+# SPDX-License-Identifier: GPL-3.0-only
+
 # Add project specific ProGuard rules here.
 # By default, the flags in this file are appended to flags specified
 # in /home/denny/.android-sdk/tools/proguard/proguard-android.txt

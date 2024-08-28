@@ -1,5 +1,9 @@
-package app.opass.ccip.android.ui.theme
+/*
+ * SPDX-FileCopyrightText: 2024 OPass
+ * SPDX-License-Identifier: GPL-3.0-only
+ */
 
+package app.opass.ccip.android.ui.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
