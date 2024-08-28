@@ -116,17 +116,17 @@ fun EventPreviewItem(event: Event, isLoading: Boolean = false, onClicked: () -> 
                 colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary)
             )
             Text(
-                text = event.name.en,
+                text = if (!isLoading) event.name.en else "                                   ",
                 fontSize = 20.sp,
-                modifier = Modifier.shimmer(isLoading)
+                modifier = Modifier.shimmer(isLoading),
+                maxLines = 1
             )
         }
-        IconButton(onClick = { /*Ignored*/ }) {
+        IconButton(onClick = { /*Ignored*/ }, enabled = !isLoading) {
             Image(
                 imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
                 contentDescription = "",
                 colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary),
-                modifier = Modifier.shimmer(isLoading)
             )
         }
     }
