@@ -12,12 +12,12 @@ import SwiftUI
 
 private let logger = Logger(subsystem: "OPassApp", category: "SelectEventViewModel")
 
-@Observable
+@MainActor @Observable
 class SelectEventViewModel {
     enum ViewState {
         case ready([Event])
-        case loading
         case error(Error)
+        case loading
     }
 
     var searchText = ""
@@ -51,10 +51,10 @@ class SelectEventViewModel {
     func loadEvents() async {
         do {
             let events = try await PortalClient().getEvents()
-            await MainActor.run { self.events = events }
+            self.events = events
         } catch {
             logger.error("\(error)")
-            await MainActor.run { self.error = error }
+            self.error = error
         }
     }
 }

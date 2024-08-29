@@ -24,6 +24,7 @@ struct ContentView: View {
                 }
             }
             .toolbar { toolbar() }
+            .sensoryFeedback(.selection, trigger: selectEventSheetPresented) { $1 }
             .sheet(isPresented: $selectEventSheetPresented) {
                 SelectEventView()
             }

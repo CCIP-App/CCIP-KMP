@@ -9,6 +9,7 @@
 import Shared
 import SwiftUI
 
+@MainActor
 struct SelectEventView: View {
     @State private var viewModel = SelectEventViewModel()
     @AppStorage("EventID") private var eventID = ""
@@ -50,18 +51,23 @@ struct SelectEventView: View {
                             Text(event.name.localized())
                                 .foregroundStyle(colorScheme == .light ? .black : .white)
                         } icon: {
-                            AsyncImage(url: URL(string: event.logoUrl)) { image in
-                                image
-                                    .renderingMode(.original)
-                                    .resizable()
-                                    .scaledToFit()
-                                    .padding(5)
-                                    .background(.blue)
-                                    .clipShape(.rect(cornerRadius: 5))
-                            } placeholder: {
-                                ProgressView()
+                            AsyncImage(url: URL(string: event.logoUrl), transaction: .init(animation: .easeInOut)) { phase in
+                                switch phase {
+                                case .empty:
+                                    ProgressView()
+                                case .success(let image):
+                                    image
+                                        .resizable()
+                                        .scaledToFit()
+                                default:
+                                    Image(systemName: "exclamationmark.triangle.fill")
+                                        .foregroundStyle(.gray)
+                                }
                             }
-                            .frame(width: 100, height: 50)
+                            .padding(5)
+                            .frame(width: 80, height: 50)
+                            .background(.ultraThinMaterial, in: .rect(cornerRadius: 5))
+                            .environment(\.colorScheme, colorScheme == .light ? .dark : .light)
                         }
                         .labelStyle(.titleAndIcon)
                     }
