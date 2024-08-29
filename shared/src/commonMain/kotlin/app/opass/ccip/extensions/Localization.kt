@@ -12,9 +12,14 @@ internal expect val languageCode: String
 /**
  * Returns String as per device's current locale, defaults to english
  */
-internal fun LocalizedString.localized(): String {
+internal fun LocalizedString.localized() = localized(this.en, this.zh)
+
+/**
+ * Returns String as per device's current locale, defaults to english
+ */
+internal fun localized(en: String, zh: String): String {
     return when (languageCode) {
-        "zh" -> this.zh
-        else -> this.en
+        "zh" -> zh
+        else -> en
     }
 }
