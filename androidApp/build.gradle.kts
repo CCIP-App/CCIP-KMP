@@ -60,7 +60,11 @@ dependencies {
     implementation(libs.compose.ui.tooling.preview)
     implementation(libs.compose.material3)
     implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.adaptive.android)
     debugImplementation(libs.compose.ui.tooling)
+
+    // Browser
+    implementation(libs.androidx.browser)
 
     // Coil
     implementation(libs.coil.compose)

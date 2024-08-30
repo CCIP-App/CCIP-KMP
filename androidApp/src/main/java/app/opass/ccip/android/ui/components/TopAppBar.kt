@@ -5,7 +5,6 @@
 
 package app.opass.ccip.android.ui.components
 
-import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -16,21 +15,20 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.navigation.NavHostController
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 fun TopAppBar(
-    @StringRes title: Int,
+    title: String,
     navHostController: NavHostController? = null,
     actions: @Composable() (RowScope.() -> Unit) = {}
 ) {
     CenterAlignedTopAppBar(
         title = {
             Text(
-                text = stringResource(id = title),
+                text = title,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 style = MaterialTheme.typography.titleLarge

@@ -5,13 +5,249 @@
 
 package app.opass.ccip.android.ui.screens.event
 
+import androidx.annotation.DrawableRes
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredSize
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.runtime.Composable
-import androidx.lifecycle.ViewModel
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.compose.ui.util.fastForEach
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
+import androidx.window.core.layout.WindowWidthSizeClass
 import app.opass.ccip.android.MainViewModel
+import app.opass.ccip.android.R
+import app.opass.ccip.android.ui.components.TopAppBar
+import app.opass.ccip.android.ui.extensions.browse
+import app.opass.ccip.android.ui.extensions.shimmer
 import app.opass.ccip.android.ui.navigation.Screen
+import app.opass.ccip.network.models.eventconfig.FeatureType
+import app.opass.ccip.network.models.eventconfig.Role
+import coil.compose.SubcomposeAsyncImage
+import coil.request.ImageRequest
 
 @Composable
+@OptIn(ExperimentalLayoutApi::class)
 fun Screen.Event.EventScreen(navHostController: NavHostController, viewModel: MainViewModel) {
 
+    val windowWidth = currentWindowAdaptiveInfo().windowSizeClass.windowWidthSizeClass
+    val context = LocalContext.current
+    val eventConfig by viewModel.eventConfig.collectAsStateWithLifecycle()
+
+    LaunchedEffect(key1 = Unit) { viewModel.getEventConfig(this@EventScreen.id) }
+
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        topBar = { TopAppBar(title = eventConfig?.name ?: String()) }
+    ) { paddingValues ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+                .verticalScroll(rememberScrollState()),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            HeaderImage(logoUrl = eventConfig?.logoUrl)
+            if (eventConfig != null) {
+                FlowRow(
+                    modifier = Modifier.padding(20.dp),
+                    maxItemsInEachRow = if (windowWidth == WindowWidthSizeClass.COMPACT) 4 else 6,
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    eventConfig!!.features
+                        .filterNot { it.roles.contains(Role.INVISIBLE) }
+                        .fastForEach { feature ->
+                            when (feature.type) {
+                                FeatureType.ANNOUNCEMENT -> {
+                                    FeatureItem(
+                                        label = feature.label,
+                                        iconRes = R.drawable.ic_announcement
+                                    )
+                                }
+
+                                FeatureType.FAST_PASS -> {
+                                    FeatureItem(
+                                        label = feature.label,
+                                        iconRes = R.mipmap.ic_launcher_foreground
+                                    )
+                                }
+
+                                FeatureType.IM -> {
+                                    FeatureItem(label = feature.label, iconRes = R.drawable.ic_im) {
+                                        context.browse(feature.url!!)
+                                    }
+                                }
+
+                                FeatureType.PUZZLE -> {
+                                    FeatureItem(
+                                        label = feature.label,
+                                        iconRes = R.drawable.ic_puzzle
+                                    ) {
+                                        context.browse(feature.url!!)
+                                    }
+                                }
+
+                                FeatureType.SCHEDULE -> {
+                                    FeatureItem(
+                                        label = feature.label,
+                                        iconRes = R.drawable.ic_schedule
+                                    )
+                                }
+
+                                FeatureType.SPONSORS -> {
+                                    FeatureItem(
+                                        label = feature.label,
+                                        iconRes = R.drawable.ic_sponsor
+                                    ) {
+                                        context.browse(feature.url!!)
+                                    }
+                                }
+
+                                FeatureType.STAFFS -> {
+                                    FeatureItem(
+                                        label = feature.label,
+                                        iconRes = R.drawable.ic_staff
+                                    ) {
+                                        context.browse(feature.url!!)
+                                    }
+                                }
+
+                                FeatureType.TELEGRAM -> {
+                                    FeatureItem(
+                                        label = feature.label,
+                                        iconRes = R.drawable.ic_telegram
+                                    ) {
+                                        context.browse(feature.url!!)
+                                    }
+                                }
+
+                                FeatureType.TICKET -> {
+                                    FeatureItem(
+                                        label = feature.label,
+                                        iconRes = R.drawable.ic_ticket
+                                    )
+                                }
+
+                                FeatureType.VENUE -> {
+                                    FeatureItem(
+                                        label = feature.label,
+                                        iconRes = R.drawable.ic_venue
+                                    ) {
+                                        context.browse(feature.url!!)
+                                    }
+                                }
+
+                                FeatureType.WEBVIEW -> {
+                                    FeatureItem(label = feature.label, iconUrl = feature.iconUrl) {
+                                        context.browse(feature.url!!)
+                                    }
+                                }
+
+                                FeatureType.WIFI -> {
+                                    FeatureItem(label = feature.label, iconRes = R.drawable.ic_wifi)
+                                }
+
+                                else -> {}
+                            }
+                        }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun HeaderImage(logoUrl: String?) {
+    SubcomposeAsyncImage(
+        model = ImageRequest.Builder(LocalContext.current)
+            .data(logoUrl)
+            .placeholder(R.drawable.ic_landscape)
+            .crossfade(true)
+            .build(),
+        contentDescription = "",
+        contentScale = ContentScale.Fit,
+        modifier = Modifier
+            .padding(horizontal = 32.dp)
+            .aspectRatio(2.0f)
+            .heightIn(max = 180.dp)
+            .shimmer(logoUrl == null),
+        colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary)
+    )
+}
+
+@Composable
+fun FeatureItem(
+    label: String,
+    @DrawableRes iconRes: Int? = null,
+    iconUrl: String? = null,
+    isLoading: Boolean = false,
+    onClicked: () -> Unit = {}
+) {
+    Column(
+        modifier = Modifier
+            .padding(horizontal = 8.dp)
+            .width(75.dp)
+            .clip(RoundedCornerShape(10.dp))
+            .clickable { onClicked() },
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Box(
+            modifier = Modifier
+                .requiredSize(64.dp)
+                .clip(RoundedCornerShape(10.dp))
+                .background(color = MaterialTheme.colorScheme.primaryContainer),
+            contentAlignment = Alignment.Center
+        ) {
+            SubcomposeAsyncImage(
+                model = ImageRequest.Builder(LocalContext.current)
+                    .data(iconRes ?: iconUrl)
+                    .placeholder(R.drawable.ic_event)
+                    .crossfade(true)
+                    .build(),
+                contentDescription = "",
+                contentScale = ContentScale.Fit,
+                modifier = Modifier
+                    .requiredSize(32.dp)
+                    .fillMaxSize()
+                    .shimmer(isLoading),
+                colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary)
+            )
+        }
+        Text(
+            text = label,
+            fontSize = 12.sp,
+            textAlign = TextAlign.Center,
+            maxLines = 2,
+            overflow = TextOverflow.Ellipsis
+        )
+    }
 }
