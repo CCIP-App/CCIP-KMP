@@ -14,6 +14,22 @@ CREATE TABLE Events (
     nameZh TEXT NOT NULL
 );
 
+-- Create event config table and index
+CREATE TABLE EventConfig (
+    id TEXT PRIMARY KEY NOT NULL,
+    logoUrl TEXT NOT NULL,
+    nameEn TEXT NOT NULL,
+    nameZh TEXT NOT NULL,
+    eventStart TEXT NOT NULL,
+    eventEnd TEXT NOT NULL,
+    website TEXT,
+    features TEXT NOT NULL,
+    publishStart TEXT NOT NULL,
+    publishEnd TEXT NOT NULL
+);
+
+CREATE UNIQUE INDEX idx_eventconfig_id ON EventConfig (id);
+
 -- Named queries for events table
 
 selectAllEvents:
@@ -24,3 +40,15 @@ DELETE FROM Events;
 
 insertEvent:
 INSERT INTO Events (id, logoUrl, nameEn, nameZh) VALUES (:id, :logoUrl, :nameEn, :nameZh);
+
+-- Named queries for event config table
+
+getEventConfig:
+SELECT * FROM EventConfig WHERE id = :id;
+
+deleteEventConfig:
+DELETE FROM EventConfig WHERE id = :id;
+
+insertEventConfig:
+INSERT INTO EventConfig (id, logoUrl, nameEn, nameZh, eventStart, eventEnd, website, features, publishStart, publishEnd)
+VALUES (:id, :logoUrl, :nameEn, :nameZh, :eventStart, :eventEnd, :website, :features, :publishStart, :publishEnd);

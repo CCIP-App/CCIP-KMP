@@ -20,11 +20,14 @@ data class Feature(
     val type: FeatureType,
 
     @SerialName("icon")
-    val iconUrl: String,
+    val iconUrl: String? = null,
 
-    val url: String,
+    val url: String? = null,
 
-    val wifi: List<WiFi>? = null
+    val wifi: List<WiFi>? = null,
+
+    @SerialName("visible_roles")
+    val roles: List<Role> = listOf(Role.VISIBLE)
 ) {
     val label: String
         get() = _label.localized()

@@ -5,11 +5,16 @@
 
 package app.opass.ccip.database
 
+import app.opass.ccip.network.models.common.DateTime
 import app.opass.ccip.network.models.common.LocalizedString
 import app.opass.ccip.network.models.event.Event
+import app.opass.ccip.network.models.eventconfig.EventConfig
+import app.opass.ccip.network.models.eventconfig.Feature
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.withContext
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.encodeToString
 
 internal class OPassDatabaseHelper {
 
@@ -44,6 +49,41 @@ internal class OPassDatabaseHelper {
                         nameZh = it._name.zh
                     )
                 }
+            }
+        }
+    }
+
+    suspend fun getEventConfig(eventId: String): EventConfig? {
+        return withContext(Dispatchers.IO) {
+            val rawConfig = dbQuery.getEventConfig(eventId).executeAsOneOrNull() ?: return@withContext null
+            EventConfig(
+                _name = LocalizedString(en = rawConfig.nameEn, rawConfig.nameZh),
+                id = rawConfig.id,
+                logoUrl = rawConfig.logoUrl,
+                dateTime = DateTime(end = rawConfig.eventEnd, start = rawConfig.eventStart),
+                website = rawConfig.website,
+                features = Json.decodeFromString<List<Feature>>(rawConfig.features),
+                publish = DateTime(end = rawConfig.publishEnd, start = rawConfig.publishStart)
+            )
+        }
+    }
+
+    suspend fun addEventConfig(eventConfig: EventConfig) {
+        return withContext(Dispatchers.IO) {
+            dbQuery.transaction {
+                dbQuery.deleteEventConfig(eventConfig.id)
+                dbQuery.insertEventConfig(
+                    id = eventConfig.id,
+                    logoUrl = eventConfig.logoUrl,
+                    nameEn = eventConfig._name.en,
+                    nameZh = eventConfig._name.zh,
+                    eventStart = eventConfig.dateTime.start,
+                    eventEnd = eventConfig.dateTime.end,
+                    website = eventConfig.website,
+                    features = Json.encodeToString(eventConfig.features),
+                    publishStart = eventConfig.publish.start,
+                    publishEnd = eventConfig.publish.end
+                )
             }
         }
     }

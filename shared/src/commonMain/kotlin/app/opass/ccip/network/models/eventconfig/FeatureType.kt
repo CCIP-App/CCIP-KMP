@@ -45,5 +45,7 @@ enum class FeatureType {
     WEBVIEW,
 
     @SerialName("wifi")
-    WIFI
+    WIFI,
+
+    UNAVAILABLE
 }
