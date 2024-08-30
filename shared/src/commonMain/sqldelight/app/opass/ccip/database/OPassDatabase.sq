@@ -7,7 +7,7 @@
 PRAGMA user_version = 1;
 
 -- Create events table
-CREATE TABLE events (
+CREATE TABLE Events (
     id TEXT PRIMARY KEY NOT NULL,
     logoUrl TEXT NOT NULL,
     nameEn TEXT NOT NULL,
@@ -17,10 +17,10 @@ CREATE TABLE events (
 -- Named queries for events table
 
 selectAllEvents:
-SELECT * FROM events;
+SELECT * FROM Events;
 
 deleteAllEvents:
-DELETE FROM events;
+DELETE FROM Events;
 
 insertEvent:
-INSERT INTO events (id, logoUrl, nameEn, nameZh) VALUES (:id, :logoUrl, :nameEn, :nameZh);
+INSERT INTO Events (id, logoUrl, nameEn, nameZh) VALUES (:id, :logoUrl, :nameEn, :nameZh);
