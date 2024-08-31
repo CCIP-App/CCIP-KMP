@@ -227,6 +227,7 @@ fun HeaderImage(logoUrl: String?) {
         model = ImageRequest.Builder(LocalContext.current)
             .data(logoUrl)
             .placeholder(R.drawable.ic_landscape)
+            .error(R.drawable.ic_broken_image)
             .crossfade(true)
             .build(),
         contentDescription = "",
@@ -268,6 +269,7 @@ fun FeatureItem(
                 model = ImageRequest.Builder(LocalContext.current)
                     .data(iconRes ?: iconUrl)
                     .placeholder(R.drawable.ic_event)
+                    .error(R.drawable.ic_broken_image)
                     .crossfade(true)
                     .build(),
                 contentDescription = "",
