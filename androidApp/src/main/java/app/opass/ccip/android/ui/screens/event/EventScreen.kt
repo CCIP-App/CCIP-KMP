@@ -22,19 +22,28 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.BottomSheetDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -49,25 +58,53 @@ import app.opass.ccip.android.ui.components.TopAppBar
 import app.opass.ccip.android.ui.extensions.browse
 import app.opass.ccip.android.ui.extensions.shimmer
 import app.opass.ccip.android.ui.navigation.Screen
+import app.opass.ccip.android.ui.screens.eventpreview.EventPreviewScreen
 import app.opass.ccip.network.models.eventconfig.FeatureType
 import app.opass.ccip.network.models.eventconfig.Role
 import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
 
 @Composable
-@OptIn(ExperimentalLayoutApi::class)
+@OptIn(ExperimentalLayoutApi::class, ExperimentalMaterial3Api::class)
 fun Screen.Event.EventScreen(navHostController: NavHostController, viewModel: MainViewModel) {
 
     val windowWidth = currentWindowAdaptiveInfo().windowSizeClass.windowWidthSizeClass
     val context = LocalContext.current
     val eventConfig by viewModel.eventConfig.collectAsStateWithLifecycle()
 
+    var shouldShowBottomSheet by rememberSaveable { mutableStateOf(false) }
+
     LaunchedEffect(key1 = Unit) { viewModel.getEventConfig(this@EventScreen.id) }
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
-        topBar = { TopAppBar(title = eventConfig?.name ?: String()) }
+        topBar = {
+            TopAppBar(
+                title = eventConfig?.name ?: String(),
+                navigationIcon = {
+                    IconButton(onClick = { shouldShowBottomSheet = true }) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_drawer),
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.primary
+                        )
+                    }
+                }
+            )
+        }
     ) { paddingValues ->
+
+        if (shouldShowBottomSheet) {
+            ModalBottomSheet(onDismissRequest = { shouldShowBottomSheet = false }) {
+                Screen.EventPreview.EventPreviewScreen(
+                    navHostController = navHostController,
+                    viewModel = viewModel,
+                    isPullToRefreshEnabled = false,
+                    containerColor = BottomSheetDefaults.ContainerColor
+                )
+            }
+        }
+
         Column(
             modifier = Modifier
                 .fillMaxSize()

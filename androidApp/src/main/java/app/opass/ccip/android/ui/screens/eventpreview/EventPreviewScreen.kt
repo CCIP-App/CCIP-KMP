@@ -39,6 +39,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -63,7 +64,9 @@ import coil.request.ImageRequest
 @OptIn(ExperimentalMaterial3Api::class)
 fun Screen.EventPreview.EventPreviewScreen(
     navHostController: NavHostController,
-    viewModel: MainViewModel
+    viewModel: MainViewModel,
+    isPullToRefreshEnabled: Boolean = true,
+    containerColor: Color = MaterialTheme.colorScheme.background
 ) {
     var query by rememberSaveable { mutableStateOf("") }
     var isExpanded by rememberSaveable { mutableStateOf(false) }
@@ -72,85 +75,80 @@ fun Screen.EventPreview.EventPreviewScreen(
     val isRefreshing by viewModel.isRefreshing.collectAsStateWithLifecycle()
     val events by viewModel.events.collectAsStateWithLifecycle()
 
-    Scaffold(
-        modifier = Modifier.fillMaxSize(),
-        topBar = {
-            Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
-                SearchBar(
-                    inputField = {
-                        SearchBarDefaults.InputField(
-                            query = query,
-                            onQueryChange = { query = it },
-                            onSearch = { query = it },
-                            expanded = isExpanded,
-                            onExpandedChange = { isExpanded = it; query = String() },
-                            enabled = !events.isNullOrEmpty(),
-                            leadingIcon = {
-                                if (isExpanded) {
-                                    IconButton(onClick = { isExpanded = false; query = String() }) {
-                                        Icon(
-                                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                            contentDescription = null
-                                        )
-                                    }
-                                } else {
-                                    Icon(Icons.Default.Search, contentDescription = null)
-                                }
-                            },
-                            trailingIcon = {
-                                if (isExpanded) {
-                                    IconButton(onClick = { query = String() }) {
-                                        Icon(
-                                            imageVector = Icons.Filled.Clear,
-                                            contentDescription = null
-                                        )
-                                    }
-                                } else {
-                                    IconButton(onClick = { viewModel.getEvents(true) }) {
-                                        Icon(
-                                            painter = painterResource(id = R.drawable.ic_refresh),
-                                            contentDescription = null
-                                        )
-                                    }
-                                }
-                            },
-                            placeholder = { Text(text = stringResource(id = R.string.search_event)) }
-                        )
-                    },
-                    expanded = isExpanded,
-                    onExpandedChange = { isExpanded = it; query = String() }
-                ) {
-                    LazyColumn {
-                        items(
-                            items = events!!.filter { it.name.contains(query, true) },
-                            key = { e -> e.id }
-                        ) { event: Event ->
-                            EventPreviewItem(name = event.name, logoUrl = event.logoUrl) {
-                                sharedPreferences.edit { putString(CURRENT_EVENT_ID, event.id) }
-                                navHostController.navigate(Screen.Event(event.id))
-                            }
-                        }
+    @Composable
+    fun LoadEventPreviewItems(list: List<Event>?, modifier: Modifier = Modifier) {
+        LazyColumn(modifier = modifier) {
+            if (events.isNullOrEmpty()) {
+                items(20) {
+                    EventPreviewItem(
+                        name = "                                   ",
+                        logoUrl = String(),
+                        isLoading = true
+                    )
+                }
+            } else {
+                items(items = list!!, key = { e -> e.id }) { event: Event ->
+                    EventPreviewItem(name = event.name, logoUrl = event.logoUrl) {
+                        sharedPreferences.edit { putString(CURRENT_EVENT_ID, event.id) }
+                        navHostController.navigate(Screen.Event(event.id))
                     }
                 }
             }
         }
-    ) { paddingValues ->
-        PullToRefreshBox(
-            isRefreshing = isRefreshing,
-            onRefresh = { viewModel.getEvents(true) },
-            modifier = Modifier.padding(paddingValues)
-        ) {
-            LazyColumn {
-                if (events.isNullOrEmpty()) {
-                    items(20) {
-                        EventPreviewItem(
-                            name = "                                   ",
-                            logoUrl = String(),
-                            isLoading = true
-                        )
-                    }
-                } else {
-                    items(items = events!!, key = { e -> e.id }) { event: Event ->
+    }
+
+    @Composable
+    fun EventSearchBar() {
+        Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+            SearchBar(
+                inputField = {
+                    SearchBarDefaults.InputField(
+                        query = query,
+                        onQueryChange = { query = it },
+                        onSearch = { query = it },
+                        expanded = isExpanded,
+                        onExpandedChange = { isExpanded = it; query = String() },
+                        enabled = !events.isNullOrEmpty(),
+                        leadingIcon = {
+                            if (isExpanded) {
+                                IconButton(onClick = { isExpanded = false; query = String() }) {
+                                    Icon(
+                                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                                        contentDescription = null
+                                    )
+                                }
+                            } else {
+                                Icon(Icons.Default.Search, contentDescription = null)
+                            }
+                        },
+                        trailingIcon = {
+                            if (isExpanded) {
+                                IconButton(onClick = { query = String() }) {
+                                    Icon(
+                                        imageVector = Icons.Filled.Clear,
+                                        contentDescription = null
+                                    )
+                                }
+                            } else {
+                                IconButton(onClick = { viewModel.getEvents(true) }) {
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.ic_refresh),
+                                        contentDescription = null
+                                    )
+                                }
+                            }
+                        },
+                        placeholder = { Text(text = stringResource(id = R.string.search_event)) }
+                    )
+                },
+                expanded = isExpanded,
+                onExpandedChange = { isExpanded = it; query = String() }
+            ) {
+                LazyColumn {
+                    items(
+                        items = events!!.filter { it.name.contains(query, true) },
+                        key = { e -> e.id }
+                    ) { event: Event ->
                         EventPreviewItem(name = event.name, logoUrl = event.logoUrl) {
                             sharedPreferences.edit { putString(CURRENT_EVENT_ID, event.id) }
                             navHostController.navigate(Screen.Event(event.id))
@@ -158,6 +156,24 @@ fun Screen.EventPreview.EventPreviewScreen(
                     }
                 }
             }
+        }
+    }
+
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        topBar = { EventSearchBar() },
+        containerColor = containerColor
+    ) { paddingValues ->
+        if (isPullToRefreshEnabled) {
+            PullToRefreshBox(
+                isRefreshing = isRefreshing,
+                onRefresh = { viewModel.getEvents(true) },
+                modifier = Modifier.padding(paddingValues)
+            ) {
+                LoadEventPreviewItems(list = events)
+            }
+        } else {
+            LoadEventPreviewItems(list = events, modifier = Modifier.padding(paddingValues))
         }
     }
 }

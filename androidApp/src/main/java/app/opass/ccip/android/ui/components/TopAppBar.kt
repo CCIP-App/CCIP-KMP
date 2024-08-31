@@ -23,6 +23,7 @@ import androidx.navigation.NavHostController
 fun TopAppBar(
     title: String,
     navHostController: NavHostController? = null,
+    navigationIcon: @Composable () -> Unit = { DefaultNavigationIcon(navHostController) },
     actions: @Composable() (RowScope.() -> Unit) = {}
 ) {
     CenterAlignedTopAppBar(
@@ -34,16 +35,19 @@ fun TopAppBar(
                 style = MaterialTheme.typography.titleLarge
             )
         },
-        navigationIcon = {
-            if (navHostController != null) {
-                IconButton(onClick = { navHostController.navigateUp() }) {
-                    Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = ""
-                    )
-                }
-            }
-        },
+        navigationIcon = navigationIcon,
         actions = actions
     )
+}
+
+@Composable
+private fun DefaultNavigationIcon(navHostController: NavHostController?) {
+    if (navHostController != null) {
+        IconButton(onClick = { navHostController.navigateUp() }) {
+            Icon(
+                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                contentDescription = ""
+            )
+        }
+    }
 }
