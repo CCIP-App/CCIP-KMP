@@ -5,6 +5,7 @@
 
 package app.opass.ccip.android.ui.screens.event
 
+import android.content.pm.PackageManager
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -60,6 +61,7 @@ import app.opass.ccip.android.ui.extensions.browse
 import app.opass.ccip.android.ui.extensions.shimmer
 import app.opass.ccip.android.ui.navigation.Screen
 import app.opass.ccip.android.ui.screens.eventpreview.EventPreviewScreen
+import app.opass.ccip.android.utils.WifiUtil
 import app.opass.ccip.network.models.eventconfig.FeatureType
 import app.opass.ccip.network.models.eventconfig.Role
 import coil.compose.SubcomposeAsyncImage
@@ -213,10 +215,15 @@ fun Screen.Event.EventScreen(navHostController: NavHostController, viewModel: Ma
                                 }
 
                                 FeatureType.WIFI -> {
-                                    FeatureItem(
-                                        label = stringResource(id = R.string.wifi),
-                                        iconRes = R.drawable.ic_wifi
-                                    )
+                                    if (context.packageManager.hasSystemFeature(PackageManager.FEATURE_WIFI)) {
+                                        FeatureItem(
+                                            label = stringResource(id = R.string.wifi),
+                                            iconRes = R.drawable.ic_wifi,
+                                            isEnabled = !feature.wifi.isNullOrEmpty()
+                                        ) {
+                                            WifiUtil.installOrSuggestNetworks(context, feature.wifi!!)
+                                        }
+                                    }
                                 }
 
                                 else -> {}
@@ -254,6 +261,7 @@ fun FeatureItem(
     @DrawableRes iconRes: Int? = null,
     iconUrl: String? = null,
     isLoading: Boolean = false,
+    isEnabled: Boolean = true,
     onClicked: () -> Unit = {}
 ) {
     Column(
@@ -261,7 +269,7 @@ fun FeatureItem(
             .padding(horizontal = 8.dp)
             .width(75.dp)
             .clip(RoundedCornerShape(10.dp))
-            .clickable { onClicked() },
+            .clickable(enabled = isEnabled) { onClicked() },
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
