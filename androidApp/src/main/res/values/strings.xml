@@ -6,10 +6,21 @@
 <resources>
     <string name="app_name" translatable="false">OPass</string>
 
-    <!-- EventPreview -->
+    <!-- EventPreviewScreen -->
     <string name="select_event">Select event</string>
     <string name="search_event">Search events</string>
 
-    <!-- Event -->
+    <!-- EventScreen -->
     <string name="event">Event</string>
+    <string name="fast_pass">Fast Pass</string>
+    <string name="schedule">Schedule</string>
+    <string name="announcement">Announcement</string>
+    <string name="puzzle">Booth Reward Activity</string>
+    <string name="telegram" translatable="false">Telegram</string>
+    <string name="venue">Venue</string>
+    <string name="sponsors">Sponsors</string>
+    <string name="staff">Staff</string>
+    <string name="ticket">Ticket</string>
+    <string name="wifi">WiFi</string>
+    <string name="irc" translatable="false">IRC</string>
 </resources>

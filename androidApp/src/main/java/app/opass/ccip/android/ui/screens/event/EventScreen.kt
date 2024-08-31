@@ -44,6 +44,7 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -115,7 +116,7 @@ fun Screen.Event.EventScreen(navHostController: NavHostController, viewModel: Ma
             HeaderImage(logoUrl = eventConfig?.logoUrl)
             if (eventConfig != null) {
                 FlowRow(
-                    modifier = Modifier.padding(20.dp),
+                    modifier = Modifier.padding(10.dp),
                     maxItemsInEachRow = if (windowWidth == WindowWidthSizeClass.COMPACT) 4 else 6,
                     verticalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
@@ -125,27 +126,30 @@ fun Screen.Event.EventScreen(navHostController: NavHostController, viewModel: Ma
                             when (feature.type) {
                                 FeatureType.ANNOUNCEMENT -> {
                                     FeatureItem(
-                                        label = feature.label,
+                                        label = stringResource(id = R.string.announcement),
                                         iconRes = R.drawable.ic_announcement
                                     )
                                 }
 
                                 FeatureType.FAST_PASS -> {
                                     FeatureItem(
-                                        label = feature.label,
+                                        label = stringResource(id = R.string.fast_pass),
                                         iconRes = R.mipmap.ic_launcher_foreground
                                     )
                                 }
 
                                 FeatureType.IM -> {
-                                    FeatureItem(label = feature.label, iconRes = R.drawable.ic_im) {
+                                    FeatureItem(
+                                        label = stringResource(id = R.string.irc),
+                                        iconRes = R.drawable.ic_im
+                                    ) {
                                         context.browse(feature.url!!)
                                     }
                                 }
 
                                 FeatureType.PUZZLE -> {
                                     FeatureItem(
-                                        label = feature.label,
+                                        label = stringResource(id = R.string.puzzle),
                                         iconRes = R.drawable.ic_puzzle
                                     ) {
                                         context.browse(feature.url!!)
@@ -154,14 +158,14 @@ fun Screen.Event.EventScreen(navHostController: NavHostController, viewModel: Ma
 
                                 FeatureType.SCHEDULE -> {
                                     FeatureItem(
-                                        label = feature.label,
+                                        label = stringResource(id = R.string.schedule),
                                         iconRes = R.drawable.ic_schedule
                                     )
                                 }
 
                                 FeatureType.SPONSORS -> {
                                     FeatureItem(
-                                        label = feature.label,
+                                        label = stringResource(id = R.string.sponsors),
                                         iconRes = R.drawable.ic_sponsor
                                     ) {
                                         context.browse(feature.url!!)
@@ -170,7 +174,7 @@ fun Screen.Event.EventScreen(navHostController: NavHostController, viewModel: Ma
 
                                 FeatureType.STAFFS -> {
                                     FeatureItem(
-                                        label = feature.label,
+                                        label = stringResource(id = R.string.staff),
                                         iconRes = R.drawable.ic_staff
                                     ) {
                                         context.browse(feature.url!!)
@@ -179,7 +183,7 @@ fun Screen.Event.EventScreen(navHostController: NavHostController, viewModel: Ma
 
                                 FeatureType.TELEGRAM -> {
                                     FeatureItem(
-                                        label = feature.label,
+                                        label = stringResource(id = R.string.telegram),
                                         iconRes = R.drawable.ic_telegram
                                     ) {
                                         context.browse(feature.url!!)
@@ -188,14 +192,14 @@ fun Screen.Event.EventScreen(navHostController: NavHostController, viewModel: Ma
 
                                 FeatureType.TICKET -> {
                                     FeatureItem(
-                                        label = feature.label,
+                                        label = stringResource(id = R.string.ticket),
                                         iconRes = R.drawable.ic_ticket
                                     )
                                 }
 
                                 FeatureType.VENUE -> {
                                     FeatureItem(
-                                        label = feature.label,
+                                        label = stringResource(id = R.string.venue),
                                         iconRes = R.drawable.ic_venue
                                     ) {
                                         context.browse(feature.url!!)
@@ -209,7 +213,10 @@ fun Screen.Event.EventScreen(navHostController: NavHostController, viewModel: Ma
                                 }
 
                                 FeatureType.WIFI -> {
-                                    FeatureItem(label = feature.label, iconRes = R.drawable.ic_wifi)
+                                    FeatureItem(
+                                        label = stringResource(id = R.string.wifi),
+                                        iconRes = R.drawable.ic_wifi
+                                    )
                                 }
 
                                 else -> {}
