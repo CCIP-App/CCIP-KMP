@@ -27,7 +27,7 @@ data class Feature(
     val wifi: List<WiFi>? = null,
 
     @SerialName("visible_roles")
-    val roles: List<Role> = listOf(Role.VISIBLE)
+    val roles: List<String>? = null
 ) {
     val label: String
         get() = _label.localized()
