@@ -6,6 +6,7 @@
 //  2024 OPass.
 //
 
+import Shared
 import OSLog
 import SwiftUI
 import FirebaseCore
@@ -14,6 +15,9 @@ import FirebaseAnalytics
 import FirebasePerformance
 import FirebaseCrashlytics
 import OneSignalFramework
+
+// Shared Portal Object
+let portal = PortalHelper()
 
 @main
 struct OPassApp: App {
@@ -46,6 +50,16 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     }
 }
 
+private class OPassAppCheckProviderFactory: NSObject, AppCheckProviderFactory {
+    func createProvider(with app: FirebaseApp) -> AppCheckProvider? {
+#if targetEnvironment(simulator)
+        return AppCheckDebugProvider(app: app)
+#else
+        return AppAttestProvider(app: app)
+#endif
+    }
+}
+
 enum DarkMode: Int, Identifiable {
     case system, enable, disable
     internal var id: Self { self }
@@ -55,15 +69,5 @@ enum DarkMode: Int, Identifiable {
         case .enable: return .dark
         case .disable: return .light
         }
-    }
-}
-
-private class OPassAppCheckProviderFactory: NSObject, AppCheckProviderFactory {
-    func createProvider(with app: FirebaseApp) -> AppCheckProvider? {
-#if targetEnvironment(simulator)
-        return AppCheckDebugProvider(app: app)
-#else
-        return AppAttestProvider(app: app)
-#endif
     }
 }

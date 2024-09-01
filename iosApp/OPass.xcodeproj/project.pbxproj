@@ -19,7 +19,6 @@
 		D34BEECB2C723BC6008F9A4C /* OPassApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34BEECA2C723BC6008F9A4C /* OPassApp.swift */; };
 		D34BEECD2C723BC6008F9A4C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34BEECC2C723BC6008F9A4C /* ContentView.swift */; };
 		D34BEECF2C723BC7008F9A4C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D34BEECE2C723BC7008F9A4C /* Assets.xcassets */; };
-		D39AC9D92C7B388C00084689 /* Shared+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39AC9D82C7B388C00084689 /* Shared+Extension.swift */; };
 		D39AC9DC2C7B395D00084689 /* SelectEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39AC9DB2C7B395D00084689 /* SelectEventView.swift */; };
 		D39AC9DE2C7B398E00084689 /* SelectEventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39AC9DD2C7B398E00084689 /* SelectEventViewModel.swift */; };
 		D3B1E7802C774623002DBA07 /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B1E77F2C774623002DBA07 /* SafariView.swift */; };
@@ -32,6 +31,8 @@
 		D3C398182C73A327002FFD42 /* OneSignalInAppMessages in Frameworks */ = {isa = PBXBuildFile; productRef = D3C398172C73A327002FFD42 /* OneSignalInAppMessages */; };
 		D3C3981A2C73A327002FFD42 /* OneSignalLocation in Frameworks */ = {isa = PBXBuildFile; productRef = D3C398192C73A327002FFD42 /* OneSignalLocation */; };
 		D3D1B8A02C7475A00075A747 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D1B89F2C7475A00075A747 /* SettingsView.swift */; };
+		D3EBBF672C8454E400A49285 /* EventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EBBF662C8454E400A49285 /* EventView.swift */; };
+		D3EBBF692C8454EF00A49285 /* EventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EBBF682C8454EF00A49285 /* EventViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,7 +66,6 @@
 		D34BEECA2C723BC6008F9A4C /* OPassApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OPassApp.swift; sourceTree = "<group>"; };
 		D34BEECC2C723BC6008F9A4C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D34BEECE2C723BC7008F9A4C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		D39AC9D82C7B388C00084689 /* Shared+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Shared+Extension.swift"; sourceTree = "<group>"; };
 		D39AC9DB2C7B395D00084689 /* SelectEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectEventView.swift; sourceTree = "<group>"; };
 		D39AC9DD2C7B398E00084689 /* SelectEventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectEventViewModel.swift; sourceTree = "<group>"; };
 		D3B1E77F2C774623002DBA07 /* SafariView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariView.swift; sourceTree = "<group>"; };
@@ -78,6 +78,8 @@
 		D3C398092C73A190002FFD42 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D3C398112C73A268002FFD42 /* OneSignalNotificationServiceExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OneSignalNotificationServiceExtension.entitlements; sourceTree = "<group>"; };
 		D3D1B89F2C7475A00075A747 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		D3EBBF662C8454E400A49285 /* EventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventView.swift; sourceTree = "<group>"; };
+		D3EBBF682C8454EF00A49285 /* EventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,20 +144,12 @@
 			children = (
 				D34BEECA2C723BC6008F9A4C /* OPassApp.swift */,
 				D34BEECC2C723BC6008F9A4C /* ContentView.swift */,
+				D3EBBF652C8454D700A49285 /* Event */,
 				D39AC9DA2C7B394600084689 /* SelectEvent */,
 				D307A8912C760F5100BB00FB /* Settings */,
 				D3B1E77E2C774609002DBA07 /* General */,
-				D39AC9D72C7B384D00084689 /* Extension */,
 			);
 			path = OPass;
-			sourceTree = "<group>";
-		};
-		D39AC9D72C7B384D00084689 /* Extension */ = {
-			isa = PBXGroup;
-			children = (
-				D39AC9D82C7B388C00084689 /* Shared+Extension.swift */,
-			);
-			path = Extension;
 			sourceTree = "<group>";
 		};
 		D39AC9DA2C7B394600084689 /* SelectEvent */ = {
@@ -196,6 +190,15 @@
 				D3C397FD2C73A079002FFD42 /* Localizable.xcstrings */,
 			);
 			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D3EBBF652C8454D700A49285 /* Event */ = {
+			isa = PBXGroup;
+			children = (
+				D3EBBF662C8454E400A49285 /* EventView.swift */,
+				D3EBBF682C8454EF00A49285 /* EventViewModel.swift */,
+			);
+			path = Event;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -366,14 +369,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3D1B8A02C7475A00075A747 /* SettingsView.swift in Sources */,
-				D39AC9D92C7B388C00084689 /* Shared+Extension.swift in Sources */,
 				D34BEECD2C723BC6008F9A4C /* ContentView.swift in Sources */,
+				D3EBBF692C8454EF00A49285 /* EventViewModel.swift in Sources */,
 				D39AC9DE2C7B398E00084689 /* SelectEventViewModel.swift in Sources */,
 				D34BEECB2C723BC6008F9A4C /* OPassApp.swift in Sources */,
 				D307A8932C760F8E00BB00FB /* AppearanceSettingsView.swift in Sources */,
 				D39AC9DC2C7B395D00084689 /* SelectEventView.swift in Sources */,
 				D3B1E7802C774623002DBA07 /* SafariView.swift in Sources */,
 				D3B1E7822C775E7C002DBA07 /* CenterLabelStyle.swift in Sources */,
+				D3EBBF672C8454E400A49285 /* EventView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

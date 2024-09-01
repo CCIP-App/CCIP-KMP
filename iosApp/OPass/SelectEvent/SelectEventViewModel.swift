@@ -15,7 +15,7 @@ private let logger = Logger(subsystem: "OPassApp", category: "SelectEventViewMod
 @MainActor @Observable
 class SelectEventViewModel {
     enum ViewState {
-        case ready([Event])
+        case ready([Event_])
         case error(Error)
         case loading
     }
@@ -26,6 +26,7 @@ class SelectEventViewModel {
         guard events != nil else { return .loading }
         return .ready({
             if searchText.isEmpty { return events! }
+
             let components = searchText
                 .trimmingCharacters(in: .whitespacesAndNewlines)
                 .components(separatedBy: " ")
@@ -33,8 +34,9 @@ class SelectEventViewModel {
                     let component = $0.trimmingCharacters(in: .whitespaces)
                     return component.isEmpty ? nil : component.lowercased()
                 }
+
             return events!.filter { event in
-                let name = event.name.localized().lowercased()
+                let name = event.name
                 for component in components {
                     guard name.contains(component) else {
                         return false
@@ -46,15 +48,22 @@ class SelectEventViewModel {
     }
 
     private var error: Error?
-    private var events: [Event]?
+    private var events: [Event_]?
 
     func loadEvents() async {
+        async let cache = portal.getEvents(forceReload: false)
+        async let remote = portal.getEvents(forceReload: true)
+
         do {
-            let events = try await PortalClient().getEvents()
-            self.events = events
+            events = try? await cache
+            events = try await remote
         } catch {
-            logger.error("\(error)")
-            self.error = error
+            if events == nil {
+                logger.error("\(error)")
+                self.error = error
+            } else {
+                logger.info("Faild with remote data: \(error)")
+            }
         }
     }
 }

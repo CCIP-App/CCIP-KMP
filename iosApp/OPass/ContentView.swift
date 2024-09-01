@@ -10,9 +10,11 @@ import Shared
 import SwiftUI
 
 struct ContentView: View {
+    // MARK: - Variable
     @AppStorage("EventID") private var eventID = ""
     @State private var selectEventSheetPresented = false
 
+    // MARK: - View
     var body: some View {
         NavigationStack {
             Group {
@@ -20,7 +22,7 @@ struct ContentView: View {
                     ProgressView("Loading")
                         .onAppear { selectEventSheetPresented.toggle() }
                 } else {
-                    Text(eventID)
+                    EventView()
                 }
             }
             .toolbar { toolbar() }
