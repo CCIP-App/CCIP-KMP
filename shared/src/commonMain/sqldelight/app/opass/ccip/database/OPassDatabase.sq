@@ -6,8 +6,8 @@
 
 PRAGMA user_version = 1;
 
--- Create events table
-CREATE TABLE Events (
+-- Create event table
+CREATE TABLE Event (
     id TEXT PRIMARY KEY NOT NULL,
     logoUrl TEXT NOT NULL,
     nameEn TEXT NOT NULL,
@@ -30,16 +30,16 @@ CREATE TABLE EventConfig (
 
 CREATE UNIQUE INDEX idx_eventconfig_id ON EventConfig (id);
 
--- Named queries for events table
+-- Named queries for event table
 
 selectAllEvents:
-SELECT * FROM Events;
+SELECT * FROM Event;
 
 deleteAllEvents:
-DELETE FROM Events;
+DELETE FROM Event;
 
 insertEvent:
-INSERT INTO Events (id, logoUrl, nameEn, nameZh) VALUES (:id, :logoUrl, :nameEn, :nameZh);
+INSERT INTO Event (id, logoUrl, nameEn, nameZh) VALUES (:id, :logoUrl, :nameEn, :nameZh);
 
 -- Named queries for event config table
 
