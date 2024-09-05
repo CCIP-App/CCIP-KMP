@@ -41,7 +41,7 @@ struct SelectEventView: View {
     }
 
     @ViewBuilder
-    private func eventList(_ events: [Event_]) -> some View {
+    private func eventList(_ events: [Event]) -> some View {
         Form {
             if events.isEmpty {
                 ContentUnavailableView.search(text: viewModel.searchText)

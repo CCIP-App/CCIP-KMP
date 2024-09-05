@@ -7,7 +7,7 @@
 PRAGMA user_version = 1;
 
 -- Create event table
-CREATE TABLE Event (
+CREATE TABLE EventTable (
     id TEXT PRIMARY KEY NOT NULL,
     logoUrl TEXT NOT NULL,
     nameEn TEXT NOT NULL,
@@ -15,7 +15,7 @@ CREATE TABLE Event (
 );
 
 -- Create event config table and index
-CREATE TABLE EventConfig (
+CREATE TABLE EventConfigTable (
     id TEXT PRIMARY KEY NOT NULL,
     logoUrl TEXT NOT NULL,
     nameEn TEXT NOT NULL,
@@ -28,27 +28,27 @@ CREATE TABLE EventConfig (
     publishEnd TEXT NOT NULL
 );
 
-CREATE UNIQUE INDEX idx_eventconfig_id ON EventConfig (id);
+CREATE UNIQUE INDEX idx_EventConfigTable_id ON EventConfigTable (id);
 
 -- Named queries for event table
 
 selectAllEvents:
-SELECT * FROM Event;
+SELECT * FROM EventTable;
 
 deleteAllEvents:
-DELETE FROM Event;
+DELETE FROM EventTable;
 
 insertEvent:
-INSERT INTO Event (id, logoUrl, nameEn, nameZh) VALUES (:id, :logoUrl, :nameEn, :nameZh);
+INSERT INTO EventTable (id, logoUrl, nameEn, nameZh) VALUES (:id, :logoUrl, :nameEn, :nameZh);
 
 -- Named queries for event config table
 
 getEventConfig:
-SELECT * FROM EventConfig WHERE id = :id;
+SELECT * FROM EventConfigTable WHERE id = :id;
 
 deleteEventConfig:
-DELETE FROM EventConfig WHERE id = :id;
+DELETE FROM EventConfigTable WHERE id = :id;
 
 insertEventConfig:
-INSERT INTO EventConfig (id, logoUrl, nameEn, nameZh, eventStart, eventEnd, website, features, publishStart, publishEnd)
+INSERT INTO EventConfigTable (id, logoUrl, nameEn, nameZh, eventStart, eventEnd, website, features, publishStart, publishEnd)
 VALUES (:id, :logoUrl, :nameEn, :nameZh, :eventStart, :eventEnd, :website, :features, :publishStart, :publishEnd);

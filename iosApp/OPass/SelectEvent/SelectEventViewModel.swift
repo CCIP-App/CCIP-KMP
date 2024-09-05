@@ -15,7 +15,7 @@ private let logger = Logger(subsystem: "OPassApp", category: "SelectEventViewMod
 @MainActor @Observable
 class SelectEventViewModel {
     enum ViewState {
-        case ready([Event_])
+        case ready([Event])
         case error(Error)
         case loading
     }
@@ -48,7 +48,7 @@ class SelectEventViewModel {
     }
 
     private var error: Error?
-    private var events: [Event_]?
+    private var events: [Event]?
 
     func loadEvents() async {
         async let cache = portal.getEvents(forceReload: false)

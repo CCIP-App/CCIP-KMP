@@ -17,7 +17,7 @@ class EventViewModel {
     @ObservationIgnored
     @AppStorage("EventID") private var eventID = ""
 
-    var config: EventConfig_?
+    var config: EventConfig?
 
     private var error: Error?
 
