@@ -63,7 +63,6 @@ import app.opass.ccip.android.ui.navigation.Screen
 import app.opass.ccip.android.ui.screens.eventpreview.EventPreviewScreen
 import app.opass.ccip.android.utils.WifiUtil
 import app.opass.ccip.network.models.eventconfig.FeatureType
-import app.opass.ccip.network.models.eventconfig.Role
 import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
 
@@ -122,113 +121,112 @@ fun Screen.Event.EventScreen(navHostController: NavHostController, viewModel: Ma
                     maxItemsInEachRow = if (windowWidth == WindowWidthSizeClass.COMPACT) 4 else 6,
                     verticalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
-                    eventConfig!!.features
-                        .filterNot { it.roles.contains(Role.INVISIBLE) }
-                        .fastForEach { feature ->
-                            when (feature.type) {
-                                FeatureType.ANNOUNCEMENT -> {
-                                    FeatureItem(
-                                        label = stringResource(id = R.string.announcement),
-                                        iconRes = R.drawable.ic_announcement
-                                    )
-                                }
-
-                                FeatureType.FAST_PASS -> {
-                                    FeatureItem(
-                                        label = stringResource(id = R.string.fast_pass),
-                                        iconRes = R.mipmap.ic_launcher_foreground
-                                    )
-                                }
-
-                                FeatureType.IM -> {
-                                    FeatureItem(
-                                        label = stringResource(id = R.string.irc),
-                                        iconRes = R.drawable.ic_im
-                                    ) {
-                                        context.browse(feature.url!!)
-                                    }
-                                }
-
-                                FeatureType.PUZZLE -> {
-                                    FeatureItem(
-                                        label = stringResource(id = R.string.puzzle),
-                                        iconRes = R.drawable.ic_puzzle
-                                    ) {
-                                        context.browse(feature.url!!)
-                                    }
-                                }
-
-                                FeatureType.SCHEDULE -> {
-                                    FeatureItem(
-                                        label = stringResource(id = R.string.schedule),
-                                        iconRes = R.drawable.ic_schedule
-                                    )
-                                }
-
-                                FeatureType.SPONSORS -> {
-                                    FeatureItem(
-                                        label = stringResource(id = R.string.sponsors),
-                                        iconRes = R.drawable.ic_sponsor
-                                    ) {
-                                        context.browse(feature.url!!)
-                                    }
-                                }
-
-                                FeatureType.STAFFS -> {
-                                    FeatureItem(
-                                        label = stringResource(id = R.string.staff),
-                                        iconRes = R.drawable.ic_staff
-                                    ) {
-                                        context.browse(feature.url!!)
-                                    }
-                                }
-
-                                FeatureType.TELEGRAM -> {
-                                    FeatureItem(
-                                        label = stringResource(id = R.string.telegram),
-                                        iconRes = R.drawable.ic_telegram
-                                    ) {
-                                        context.browse(feature.url!!)
-                                    }
-                                }
-
-                                FeatureType.TICKET -> {
-                                    FeatureItem(
-                                        label = stringResource(id = R.string.ticket),
-                                        iconRes = R.drawable.ic_ticket
-                                    )
-                                }
-
-                                FeatureType.VENUE -> {
-                                    FeatureItem(
-                                        label = stringResource(id = R.string.venue),
-                                        iconRes = R.drawable.ic_venue
-                                    ) {
-                                        context.browse(feature.url!!)
-                                    }
-                                }
-
-                                FeatureType.WEBVIEW -> {
-                                    FeatureItem(label = feature.label, iconUrl = feature.iconUrl) {
-                                        context.browse(feature.url!!)
-                                    }
-                                }
-
-                                FeatureType.WIFI -> {
-                                    if (context.packageManager.hasSystemFeature(PackageManager.FEATURE_WIFI)) {
-                                        FeatureItem(
-                                            label = stringResource(id = R.string.wifi),
-                                            iconRes = R.drawable.ic_wifi,
-                                            isEnabled = !feature.wifi.isNullOrEmpty()
-                                        ) {
-                                            WifiUtil.installOrSuggestNetworks(context, feature.wifi!!)
-                                        }
-                                    }
-                                }
-
-                                else -> {}
+                    // TODO: Show and hide features based on roles
+                    eventConfig!!.features.fastForEach { feature ->
+                        when (feature.type) {
+                            FeatureType.ANNOUNCEMENT -> {
+                                FeatureItem(
+                                    label = stringResource(id = R.string.announcement),
+                                    iconRes = R.drawable.ic_announcement
+                                )
                             }
+
+                            FeatureType.FAST_PASS -> {
+                                FeatureItem(
+                                    label = stringResource(id = R.string.fast_pass),
+                                    iconRes = R.mipmap.ic_launcher_foreground
+                                )
+                            }
+
+                            FeatureType.IM -> {
+                                FeatureItem(
+                                    label = stringResource(id = R.string.irc),
+                                    iconRes = R.drawable.ic_im
+                                ) {
+                                    context.browse(feature.url!!)
+                                }
+                            }
+
+                            FeatureType.PUZZLE -> {
+                                FeatureItem(
+                                    label = stringResource(id = R.string.puzzle),
+                                    iconRes = R.drawable.ic_puzzle
+                                ) {
+                                    context.browse(feature.url!!)
+                                }
+                            }
+
+                            FeatureType.SCHEDULE -> {
+                                FeatureItem(
+                                    label = stringResource(id = R.string.schedule),
+                                    iconRes = R.drawable.ic_schedule
+                                )
+                            }
+
+                            FeatureType.SPONSORS -> {
+                                FeatureItem(
+                                    label = stringResource(id = R.string.sponsors),
+                                    iconRes = R.drawable.ic_sponsor
+                                ) {
+                                    context.browse(feature.url!!)
+                                }
+                            }
+
+                            FeatureType.STAFFS -> {
+                                FeatureItem(
+                                    label = stringResource(id = R.string.staff),
+                                    iconRes = R.drawable.ic_staff
+                                ) {
+                                    context.browse(feature.url!!)
+                                }
+                            }
+
+                            FeatureType.TELEGRAM -> {
+                                FeatureItem(
+                                    label = stringResource(id = R.string.telegram),
+                                    iconRes = R.drawable.ic_telegram
+                                ) {
+                                    context.browse(feature.url!!)
+                                }
+                            }
+
+                            FeatureType.TICKET -> {
+                                FeatureItem(
+                                    label = stringResource(id = R.string.ticket),
+                                    iconRes = R.drawable.ic_ticket
+                                )
+                            }
+
+                            FeatureType.VENUE -> {
+                                FeatureItem(
+                                    label = stringResource(id = R.string.venue),
+                                    iconRes = R.drawable.ic_venue
+                                ) {
+                                    context.browse(feature.url!!)
+                                }
+                            }
+
+                            FeatureType.WEBVIEW -> {
+                                FeatureItem(label = feature.label, iconUrl = feature.iconUrl) {
+                                    context.browse(feature.url!!)
+                                }
+                            }
+
+                            FeatureType.WIFI -> {
+                                if (context.packageManager.hasSystemFeature(PackageManager.FEATURE_WIFI)) {
+                                    FeatureItem(
+                                        label = stringResource(id = R.string.wifi),
+                                        iconRes = R.drawable.ic_wifi,
+                                        isEnabled = !feature.wifi.isNullOrEmpty()
+                                    ) {
+                                        WifiUtil.installOrSuggestNetworks(context, feature.wifi!!)
+                                    }
+                                }
+                            }
+
+                            else -> {}
                         }
+                    }
                 }
             }
         }
