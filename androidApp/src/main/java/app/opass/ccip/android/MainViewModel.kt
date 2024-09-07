@@ -11,6 +11,7 @@ import androidx.lifecycle.viewModelScope
 import app.opass.ccip.helpers.PortalHelper
 import app.opass.ccip.network.models.event.Event
 import app.opass.ccip.network.models.eventconfig.EventConfig
+import app.opass.ccip.network.models.schedule.Schedule
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -24,6 +25,9 @@ class MainViewModel: ViewModel() {
 
     private val _eventConfig: MutableStateFlow<EventConfig?> = MutableStateFlow(null)
     val eventConfig = _eventConfig.asStateFlow()
+
+    private val _schedule: MutableStateFlow<Schedule?> = MutableStateFlow(null)
+    val schedule = _schedule.asStateFlow()
 
     private val _isRefreshing = MutableStateFlow(false)
     val isRefreshing = _isRefreshing.asStateFlow()
@@ -58,6 +62,17 @@ class MainViewModel: ViewModel() {
                 _eventConfig.value = null
             } finally {
                 _isRefreshing.value = false
+            }
+        }
+    }
+
+    fun getSchedule(eventId: String, forceReload: Boolean = false) {
+        viewModelScope.launch {
+            try {
+                _schedule.value = portalHelper.getSchedule(eventId, forceReload)
+            } catch (exception: Exception) {
+                Log.e(TAG, "Failed to fetch schedules", exception)
+                _schedule.value = null
             }
         }
     }

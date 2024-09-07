@@ -13,7 +13,6 @@
     <!-- EventScreen -->
     <string name="event">Event</string>
     <string name="fast_pass">Fast Pass</string>
-    <string name="schedule">Schedule</string>
     <string name="announcement">Announcement</string>
     <string name="puzzle">Booth Reward Activity</string>
     <string name="telegram" translatable="false">Telegram</string>
@@ -23,4 +22,7 @@
     <string name="ticket">Ticket</string>
     <string name="wifi">WiFi</string>
     <string name="irc" translatable="false">IRC</string>
+
+    <!-- ScheduleScreen -->
+    <string name="schedule">Schedule</string>
 </resources>

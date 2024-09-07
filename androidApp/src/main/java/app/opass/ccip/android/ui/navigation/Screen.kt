@@ -24,4 +24,10 @@ sealed class Screen(@StringRes val title: Int, @DrawableRes val icon: Int) {
         title = R.string.event,
         icon = R.drawable.ic_event
     )
+
+    @Serializable
+    data class Schedule(val id: String) : Screen(
+        title = R.string.schedule,
+        icon = R.drawable.ic_schedule
+    )
 }

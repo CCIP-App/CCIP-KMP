@@ -15,6 +15,7 @@ import androidx.navigation.toRoute
 import app.opass.ccip.android.MainViewModel
 import app.opass.ccip.android.ui.screens.event.EventScreen
 import app.opass.ccip.android.ui.screens.eventpreview.EventPreviewScreen
+import app.opass.ccip.android.ui.screens.schedule.ScheduleScreen
 
 @Composable
 fun SetupNavGraph(
@@ -35,6 +36,10 @@ fun SetupNavGraph(
 
         composable<Screen.Event> { backStackEntry ->
             backStackEntry.toRoute<Screen.Event>().EventScreen(navHostController, viewModel)
+        }
+
+        composable<Screen.Schedule> { backStackEntry ->
+            backStackEntry.toRoute<Screen.Schedule>().ScheduleScreen(navHostController, viewModel)
         }
     }
 }

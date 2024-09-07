@@ -162,7 +162,9 @@ fun Screen.Event.EventScreen(navHostController: NavHostController, viewModel: Ma
                                 FeatureItem(
                                     label = stringResource(id = R.string.schedule),
                                     iconRes = R.drawable.ic_schedule
-                                )
+                                ) {
+                                    navHostController.navigate(Screen.Schedule(this@EventScreen.id))
+                                }
                             }
 
                             FeatureType.SPONSORS -> {
