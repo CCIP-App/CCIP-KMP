@@ -30,6 +30,85 @@ CREATE TABLE EventConfigTable (
 
 CREATE UNIQUE INDEX idx_EventConfigTable_id ON EventConfigTable (id);
 
+-- Create room table and index
+CREATE TABLE RoomTable (
+    primaryId INTEGER PRIMARY KEY AUTOINCREMENT,
+    id TEXT NOT NULL,
+    nameEn TEXT NOT NULL,
+    nameZh TEXT NOT NULL,
+    eventId TEXT NOT NULL,
+    FOREIGN KEY (eventId) REFERENCES EventConfigTable(id) ON DELETE CASCADE
+);
+
+CREATE INDEX idx_RoomTable_name ON RoomTable(nameEn, nameZh, eventId);
+
+-- Create tag table and index
+CREATE TABLE TagTable (
+    primaryId INTEGER PRIMARY KEY AUTOINCREMENT,
+    id TEXT NOT NULL,
+    nameEn TEXT NOT NULL,
+    nameZh TEXT NOT NULL,
+    eventId TEXT NOT NULL,
+    FOREIGN KEY (eventId) REFERENCES EventConfigTable(id) ON DELETE CASCADE
+);
+
+CREATE INDEX idx_TagTable_name ON TagTable(nameEn, nameZh, eventId);
+
+-- Create session type table and index
+CREATE TABLE SessionTypeTable (
+    primaryId INTEGER PRIMARY KEY AUTOINCREMENT,
+    id TEXT NOT NULL,
+    nameEn TEXT NOT NULL,
+    nameZh TEXT NOT NULL,
+    eventId TEXT NOT NULL,
+    FOREIGN KEY (eventId) REFERENCES EventConfigTable(id) ON DELETE CASCADE
+);
+
+CREATE INDEX idx_SessionTypeTable_name ON SessionTypeTable(nameEn, nameZh, eventId);
+
+-- Create speaker table and index
+CREATE TABLE SpeakerTable (
+    primaryId INTEGER PRIMARY KEY AUTOINCREMENT,
+    id TEXT NOT NULL,
+    avatarUrl TEXT NOT NULL,
+    nameEn TEXT NOT NULL,
+    nameZh TEXT NOT NULL,
+    bioEn TEXT NOT NULL,
+    bioZh TEXT NOT NULL,
+    eventId TEXT NOT NULL,
+    FOREIGN KEY (eventId) REFERENCES EventConfigTable(id) ON DELETE CASCADE
+);
+
+CREATE INDEX idx_SpeakerTable_name ON SpeakerTable(nameEn, nameZh, eventId);
+
+-- Create session table and index
+CREATE TABLE SessionTable (
+    primaryId INTEGER PRIMARY KEY AUTOINCREMENT,
+    id TEXT NOT NULL,
+    titleEn TEXT NOT NULL,
+    titleZh TEXT NOT NULL,
+    descriptionEn TEXT NOT NULL,
+    descriptionZh TEXT NOT NULL,
+    start TEXT NOT NULL,
+    end TEXT NOT NULL,
+    room TEXT NOT NULL,
+    speakers TEXT NOT NULL,
+    tags TEXT,
+    type TEXT,
+    broadcast TEXT,
+    liveUrl TEXT,
+    url TEXT,
+    coWriteUrl TEXT,
+    slide TEXT,
+    language TEXT,
+    qa TEXT,
+    record TEXT,
+    eventId TEXT NOT NULL,
+    FOREIGN KEY (eventId) REFERENCES EventConfigTable(id) ON DELETE CASCADE
+);
+
+CREATE INDEX idx_SessionTable_title ON SessionTable(titleEn, titleZh, eventId);
+
 -- Named queries for event table
 
 selectAllEvents:
@@ -52,3 +131,59 @@ DELETE FROM EventConfigTable WHERE id = :id;
 insertEventConfig:
 INSERT INTO EventConfigTable (id, logoUrl, nameEn, nameZh, eventStart, eventEnd, website, features, publishStart, publishEnd)
 VALUES (:id, :logoUrl, :nameEn, :nameZh, :eventStart, :eventEnd, :website, :features, :publishStart, :publishEnd);
+
+-- Named queries for room table
+
+insertRoom:
+INSERT INTO RoomTable (id, nameEn, nameZh, eventId) VALUES (:id, :nameEn, :nameZh, :eventId);
+
+selectAllRooms:
+SELECT * FROM RoomTable WHERE eventId = :eventId;
+
+deleteAllRooms:
+DELETE FROM RoomTable WHERE eventId = :eventId;
+
+-- Named queries for tag table
+
+insertTag:
+INSERT INTO TagTable (id, nameEn, nameZh, eventId) VALUES (:id, :nameEn, :nameZh, :eventId);
+
+selectAllTags:
+SELECT * FROM TagTable WHERE eventId = :eventId;
+
+deleteAllTags:
+DELETE FROM TagTable WHERE eventId = :eventId;
+
+-- Named queries for session type table
+
+insertSessionType:
+INSERT INTO SessionTypeTable (id, nameEn, nameZh, eventId) VALUES (:id, :nameEn, :nameZh, :eventId);
+
+selectAllSessionTypes:
+SELECT * FROM SessionTypeTable WHERE eventId = :eventId;
+
+deleteAllSessionTypes:
+DELETE FROM SessionTypeTable WHERE eventId = :eventId;
+
+-- Named queries for speaker table
+
+selectAllSpeakers:
+SELECT * FROM SpeakerTable WHERE eventId = :eventId;
+
+deleteAllSpeakers:
+DELETE FROM SpeakerTable WHERE eventId = :eventId;
+
+insertSpeaker:
+INSERT INTO SpeakerTable (id, avatarUrl, nameEn, nameZh, bioEn, bioZh, eventId) VALUES (:id, :avatarUrl, :nameEn, :nameZh, :bioEn, :bioZh, :eventId);
+
+-- Named queries for session table
+
+selectAllSessions:
+SELECT * FROM SessionTable WHERE eventId = :eventId;
+
+deleteAllSessions:
+DELETE FROM SessionTable WHERE eventId = :eventId;
+
+insertSession:
+INSERT INTO SessionTable (id, titleEn, titleZh, descriptionEn, descriptionZh, start, end, room, speakers, tags, type, broadcast, liveUrl, url, coWriteUrl, slide, language, qa, record, eventId)
+VALUES (:id, :titleEn, :titleZh, :descriptionEn, :descriptionZh, :start, :end, :room, :speakers, :tags, :type, :broadcast, :liveUrl, :url, :coWriteUrl, :slide, :language, :qa, :record, :eventId);

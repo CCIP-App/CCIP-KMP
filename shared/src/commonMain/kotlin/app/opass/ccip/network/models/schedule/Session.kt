@@ -13,23 +13,25 @@ import kotlinx.serialization.Serializable
 data class Session(
     val end: String,
     val id: String,
-    val language: Language?,
-    val qa: String?,
-    val record: String?,
+    val language: String? = null,
+    val qa: String? = null,
+    val record: String? = null,
     val room: String,
-    val slide: String?,
+    val slide: String? = null,
     val speakers: List<String>,
     val start: String,
-    val tags: List<String>?,
-    val type: String?,
-    val broadcast: List<String>?,
-    val live: String?,
+    val tags: List<String>? = emptyList(),
+    val type: String? = null,
+    val broadcast: List<String>? = emptyList(),
+
+    @SerialName("live")
+    val liveUrl: String? = null,
 
     @SerialName("uri")
-    val url: String?,
+    val url: String? = null,
 
     @SerialName("co_write")
-    val coWrite: String?,
+    val coWriteUrl: String? = null,
 
     @SerialName("en")
     val _en: Localized,

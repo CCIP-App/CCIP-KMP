@@ -11,7 +11,10 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Speaker(
-    val avatar: String,
+
+    @SerialName("avatar")
+    val avatarUrl: String,
+
     val id: String,
 
     @SerialName("en")

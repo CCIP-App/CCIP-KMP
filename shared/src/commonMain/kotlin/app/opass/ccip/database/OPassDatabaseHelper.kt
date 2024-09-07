@@ -6,10 +6,15 @@
 package app.opass.ccip.database
 
 import app.opass.ccip.network.models.common.DateTime
+import app.opass.ccip.network.models.common.En
+import app.opass.ccip.network.models.common.LocalizedObject
 import app.opass.ccip.network.models.common.LocalizedString
+import app.opass.ccip.network.models.common.Zh
 import app.opass.ccip.network.models.event.Event
 import app.opass.ccip.network.models.eventconfig.EventConfig
 import app.opass.ccip.network.models.eventconfig.Feature
+import app.opass.ccip.network.models.schedule.Session
+import app.opass.ccip.network.models.schedule.Speaker
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.withContext
@@ -84,6 +89,180 @@ internal class OPassDatabaseHelper {
                     publishStart = eventConfig.publish.start,
                     publishEnd = eventConfig.publish.end
                 )
+            }
+        }
+    }
+
+    suspend fun getRooms(eventId: String): List<LocalizedObject> {
+        return withContext(Dispatchers.IO) {
+            dbQuery.selectAllRooms(eventId).executeAsList().map {
+                LocalizedObject(
+                    id = it.id,
+                    _en = En(name = it.nameEn),
+                    _zh = Zh(name = it.nameZh)
+                )
+            }
+        }
+    }
+
+    suspend fun addRooms(eventId: String, rooms: List<LocalizedObject>) {
+        withContext(Dispatchers.IO) {
+            dbQuery.transaction {
+                dbQuery.deleteAllRooms(eventId = eventId)
+                rooms.forEach {
+                    dbQuery.insertRoom(
+                        id = it.id,
+                        nameEn = it._en.name,
+                        nameZh = it._zh.name,
+                        eventId = eventId
+                    )
+                }
+            }
+        }
+    }
+
+    suspend fun getTags(eventId: String): List<LocalizedObject> {
+        return withContext(Dispatchers.IO) {
+            dbQuery.selectAllTags(eventId).executeAsList().map {
+                LocalizedObject(
+                    id = it.id,
+                    _en = En(name = it.nameEn),
+                    _zh = Zh(name = it.nameZh)
+                )
+            }
+        }
+    }
+
+    suspend fun addTags(eventId: String, tags: List<LocalizedObject>) {
+        withContext(Dispatchers.IO) {
+            dbQuery.transaction {
+                dbQuery.deleteAllTags(eventId = eventId)
+                tags.forEach {
+                    dbQuery.insertTag(
+                        id = it.id,
+                        nameEn = it._en.name,
+                        nameZh = it._zh.name,
+                        eventId = eventId
+                    )
+                }
+            }
+        }
+    }
+
+    suspend fun getSessionTypes(eventId: String): List<LocalizedObject> {
+        return withContext(Dispatchers.IO) {
+            dbQuery.selectAllSessionTypes(eventId).executeAsList().map {
+                LocalizedObject(
+                    id = it.id,
+                    _en = En(name = it.nameEn),
+                    _zh = Zh(name = it.nameZh)
+                )
+            }
+        }
+    }
+
+    suspend fun addSessionTypes(eventId: String, sessionTypes: List<LocalizedObject>) {
+        withContext(Dispatchers.IO) {
+            dbQuery.transaction {
+                dbQuery.deleteAllSessionTypes(eventId = eventId)
+                sessionTypes.forEach {
+                    dbQuery.insertSessionType(
+                        id = it.id,
+                        nameEn = it._en.name,
+                        nameZh = it._zh.name,
+                        eventId = eventId
+                    )
+                }
+            }
+        }
+    }
+
+    suspend fun getSpeakers(eventId: String): List<Speaker> {
+        return withContext(Dispatchers.IO) {
+            dbQuery.selectAllSpeakers(eventId).executeAsList().map {
+                Speaker(
+                    id = it.id,
+                    avatarUrl = it.avatarUrl,
+                    _en = Speaker.Localized(bio = it.bioEn, name = it.nameEn),
+                    _zh = Speaker.Localized(bio = it.bioZh, name = it.nameZh)
+                )
+            }
+        }
+    }
+
+    suspend fun addSpeakers(eventId: String, speakers: List<Speaker>) {
+        withContext(Dispatchers.IO) {
+            dbQuery.transaction {
+                dbQuery.deleteAllSpeakers(eventId)
+                speakers.forEach {
+                    dbQuery.insertSpeaker(
+                        id = it.id,
+                        avatarUrl = it.avatarUrl,
+                        nameEn = it._en.name,
+                        nameZh = it._zh.name,
+                        bioEn = it._en.bio,
+                        bioZh = it._zh.bio,
+                        eventId = eventId
+                    )
+                }
+            }
+        }
+    }
+
+    suspend fun getSessions(eventId: String): List<Session> {
+        return withContext(Dispatchers.IO) {
+            dbQuery.selectAllSessions(eventId).executeAsList().map {
+                Session(
+                    id = it.id,
+                    _en = Session.Localized(description = it.descriptionEn, title = it.titleEn),
+                    _zh = Session.Localized(description = it.descriptionZh, title = it.titleZh),
+                    start = it.start,
+                    end = it.end,
+                    room = it.room,
+                    speakers = Json.decodeFromString<List<String>>(it.speakers),
+                    language = it.language,
+                    qa = it.qa,
+                    record = it.record,
+                    slide = it.slide,
+                    tags = it.tags?.let { t -> Json.decodeFromString<List<String>>(t) } ?: emptyList(),
+                    type = it.type,
+                    broadcast = it.broadcast?.let { b -> Json.decodeFromString<List<String>>(b) } ?: emptyList(),
+                    liveUrl = it.liveUrl,
+                    url = it.url,
+                    coWriteUrl = it.coWriteUrl
+                )
+            }
+        }
+    }
+
+    suspend fun addSessions(eventId: String, sessions: List<Session>) {
+        withContext(Dispatchers.IO) {
+            dbQuery.transaction {
+                dbQuery.deleteAllSessions(eventId)
+                sessions.forEach {
+                    dbQuery.insertSession(
+                        id = it.id,
+                        titleEn = it._en.title,
+                        titleZh = it._zh.title,
+                        descriptionEn = it._en.description,
+                        descriptionZh = it._zh.description,
+                        start = it.start,
+                        end = it.end,
+                        room = it.room,
+                        speakers = Json.encodeToString(it.speakers),
+                        language = it.language,
+                        qa = it.qa,
+                        record = it.record,
+                        slide = it.slide,
+                        tags = Json.encodeToString(it.tags ?: emptyList()),
+                        type = it.type,
+                        broadcast = Json.encodeToString(it.broadcast ?: emptyList()),
+                        liveUrl = it.liveUrl,
+                        url = it.url,
+                        coWriteUrl = it.coWriteUrl,
+                        eventId = eventId
+                    )
+                }
             }
         }
     }

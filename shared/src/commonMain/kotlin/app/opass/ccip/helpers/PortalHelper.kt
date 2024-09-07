@@ -9,6 +9,8 @@ import app.opass.ccip.database.OPassDatabaseHelper
 import app.opass.ccip.network.PortalClient
 import app.opass.ccip.network.models.event.Event
 import app.opass.ccip.network.models.eventconfig.EventConfig
+import app.opass.ccip.network.models.eventconfig.FeatureType
+import app.opass.ccip.network.models.schedule.Schedule
 
 /**
  * Helper class to interact with OPass portal
@@ -42,6 +44,38 @@ class PortalHelper {
             cachedEventConfig
         } else {
             client.getEventConfig(eventId).also { dbHelper.addEventConfig(it) }
+        }
+    }
+
+    /**
+     * Fetches [Schedule] for specified id from Event's website
+     * @param eventId ID of the event
+     * @param forceReload Whether to ignore cache, false by default
+     * @return null if eventConfig hasn't been cached yet or event doesn't have a schedule; Schedule otherwise
+     */
+    suspend fun getSchedule(eventId: String, forceReload: Boolean = false): Schedule? {
+        val eventConfig = dbHelper.getEventConfig(eventId) ?: return null
+        val feat = eventConfig.features.find { f -> f.type == FeatureType.SCHEDULE } ?: return null
+
+        val cachedSchedule = Schedule(
+            rooms = dbHelper.getRooms(eventId),
+            tags = dbHelper.getTags(eventId),
+            sessionTypes = dbHelper.getSessionTypes(eventId),
+            speakers = dbHelper.getSpeakers(eventId),
+            sessions = dbHelper.getSessions(eventId)
+        )
+        return if (cachedSchedule.sessions.isNotEmpty() && !forceReload) {
+            cachedSchedule
+        } else {
+            client.getEventSchedule(feat.url!!).also {
+                dbHelper.apply {
+                    addRooms(eventConfig.id, it.rooms)
+                    addTags(eventConfig.id, it.tags)
+                    addSessionTypes(eventConfig.id, it.sessionTypes)
+                    addSpeakers(eventConfig.id, it.speakers)
+                    addSessions(eventConfig.id, it.sessions)
+                }
+            }
         }
     }
 }
