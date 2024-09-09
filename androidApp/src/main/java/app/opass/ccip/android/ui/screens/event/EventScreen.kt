@@ -103,7 +103,9 @@ fun Screen.Event.EventScreen(navHostController: NavHostController, viewModel: Ma
                     viewModel = viewModel,
                     isPullToRefreshEnabled = false,
                     containerColor = BottomSheetDefaults.ContainerColor
-                )
+                ) {
+                    shouldShowBottomSheet = false
+                }
             }
         }
 

@@ -49,6 +49,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.edit
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import app.opass.ccip.android.MainViewModel
 import app.opass.ccip.android.R
@@ -66,7 +67,8 @@ fun Screen.EventPreview.EventPreviewScreen(
     navHostController: NavHostController,
     viewModel: MainViewModel,
     isPullToRefreshEnabled: Boolean = true,
-    containerColor: Color = MaterialTheme.colorScheme.background
+    containerColor: Color = MaterialTheme.colorScheme.background,
+    onEventSelected: () -> Unit = {}
 ) {
     var query by rememberSaveable { mutableStateOf("") }
     var isExpanded by rememberSaveable { mutableStateOf(false) }
@@ -89,8 +91,14 @@ fun Screen.EventPreview.EventPreviewScreen(
             } else {
                 items(items = list!!, key = { e -> e.id }) { event: Event ->
                     EventPreviewItem(name = event.name, logoUrl = event.logoUrl) {
+                        onEventSelected()
                         sharedPreferences.edit { putString(CURRENT_EVENT_ID, event.id) }
-                        navHostController.navigate(Screen.Event(event.id))
+                        navHostController.navigate(Screen.Event(event.id)) {
+                            popUpTo(navHostController.graph.findStartDestination().id) {
+                                inclusive = true
+                            }
+                            launchSingleTop = true
+                        }
                     }
                 }
             }
