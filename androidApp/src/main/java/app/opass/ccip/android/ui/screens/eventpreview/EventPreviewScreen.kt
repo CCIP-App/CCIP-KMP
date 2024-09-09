@@ -222,7 +222,7 @@ fun EventPreviewItem(
             )
             Text(
                 text = name,
-                fontSize = 20.sp,
+                fontSize = 18.sp,
                 modifier = Modifier.shimmer(isLoading),
                 maxLines = 1
             )
