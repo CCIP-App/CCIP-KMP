@@ -19,25 +19,18 @@ import kotlinx.serialization.json.Json
 internal class PortalClient {
 
     private val BASE_URL = "https://portal.opass.app"
+    private val json = Json {
+        prettyPrint = true
+        ignoreUnknownKeys = true
+        coerceInputValues = true
+    }
 
     private val client = HttpClient {
-        defaultRequest {
-            url(BASE_URL)
-        }
-        install(ContentNegotiation) {
-            json(Json {
-                prettyPrint = true
-                ignoreUnknownKeys = true
-            })
-        }
+        defaultRequest { url(BASE_URL) }
+        install(ContentNegotiation) { json(json) }
     }
     private val universalClient = HttpClient {
-        install(ContentNegotiation) {
-            json(Json {
-                prettyPrint = true
-                ignoreUnknownKeys = true
-            })
-        }
+        install(ContentNegotiation) { json(json) }
     }
 
     suspend fun getEvents(): List<Event> {

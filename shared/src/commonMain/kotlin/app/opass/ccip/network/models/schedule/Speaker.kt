@@ -8,6 +8,7 @@ package app.opass.ccip.network.models.schedule
 import app.opass.ccip.extensions.localized
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlin.uuid.Uuid
 
 @Serializable
 data class Speaker(
@@ -15,7 +16,7 @@ data class Speaker(
     @SerialName("avatar")
     val avatarUrl: String,
 
-    val id: String,
+    val id: String = Uuid.random().toString(),
 
     @SerialName("en")
     val _en: Localized,

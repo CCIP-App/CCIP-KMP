@@ -34,7 +34,7 @@ kotlin {
 
     @OptIn(ExperimentalKotlinGradlePluginApi::class)
     compilerOptions {
-        freeCompilerArgs.add("-Xexpect-actual-classes")
+        freeCompilerArgs.addAll("-Xexpect-actual-classes", "-opt-in=kotlin.uuid.ExperimentalUuidApi")
     }
 
     sourceSets {
