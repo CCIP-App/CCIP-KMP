@@ -9,17 +9,16 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.viewModels
 import androidx.navigation.compose.rememberNavController
 import app.opass.ccip.android.ui.extensions.sharedPreferences
 import app.opass.ccip.android.ui.navigation.Screen
 import app.opass.ccip.android.ui.navigation.SetupNavGraph
 import app.opass.ccip.android.ui.theme.OPassTheme
 import app.opass.ccip.android.utils.Preferences.CURRENT_EVENT_ID
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-
-    private val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
@@ -32,7 +31,6 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
 
                 SetupNavGraph(
-                    viewModel = viewModel,
                     navHostController = navController,
                     startDestination = if (currentEventId.isNullOrBlank()) {
                         Screen.EventPreview

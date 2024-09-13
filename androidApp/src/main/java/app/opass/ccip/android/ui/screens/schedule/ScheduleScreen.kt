@@ -31,17 +31,21 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
-import app.opass.ccip.android.MainViewModel
 import app.opass.ccip.android.ui.components.TopAppBar
 import app.opass.ccip.android.ui.extensions.shimmer
 import app.opass.ccip.android.ui.navigation.Screen
+import app.opass.ccip.android.ui.screens.event.EventViewModel
 import java.text.SimpleDateFormat
 import java.util.Locale
 
 @Composable
-fun Screen.Schedule.ScheduleScreen(navHostController: NavHostController, viewModel: MainViewModel) {
+fun Screen.Schedule.ScheduleScreen(
+    navHostController: NavHostController,
+    viewModel: EventViewModel = hiltViewModel()
+) {
     val schedule by viewModel.schedule.collectAsStateWithLifecycle()
 
     LaunchedEffect(key1 = Unit) { viewModel.getSchedule(this@ScheduleScreen.id) }

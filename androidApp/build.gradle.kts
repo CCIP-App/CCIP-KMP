@@ -6,8 +6,10 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
+    alias(libs.plugins.googleKSP)
     alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.googleHiltAndroid)
 }
 
 android {
@@ -79,4 +81,9 @@ dependencies {
 
     // Material
     implementation(libs.google.material.components)
+
+    // Hilt
+    ksp(libs.google.hilt.android.compiler)
+    implementation(libs.androidx.hilt.navigation)
+    implementation(libs.google.hilt.android.core)
 }

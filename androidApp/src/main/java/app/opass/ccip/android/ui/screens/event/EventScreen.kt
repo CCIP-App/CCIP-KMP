@@ -51,10 +51,10 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.util.fastForEach
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.window.core.layout.WindowWidthSizeClass
-import app.opass.ccip.android.MainViewModel
 import app.opass.ccip.android.R
 import app.opass.ccip.android.ui.components.TopAppBar
 import app.opass.ccip.android.ui.extensions.browse
@@ -68,7 +68,10 @@ import coil.request.ImageRequest
 
 @Composable
 @OptIn(ExperimentalLayoutApi::class, ExperimentalMaterial3Api::class)
-fun Screen.Event.EventScreen(navHostController: NavHostController, viewModel: MainViewModel) {
+fun Screen.Event.EventScreen(
+    navHostController: NavHostController,
+    viewModel: EventViewModel = hiltViewModel()
+) {
 
     val windowWidth = currentWindowAdaptiveInfo().windowSizeClass.windowWidthSizeClass
     val context = LocalContext.current
@@ -100,7 +103,6 @@ fun Screen.Event.EventScreen(navHostController: NavHostController, viewModel: Ma
             ModalBottomSheet(onDismissRequest = { shouldShowBottomSheet = false }) {
                 Screen.EventPreview.EventPreviewScreen(
                     navHostController = navHostController,
-                    viewModel = viewModel,
                     isPullToRefreshEnabled = false,
                     containerColor = BottomSheetDefaults.ContainerColor
                 ) {

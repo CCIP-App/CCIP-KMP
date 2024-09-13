@@ -8,22 +8,21 @@ package app.opass.ccip.android.ui.navigation
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.ViewModel
+import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
-import app.opass.ccip.android.MainViewModel
 import app.opass.ccip.android.ui.screens.event.EventScreen
 import app.opass.ccip.android.ui.screens.eventpreview.EventPreviewScreen
 import app.opass.ccip.android.ui.screens.schedule.ScheduleScreen
 
 @Composable
-fun SetupNavGraph(
-    navHostController: NavHostController,
-    startDestination: Screen,
-    viewModel: MainViewModel
-) {
-
+fun SetupNavGraph(navHostController: NavHostController, startDestination: Screen) {
     NavHost(
         navController = navHostController,
         startDestination = startDestination,
@@ -31,15 +30,27 @@ fun SetupNavGraph(
         exitTransition = { ExitTransition.None }
     ) {
         composable<Screen.EventPreview> {
-            Screen.EventPreview.EventPreviewScreen(navHostController, viewModel)
+            Screen.EventPreview.EventPreviewScreen(navHostController)
         }
 
         composable<Screen.Event> { backStackEntry ->
-            backStackEntry.toRoute<Screen.Event>().EventScreen(navHostController, viewModel)
+            backStackEntry.toRoute<Screen.Event>().EventScreen(
+                navHostController,
+                backStackEntry.sharedViewModel(navHostController)
+            )
         }
 
         composable<Screen.Schedule> { backStackEntry ->
-            backStackEntry.toRoute<Screen.Schedule>().ScheduleScreen(navHostController, viewModel)
+            backStackEntry.toRoute<Screen.Schedule>().ScheduleScreen(
+                navHostController,
+                backStackEntry.sharedViewModel(navHostController)
+            )
         }
     }
+}
+
+@Composable
+inline fun <reified T : ViewModel> NavBackStackEntry.sharedViewModel(navController: NavController): T {
+    val parentEntry = remember (this) { navController.getBackStackEntry(this.destination.route!!) }
+    return hiltViewModel<T>(parentEntry)
 }

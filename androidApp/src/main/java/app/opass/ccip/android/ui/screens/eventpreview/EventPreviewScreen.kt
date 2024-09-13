@@ -48,10 +48,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.edit
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
-import app.opass.ccip.android.MainViewModel
 import app.opass.ccip.android.R
 import app.opass.ccip.android.ui.extensions.sharedPreferences
 import app.opass.ccip.android.ui.extensions.shimmer
@@ -65,7 +65,7 @@ import coil.request.ImageRequest
 @OptIn(ExperimentalMaterial3Api::class)
 fun Screen.EventPreview.EventPreviewScreen(
     navHostController: NavHostController,
-    viewModel: MainViewModel,
+    viewModel: EventPreviewViewModel = hiltViewModel(),
     isPullToRefreshEnabled: Boolean = true,
     containerColor: Color = MaterialTheme.colorScheme.background,
     onEventSelected: () -> Unit = {}
