@@ -25,4 +25,5 @@
 
     <!-- ScheduleScreen -->
     <string name="schedule">Schedule</string>
+    <string name="na" translatable="false">N/A</string>
 </resources>

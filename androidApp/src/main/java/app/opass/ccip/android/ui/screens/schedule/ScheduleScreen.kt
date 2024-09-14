@@ -40,6 +40,7 @@ import androidx.compose.ui.util.fastForEachIndexed
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
+import app.opass.ccip.android.R
 import app.opass.ccip.android.ui.components.TopAppBar
 import app.opass.ccip.android.ui.extensions.shimmer
 import app.opass.ccip.android.ui.navigation.Screen
@@ -141,7 +142,7 @@ fun SessionPreviewItem(
     ) {
         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
             Text(
-                text = room,
+                text = room.ifBlank { stringResource(R.string.na) },
                 color = MaterialTheme.colorScheme.onPrimary,
                 fontSize = 12.sp,
                 modifier = Modifier
