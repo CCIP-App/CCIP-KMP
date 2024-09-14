@@ -5,14 +5,14 @@
 
 package app.opass.ccip.database
 
-import app.opass.ccip.network.models.common.DateTime
-import app.opass.ccip.network.models.common.En
+import app.opass.ccip.extensions.toEvent
+import app.opass.ccip.extensions.toEventConfig
+import app.opass.ccip.extensions.toLocalizedObject
+import app.opass.ccip.extensions.toSession
+import app.opass.ccip.extensions.toSpeaker
 import app.opass.ccip.network.models.common.LocalizedObject
-import app.opass.ccip.network.models.common.LocalizedString
-import app.opass.ccip.network.models.common.Zh
 import app.opass.ccip.network.models.event.Event
 import app.opass.ccip.network.models.eventconfig.EventConfig
-import app.opass.ccip.network.models.eventconfig.Feature
 import app.opass.ccip.network.models.schedule.Session
 import app.opass.ccip.network.models.schedule.Speaker
 import kotlinx.coroutines.Dispatchers
@@ -20,7 +20,6 @@ import kotlinx.coroutines.IO
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.encodeToJsonElement
 
 internal class OPassDatabaseHelper {
 
@@ -33,13 +32,7 @@ internal class OPassDatabaseHelper {
 
     suspend fun getAllEvents(): List<Event> {
         return withContext(Dispatchers.IO) {
-            dbQuery.selectAllEvents().executeAsList().map {
-                Event(
-                    _name = LocalizedString(en = it.nameEn, zh = it.nameZh),
-                    id = it.id,
-                    logoUrl = it.logoUrl
-                )
-            }
+            dbQuery.selectAllEvents().executeAsList().map { it.toEvent() }
         }
     }
 
@@ -61,16 +54,8 @@ internal class OPassDatabaseHelper {
 
     suspend fun getEventConfig(eventId: String): EventConfig? {
         return withContext(Dispatchers.IO) {
-            val rawConfig = dbQuery.getEventConfig(eventId).executeAsOneOrNull() ?: return@withContext null
-            EventConfig(
-                _name = LocalizedString(en = rawConfig.nameEn, rawConfig.nameZh),
-                id = rawConfig.id,
-                logoUrl = rawConfig.logoUrl,
-                dateTime = DateTime(end = rawConfig.eventEnd, start = rawConfig.eventStart),
-                website = rawConfig.website,
-                features = Json.decodeFromString<List<Feature>>(rawConfig.features),
-                publish = DateTime(end = rawConfig.publishEnd, start = rawConfig.publishStart)
-            )
+            dbQuery.getEventConfig(eventId).executeAsOneOrNull()?.toEventConfig()
+                ?: return@withContext null
         }
     }
 
@@ -96,13 +81,7 @@ internal class OPassDatabaseHelper {
 
     suspend fun getRooms(eventId: String): List<LocalizedObject> {
         return withContext(Dispatchers.IO) {
-            dbQuery.selectAllRooms(eventId).executeAsList().map {
-                LocalizedObject(
-                    id = it.id,
-                    _en = En(name = it.nameEn),
-                    _zh = Zh(name = it.nameZh)
-                )
-            }
+            dbQuery.selectAllRooms(eventId).executeAsList().map { it.toLocalizedObject()!! }
         }
     }
 
@@ -124,13 +103,7 @@ internal class OPassDatabaseHelper {
 
     suspend fun getTags(eventId: String): List<LocalizedObject> {
         return withContext(Dispatchers.IO) {
-            dbQuery.selectAllTags(eventId).executeAsList().map {
-                LocalizedObject(
-                    id = it.id,
-                    _en = En(name = it.nameEn),
-                    _zh = Zh(name = it.nameZh)
-                )
-            }
+            dbQuery.selectAllTags(eventId).executeAsList().map { it.toLocalizedObject()!! }
         }
     }
 
@@ -152,13 +125,7 @@ internal class OPassDatabaseHelper {
 
     suspend fun getSessionTypes(eventId: String): List<LocalizedObject> {
         return withContext(Dispatchers.IO) {
-            dbQuery.selectAllSessionTypes(eventId).executeAsList().map {
-                LocalizedObject(
-                    id = it.id,
-                    _en = En(name = it.nameEn),
-                    _zh = Zh(name = it.nameZh)
-                )
-            }
+            dbQuery.selectAllSessionTypes(eventId).executeAsList().map { it.toLocalizedObject()!! }
         }
     }
 
@@ -180,14 +147,7 @@ internal class OPassDatabaseHelper {
 
     suspend fun getSpeakers(eventId: String): List<Speaker> {
         return withContext(Dispatchers.IO) {
-            dbQuery.selectAllSpeakers(eventId).executeAsList().map {
-                Speaker(
-                    id = it.id,
-                    avatarUrl = it.avatarUrl,
-                    _en = Speaker.Localized(bio = it.bioEn, name = it.nameEn),
-                    _zh = Speaker.Localized(bio = it.bioZh, name = it.nameZh)
-                )
-            }
+            dbQuery.selectAllSpeakers(eventId).executeAsList().map { it.toSpeaker() }
         }
     }
 
@@ -212,27 +172,7 @@ internal class OPassDatabaseHelper {
 
     suspend fun getSessions(eventId: String): List<Session> {
         return withContext(Dispatchers.IO) {
-            dbQuery.selectAllSessions(eventId).executeAsList().map {
-                Session(
-                    _id = Json.encodeToJsonElement(it.id),
-                    _en = Session.Localized(description = it.descriptionEn, title = it.titleEn),
-                    _zh = Session.Localized(description = it.descriptionZh, title = it.titleZh),
-                    start = it.start,
-                    end = it.end,
-                    room = it.room,
-                    speakers = Json.decodeFromString<List<String>>(it.speakers),
-                    language = it.language,
-                    qa = it.qa,
-                    record = it.record,
-                    slide = it.slide,
-                    tags = it.tags?.let { t -> Json.decodeFromString<List<String>>(t) } ?: emptyList(),
-                    type = it.type,
-                    broadcast = it.broadcast?.let { b -> Json.decodeFromString<List<String>>(b) } ?: emptyList(),
-                    liveUrl = it.liveUrl,
-                    url = it.url,
-                    coWriteUrl = it.coWriteUrl
-                )
-            }
+            dbQuery.selectAllSessions(eventId).executeAsList().map { it.toSession() }
         }
     }
 
