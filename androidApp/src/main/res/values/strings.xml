@@ -26,4 +26,7 @@
     <!-- ScheduleScreen -->
     <string name="schedule">Schedule</string>
     <string name="na" translatable="false">N/A</string>
+
+    <!-- SessionScreen -->
+    <string name="session">Session</string>
 </resources>

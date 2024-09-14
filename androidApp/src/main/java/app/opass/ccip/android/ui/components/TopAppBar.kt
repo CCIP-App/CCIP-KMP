@@ -21,7 +21,7 @@ import androidx.navigation.NavHostController
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 fun TopAppBar(
-    title: String,
+    title: String = String(),
     navHostController: NavHostController? = null,
     navigationIcon: @Composable () -> Unit = { DefaultNavigationIcon(navHostController) },
     actions: @Composable() (RowScope.() -> Unit) = {}

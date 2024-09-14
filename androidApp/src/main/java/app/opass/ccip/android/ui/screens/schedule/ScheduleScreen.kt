@@ -56,7 +56,7 @@ fun Screen.Schedule.ScheduleScreen(
     val context = LocalContext.current
     val schedule by viewModel.schedule.collectAsStateWithLifecycle()
 
-    LaunchedEffect(key1 = Unit) { viewModel.getSchedule(this@ScheduleScreen.id) }
+    LaunchedEffect(key1 = Unit) { viewModel.getSchedule(this@ScheduleScreen.eventId) }
 
     @Composable
     fun LoadSessionPreviewItems(
@@ -105,7 +105,11 @@ fun Screen.Schedule.ScheduleScreen(
                                 DateUtils.FORMAT_SHOW_TIME
                             ),
                             room = session.room
-                        )
+                        ) {
+                            navHostController.navigate(
+                                Screen.Session(this@ScheduleScreen.eventId, session.id)
+                            )
+                        }
                     }
                 }
             }
@@ -151,11 +155,10 @@ fun SessionPreviewItem(
         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
             Text(
                 text = room.ifBlank { stringResource(R.string.na) },
-                color = MaterialTheme.colorScheme.onPrimary,
                 fontSize = 12.sp,
                 modifier = Modifier
                     .clip(RoundedCornerShape(8.dp))
-                    .background(color = MaterialTheme.colorScheme.primary)
+                    .background(color = MaterialTheme.colorScheme.secondaryContainer)
                     .padding(horizontal = 10.dp)
                     .shimmer(isLoading),
             )
