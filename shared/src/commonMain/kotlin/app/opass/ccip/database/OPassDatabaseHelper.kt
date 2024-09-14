@@ -145,6 +145,12 @@ internal class OPassDatabaseHelper {
         }
     }
 
+    suspend fun getSpeaker(eventId: String, speakerId: String): Speaker? {
+        return withContext(Dispatchers.IO) {
+            dbQuery.selectSpeaker(eventId, speakerId).executeAsOneOrNull()?.toSpeaker()
+        }
+    }
+
     suspend fun getSpeakers(eventId: String): List<Speaker> {
         return withContext(Dispatchers.IO) {
             dbQuery.selectAllSpeakers(eventId).executeAsList().map { it.toSpeaker() }
@@ -167,6 +173,12 @@ internal class OPassDatabaseHelper {
                     )
                 }
             }
+        }
+    }
+
+    suspend fun getSession(eventId: String, sessionId: String): Session? {
+        return withContext(Dispatchers.IO) {
+            dbQuery.selectSession(eventId, sessionId).executeAsOneOrNull()?.toSession()
         }
     }
 

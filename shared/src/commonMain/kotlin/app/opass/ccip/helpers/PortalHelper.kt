@@ -11,6 +11,8 @@ import app.opass.ccip.network.models.event.Event
 import app.opass.ccip.network.models.eventconfig.EventConfig
 import app.opass.ccip.network.models.eventconfig.FeatureType
 import app.opass.ccip.network.models.schedule.Schedule
+import app.opass.ccip.network.models.schedule.Session
+import app.opass.ccip.network.models.schedule.Speaker
 
 /**
  * Helper class to interact with OPass portal
@@ -77,5 +79,25 @@ class PortalHelper {
                 }
             }
         }
+    }
+
+    /**
+     * Fetches [Schedule] for specified id from Event's website
+     * @param eventId ID of the event
+     * @param speakerId ID of the speaker
+     * @return null if schedule hasn't been cached yet; speaker otherwise
+     */
+    suspend fun getSpeaker(eventId: String, speakerId: String): Speaker? {
+        return dbHelper.getSpeaker(eventId, speakerId)
+    }
+
+    /**
+     * Fetches [Schedule] for specified id from Event's website
+     * @param eventId ID of the event
+     * @param sessionId ID of the session
+     * @return null if schedule hasn't been cached yet; session otherwise
+     */
+    suspend fun getSession(eventId: String, sessionId: String): Session? {
+        return dbHelper.getSession(eventId, sessionId)
     }
 }

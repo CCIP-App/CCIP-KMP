@@ -167,6 +167,9 @@ DELETE FROM SessionTypeTable WHERE eventId = :eventId;
 
 -- Named queries for speaker table
 
+selectSpeaker:
+SELECT * FROM SpeakerTable WHERE eventId = :eventId AND id = :id;
+
 selectAllSpeakers:
 SELECT * FROM SpeakerTable WHERE eventId = :eventId;
 
@@ -177,6 +180,9 @@ insertSpeaker:
 INSERT INTO SpeakerTable (id, avatarUrl, nameEn, nameZh, bioEn, bioZh, eventId) VALUES (:id, :avatarUrl, :nameEn, :nameZh, :bioEn, :bioZh, :eventId);
 
 -- Named queries for session table
+
+selectSession:
+SELECT * FROM SessionTable WHERE eventId = :eventId AND id = :id;
 
 selectAllSessions:
 SELECT * FROM SessionTable WHERE eventId = :eventId ORDER BY start ASC;
