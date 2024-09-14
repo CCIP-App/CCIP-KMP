@@ -179,7 +179,7 @@ INSERT INTO SpeakerTable (id, avatarUrl, nameEn, nameZh, bioEn, bioZh, eventId) 
 -- Named queries for session table
 
 selectAllSessions:
-SELECT * FROM SessionTable WHERE eventId = :eventId;
+SELECT * FROM SessionTable WHERE eventId = :eventId ORDER BY start ASC;
 
 deleteAllSessions:
 DELETE FROM SessionTable WHERE eventId = :eventId;
