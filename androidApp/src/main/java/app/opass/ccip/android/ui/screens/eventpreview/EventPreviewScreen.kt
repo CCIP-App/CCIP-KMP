@@ -9,6 +9,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -79,7 +80,7 @@ fun Screen.EventPreview.EventPreviewScreen(
 
     @Composable
     fun LoadEventPreviewItems(list: List<Event>?, modifier: Modifier = Modifier) {
-        LazyColumn(modifier = modifier) {
+        LazyColumn(modifier = modifier, contentPadding = PaddingValues(horizontal = 20.dp)) {
             if (events.isNullOrEmpty()) {
                 items(20) {
                     EventPreviewItem(
@@ -195,8 +196,10 @@ fun EventPreviewItem(
 ) {
     Row(
         modifier = Modifier
+            .padding(10.dp)
+            .clip(RoundedCornerShape(10.dp))
             .clickable { onClicked() }
-            .padding(20.dp)
+            .padding(start = 10.dp, top = 10.dp, bottom = 10.dp)
             .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween

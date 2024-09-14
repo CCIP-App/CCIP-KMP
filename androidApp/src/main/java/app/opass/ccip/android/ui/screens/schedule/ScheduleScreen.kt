@@ -132,8 +132,10 @@ fun SessionPreviewItem(
 
     Column(
         modifier = Modifier
+            .padding(5.dp)
+            .clip(RoundedCornerShape(10.dp))
             .clickable { onClicked() }
-            .padding(20.dp)
+            .padding(15.dp)
             .fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(5.dp)
     ) {

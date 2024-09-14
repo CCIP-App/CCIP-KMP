@@ -116,6 +116,7 @@ fun Screen.Event.EventScreen(
                 .fillMaxSize()
                 .padding(paddingValues)
                 .verticalScroll(rememberScrollState()),
+            verticalArrangement = Arrangement.spacedBy(20.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             HeaderImage(logoUrl = eventConfig?.logoUrl)
@@ -273,7 +274,8 @@ fun FeatureItem(
             .padding(horizontal = 8.dp)
             .width(75.dp)
             .clip(RoundedCornerShape(10.dp))
-            .clickable(enabled = isEnabled) { onClicked() },
+            .clickable(enabled = isEnabled) { onClicked() }
+            .padding(vertical = 5.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
