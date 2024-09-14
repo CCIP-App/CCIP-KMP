@@ -20,6 +20,7 @@ import kotlinx.coroutines.IO
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.encodeToJsonElement
 
 internal class OPassDatabaseHelper {
 
@@ -213,7 +214,7 @@ internal class OPassDatabaseHelper {
         return withContext(Dispatchers.IO) {
             dbQuery.selectAllSessions(eventId).executeAsList().map {
                 Session(
-                    id = it.id,
+                    _id = Json.encodeToJsonElement(it.id),
                     _en = Session.Localized(description = it.descriptionEn, title = it.titleEn),
                     _zh = Session.Localized(description = it.descriptionZh, title = it.titleZh),
                     start = it.start,

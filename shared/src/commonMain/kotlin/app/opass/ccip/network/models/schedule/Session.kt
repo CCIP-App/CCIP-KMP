@@ -8,11 +8,15 @@ package app.opass.ccip.network.models.schedule
 import app.opass.ccip.extensions.localized
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonElement
 
 @Serializable
 data class Session(
     val end: String,
-    val id: String,
+
+    @SerialName("id")
+    val _id: JsonElement,
+
     val language: String? = null,
     val qa: String? = null,
     val record: String? = null,
@@ -39,6 +43,9 @@ data class Session(
     @SerialName("zh")
     val _zh: Localized
 ) {
+    val id: String
+        get() = _id.toString()
+
     val title: String
         get() = localized(_en.title, _zh.title)
 
@@ -47,7 +54,7 @@ data class Session(
 
     @Serializable
     data class Localized(
-        val description: String,
+        val description: String = String(),
         val title: String
     )
 }
