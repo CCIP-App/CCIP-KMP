@@ -178,7 +178,9 @@ internal class OPassDatabaseHelper {
 
     suspend fun getSession(eventId: String, sessionId: String): Session? {
         return withContext(Dispatchers.IO) {
-            dbQuery.selectSession(eventId, sessionId).executeAsOneOrNull()?.toSession()
+            dbQuery.selectSession(
+                eventId, Json.decodeFromString(sessionId)
+            ).executeAsOneOrNull()?.toSession()
         }
     }
 
