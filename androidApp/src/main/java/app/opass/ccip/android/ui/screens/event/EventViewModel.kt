@@ -16,9 +16,13 @@ import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
 
 @HiltViewModel
-class EventViewModel @Inject constructor(private val portalHelper: PortalHelper): ViewModel() {
+class EventViewModel @Inject constructor(
+    val sdf: SimpleDateFormat,
+    private val portalHelper: PortalHelper
+): ViewModel() {
 
     private val TAG = EventViewModel::class.java.simpleName
 

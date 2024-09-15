@@ -47,8 +47,6 @@ import app.opass.ccip.android.ui.navigation.Screen
 import app.opass.ccip.android.ui.screens.event.EventViewModel
 import app.opass.ccip.network.models.schedule.Session
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
-import java.util.Locale
 
 @Composable
 fun Screen.Schedule.ScheduleScreen(
@@ -91,11 +89,21 @@ fun Screen.Schedule.ScheduleScreen(
             }
             HorizontalPager(state = pagerState) { index ->
                 LazyColumn {
-                    items(items = sessions.getValue(tabData[index]), key = { s -> s.id  }) { session ->
+                    items(
+                        items = sessions.getValue(tabData[index]),
+                        key = { s -> s.id }) { session ->
                         SessionPreviewItem(
                             title = session.title,
-                            startDateTime = session.start,
-                            endDateTime = session.end,
+                            startTime = DateUtils.formatDateTime(
+                                context,
+                                viewModel.sdf.parse(session.start)!!.time,
+                                DateUtils.FORMAT_SHOW_TIME
+                            ),
+                            endTime = DateUtils.formatDateTime(
+                                context,
+                                viewModel.sdf.parse(session.end)!!.time,
+                                DateUtils.FORMAT_SHOW_TIME
+                            ),
                             room = session.room
                         )
                     }
@@ -112,7 +120,11 @@ fun Screen.Schedule.ScheduleScreen(
         LoadSessionPreviewItems(
             modifier = Modifier.padding(paddingValues),
             sessions = schedule?.sessions?.groupBy {
-                DateUtils.formatDateTime(context, getSDFTime(it.start), DateUtils.FORMAT_SHOW_DATE)
+                DateUtils.formatDateTime(
+                    context,
+                    viewModel.sdf.parse(it.start)!!.time,
+                    DateUtils.FORMAT_SHOW_DATE
+                )
             }
         )
     }
@@ -121,16 +133,12 @@ fun Screen.Schedule.ScheduleScreen(
 @Composable
 fun SessionPreviewItem(
     title: String,
-    startDateTime: String,
-    endDateTime: String,
+    startTime: String,
+    endTime: String,
     room: String,
     isLoading: Boolean = false,
     onClicked: () -> Unit = {}
 ) {
-    val context = LocalContext.current
-    val startTime = DateUtils.formatDateTime(context, getSDFTime(startDateTime), DateUtils.FORMAT_SHOW_TIME)
-    val endTime = DateUtils.formatDateTime(context, getSDFTime(endDateTime), DateUtils.FORMAT_SHOW_TIME)
-
     Column(
         modifier = Modifier
             .padding(5.dp)
@@ -165,9 +173,4 @@ fun SessionPreviewItem(
             overflow = TextOverflow.Ellipsis
         )
     }
-}
-
-private fun getSDFTime(dateTime: String): Long {
-    val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZZZZ", Locale.getDefault())
-    return sdf.parse(dateTime)!!.time
 }
