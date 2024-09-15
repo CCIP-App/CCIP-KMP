@@ -13,6 +13,7 @@ import app.opass.ccip.extensions.toSpeaker
 import app.opass.ccip.network.models.common.LocalizedObject
 import app.opass.ccip.network.models.event.Event
 import app.opass.ccip.network.models.eventconfig.EventConfig
+import app.opass.ccip.network.models.schedule.Schedule
 import app.opass.ccip.network.models.schedule.Session
 import app.opass.ccip.network.models.schedule.Speaker
 import kotlinx.coroutines.Dispatchers
@@ -220,5 +221,15 @@ internal class OPassDatabaseHelper {
                 }
             }
         }
+    }
+
+    suspend fun getSchedule(eventId: String): Schedule {
+        return Schedule(
+            rooms = getRooms(eventId),
+            tags = getTags(eventId),
+            sessionTypes = getSessionTypes(eventId),
+            speakers = getSpeakers(eventId),
+            sessions = getSessions(eventId)
+        )
     }
 }

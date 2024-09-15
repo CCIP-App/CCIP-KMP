@@ -59,13 +59,7 @@ class PortalHelper {
         val eventConfig = dbHelper.getEventConfig(eventId) ?: return null
         val feat = eventConfig.features.find { f -> f.type == FeatureType.SCHEDULE } ?: return null
 
-        val cachedSchedule = Schedule(
-            rooms = dbHelper.getRooms(eventId),
-            tags = dbHelper.getTags(eventId),
-            sessionTypes = dbHelper.getSessionTypes(eventId),
-            speakers = dbHelper.getSpeakers(eventId),
-            sessions = dbHelper.getSessions(eventId)
-        )
+        val cachedSchedule = dbHelper.getSchedule(eventId)
         return if (cachedSchedule.sessions.isNotEmpty() && !forceReload) {
             cachedSchedule
         } else {
@@ -78,6 +72,8 @@ class PortalHelper {
                     addSessions(eventConfig.id, it.sessions)
                 }
             }
+            // Fetch from DB to let the sorting work
+            dbHelper.getSchedule(eventId)
         }
     }
 
