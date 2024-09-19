@@ -3,8 +3,8 @@
 
 [versions]
 agp = "8.6.1"
-kotlin = "2.0.20"
-ksp = "2.0.20-1.0.25"
+kotlin = "2.1.0-Beta1"
+ksp = "2.1.0-Beta1-1.0.25"
 ktor = "2.3.12"
 sqlDelight = "2.0.2"
 compose = "1.7.2"
