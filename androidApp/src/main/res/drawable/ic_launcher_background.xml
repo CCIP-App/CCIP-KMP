@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ SPDX-FileCopyrightText: 2024 OPass
+  ~ SPDX-License-Identifier: GPL-3.0-only
+  -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="188"
+    android:viewportHeight="188">
+  <path
+      android:pathData="M0.18,0L187.54,0.28V188L0.18,187.72V0Z">
+    <aapt:attr name="android:fillColor">
+      <gradient 
+          android:startX="93.66"
+          android:startY="-0.48"
+          android:endX="93.66"
+          android:endY="188.22"
+          android:type="linear">
+        <item android:offset="0" android:color="#FF67328C"/>
+        <item android:offset="1" android:color="#FF170A31"/>
+      </gradient>
+    </aapt:attr>
+  </path>
+</vector>
