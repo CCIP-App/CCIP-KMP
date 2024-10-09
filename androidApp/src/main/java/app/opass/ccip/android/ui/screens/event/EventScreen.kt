@@ -139,7 +139,7 @@ fun Screen.Event.EventScreen(
                             FeatureType.FAST_PASS -> {
                                 FeatureItem(
                                     label = stringResource(id = R.string.fast_pass),
-                                    iconRes = R.mipmap.ic_launcher_foreground
+                                    iconRes = R.drawable.ic_launcher_foreground
                                 )
                             }
 
