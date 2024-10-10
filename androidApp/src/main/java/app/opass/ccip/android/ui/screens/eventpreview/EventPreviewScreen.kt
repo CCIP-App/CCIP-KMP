@@ -48,16 +48,15 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.content.edit
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import app.opass.ccip.android.R
+import app.opass.ccip.android.ui.extensions.popBackToEventScreen
+import app.opass.ccip.android.ui.extensions.saveCurrentEventId
 import app.opass.ccip.android.ui.extensions.sharedPreferences
 import app.opass.ccip.android.ui.extensions.shimmer
 import app.opass.ccip.android.ui.navigation.Screen
-import app.opass.ccip.android.utils.Preferences.CURRENT_EVENT_ID
 import app.opass.ccip.network.models.event.Event
 import coil.compose.SubcomposeAsyncImage
 import coil.request.CachePolicy
@@ -94,13 +93,8 @@ fun Screen.EventPreview.EventPreviewScreen(
                 items(items = list!!, key = { e -> e.id }) { event: Event ->
                     EventPreviewItem(name = event.name, logoUrl = event.logoUrl) {
                         onEventSelected()
-                        sharedPreferences.edit { putString(CURRENT_EVENT_ID, event.id) }
-                        navHostController.navigate(Screen.Event(event.id)) {
-                            popUpTo(navHostController.graph.findStartDestination().id) {
-                                inclusive = true
-                            }
-                            launchSingleTop = true
-                        }
+                        sharedPreferences.saveCurrentEventId(event.id)
+                        navHostController.popBackToEventScreen(event.id)
                     }
                 }
             }
@@ -160,7 +154,7 @@ fun Screen.EventPreview.EventPreviewScreen(
                         key = { e -> e.id }
                     ) { event: Event ->
                         EventPreviewItem(name = event.name, logoUrl = event.logoUrl) {
-                            sharedPreferences.edit { putString(CURRENT_EVENT_ID, event.id) }
+                            sharedPreferences.saveCurrentEventId(event.id)
                             navHostController.navigate(Screen.Event(event.id))
                         }
                     }

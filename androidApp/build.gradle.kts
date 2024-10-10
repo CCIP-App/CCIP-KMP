@@ -89,4 +89,9 @@ dependencies {
     ksp(libs.google.hilt.android.compiler)
     implementation(libs.androidx.hilt.navigation)
     implementation(libs.google.hilt.android.core)
+
+    // ZXing/Camera (QR)
+    implementation(libs.androidx.camera)
+    implementation(libs.zxing.core)
+    implementation(libs.zxing.cpp)
 }

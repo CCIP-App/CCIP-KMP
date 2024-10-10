@@ -19,7 +19,6 @@
     <string name="venue">Venue</string>
     <string name="sponsors">Sponsors</string>
     <string name="staff">Staff</string>
-    <string name="ticket">Ticket</string>
     <string name="wifi">WiFi</string>
     <string name="irc" translatable="false">IRC</string>
 
@@ -29,4 +28,15 @@
 
     <!-- SessionScreen -->
     <string name="session">Session</string>
+
+    <!-- TicketScreen -->
+    <string name="auto_brighten">Auto-brighten</string>
+    <string name="ticket">Ticket</string>
+    <string name="scan">Scan QR</string>
+    <string name="upload_from_gallery">Upload from Gallery</string>
+    <string name="enter_token_manually_title">Token</string>
+    <string name="enter_token_manually_desc">Enter the token manually that you may have received via email or organizers.</string>
+    <string name="verifying">Verifying ticket</string>
+    <string name="ticket_verification_help_title">Please verify your ticket</string>
+    <string name="ticket_verification_help_desc">The ticket is usually in your email\'s inbox or spam folder. In case you haven\'t received it, please contact the event organisers.</string>
 </resources>

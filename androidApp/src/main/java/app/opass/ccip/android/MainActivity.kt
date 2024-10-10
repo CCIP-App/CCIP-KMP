@@ -10,11 +10,11 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.navigation.compose.rememberNavController
+import app.opass.ccip.android.ui.extensions.currentEventId
 import app.opass.ccip.android.ui.extensions.sharedPreferences
 import app.opass.ccip.android.ui.navigation.Screen
 import app.opass.ccip.android.ui.navigation.SetupNavGraph
 import app.opass.ccip.android.ui.theme.OPassTheme
-import app.opass.ccip.android.utils.Preferences.CURRENT_EVENT_ID
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -24,7 +24,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
 
-        val currentEventId = sharedPreferences.getString(CURRENT_EVENT_ID, null)
+        val currentEventId = sharedPreferences.currentEventId
 
         setContent {
             OPassTheme {

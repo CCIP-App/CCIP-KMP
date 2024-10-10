@@ -77,6 +77,7 @@ fun Screen.Event.EventScreen(
     val windowWidth = currentWindowAdaptiveInfo().windowSizeClass.windowWidthSizeClass
     val context = LocalContext.current
     val eventConfig by viewModel.eventConfig.collectAsStateWithLifecycle()
+    val attendee by viewModel.attendee.collectAsStateWithLifecycle()
 
     var shouldShowBottomSheet by rememberSaveable { mutableStateOf(false) }
 
@@ -87,6 +88,7 @@ fun Screen.Event.EventScreen(
         topBar = {
             TopAppBar(
                 title = eventConfig?.name ?: String(),
+                subtitle = attendee?.userId ?: String(),
                 navigationIcon = {
                     IconButton(onClick = { shouldShowBottomSheet = true }) {
                         Icon(
@@ -127,8 +129,14 @@ fun Screen.Event.EventScreen(
                     maxItemsInEachRow = if (windowWidth == WindowWidthSizeClass.COMPACT) 4 else 6,
                     verticalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
-                    // TODO: Show and hide features based on roles
                     eventConfig!!.features.fastForEach { feature ->
+
+                        // Return early if feature is limited to certain attendee roles
+                        // Roles requires attendee to be logged in by verifying their ticket
+                        if (!feature.roles.isNullOrEmpty() && !feature.roles!!.contains(attendee?.role)) {
+                            return@fastForEach
+                        }
+
                         when (feature.type) {
                             FeatureType.ANNOUNCEMENT -> {
                                 FeatureItem(
@@ -202,7 +210,9 @@ fun Screen.Event.EventScreen(
                                 FeatureItem(
                                     label = stringResource(id = R.string.ticket),
                                     iconRes = R.drawable.ic_ticket
-                                )
+                                ) {
+                                    navHostController.navigate(Screen.Ticket(this@EventScreen.id))
+                                }
                             }
 
                             FeatureType.VENUE -> {
@@ -260,6 +270,7 @@ private fun HeaderImage(logoUrl: String?) {
             .padding(horizontal = 32.dp)
             .aspectRatio(2.0f)
             .heightIn(max = 180.dp)
+            .clip(RoundedCornerShape(10.dp))
             .shimmer(logoUrl == null),
         colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary)
     )
