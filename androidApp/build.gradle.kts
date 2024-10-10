@@ -82,6 +82,9 @@ dependencies {
     // Material
     implementation(libs.google.material.components)
 
+    // Markdown
+    implementation(libs.mikepenz.markdown)
+
     // Hilt
     ksp(libs.google.hilt.android.compiler)
     implementation(libs.androidx.hilt.navigation)

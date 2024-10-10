@@ -6,7 +6,6 @@
 package app.opass.ccip.android.ui.screens.session
 
 import android.text.format.DateUtils
-import android.text.util.Linkify
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -33,17 +32,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastForEach
-import androidx.compose.ui.viewinterop.AndroidView
-import androidx.core.text.HtmlCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import app.opass.ccip.android.R
 import app.opass.ccip.android.ui.components.TopAppBar
 import app.opass.ccip.android.ui.navigation.Screen
-import app.opass.ccip.android.utils.LinkTransformationMethod
 import app.opass.ccip.network.models.schedule.Session
-import com.google.android.material.textview.MaterialTextView
+import com.mikepenz.markdown.m3.Markdown
 
 @Composable
 fun Screen.Session.SessionScreen(
@@ -100,7 +96,7 @@ fun LoadSession(session: Session, dateTime: String, modifier: Modifier) {
         SessionInfoItems(session.type, session.room, dateTime, session.speakers)
 
         // Description
-        SessionItem(session.description)
+        SessionDescItem(session.description)
     }
 }
 
@@ -138,35 +134,19 @@ fun SessionInfoItems(sessionType: String?, room: String, dateTime: String, speak
 }
 
 @Composable
-private fun SessionItem(description: String) {
+private fun SessionDescItem(description: String) {
     Card(
         modifier = Modifier.padding(vertical = 10.dp),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceContainer
         )
     ) {
-        Column(
+        Markdown(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(10.dp),
-            verticalArrangement = Arrangement.spacedBy(10.dp)
-        ) {
-            Row(horizontalArrangement = Arrangement.spacedBy(5.dp)) {
-                AndroidView(
-                    factory = {
-                        MaterialTextView(it).apply {
-                            textSize = 16F
-                            autoLinkMask = Linkify.WEB_URLS
-                            linksClickable = true
-                            transformationMethod = object : LinkTransformationMethod() {}
-                        }
-                    },
-                    update = {
-                        it.text = HtmlCompat.fromHtml(description, HtmlCompat.FROM_HTML_MODE_COMPACT)
-                    }
-                )
-            }
-        }
+            content = description
+        )
     }
 }
 
