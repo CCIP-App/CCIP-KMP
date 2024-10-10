@@ -201,7 +201,9 @@ fun Screen.Event.EventScreen(
                                 FeatureItem(
                                     label = stringResource(id = R.string.ticket),
                                     iconRes = R.drawable.ic_ticket
-                                )
+                                ) {
+                                    navHostController.navigate(Screen.Ticket(this@EventScreen.id))
+                                }
                             }
 
                             FeatureType.VENUE -> {
