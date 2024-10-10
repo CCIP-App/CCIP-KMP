@@ -134,6 +134,9 @@ VALUES (:id, :logoUrl, :nameEn, :nameZh, :eventStart, :eventEnd, :website, :feat
 
 -- Named queries for room table
 
+selectRoom:
+SELECT * FROM RoomTable WHERE eventId = :eventId AND id = :id;
+
 insertRoom:
 INSERT INTO RoomTable (id, nameEn, nameZh, eventId) VALUES (:id, :nameEn, :nameZh, :eventId);
 
@@ -145,6 +148,9 @@ DELETE FROM RoomTable WHERE eventId = :eventId;
 
 -- Named queries for tag table
 
+selectTag:
+SELECT * FROM TagTable WHERE eventId = :eventId AND id = :id;
+
 insertTag:
 INSERT INTO TagTable (id, nameEn, nameZh, eventId) VALUES (:id, :nameEn, :nameZh, :eventId);
 
@@ -155,6 +161,9 @@ deleteAllTags:
 DELETE FROM TagTable WHERE eventId = :eventId;
 
 -- Named queries for session type table
+
+selectSessionType:
+SELECT * FROM SessionTypeTable WHERE eventId = :eventId AND id = :id;
 
 insertSessionType:
 INSERT INTO SessionTypeTable (id, nameEn, nameZh, eventId) VALUES (:id, :nameEn, :nameZh, :eventId);

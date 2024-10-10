@@ -80,7 +80,14 @@ internal class OPassDatabaseHelper {
         }
     }
 
-    suspend fun getRooms(eventId: String): List<LocalizedObject> {
+    suspend fun getRoom(eventId: String, roomId: String): LocalizedObject? {
+        return withContext(Dispatchers.IO) {
+            dbQuery.selectRoom(eventId, roomId).executeAsOneOrNull()
+                ?.toLocalizedObject()
+        }
+    }
+
+    private suspend fun getRooms(eventId: String): List<LocalizedObject> {
         return withContext(Dispatchers.IO) {
             dbQuery.selectAllRooms(eventId).executeAsList().map { it.toLocalizedObject()!! }
         }
@@ -102,7 +109,14 @@ internal class OPassDatabaseHelper {
         }
     }
 
-    suspend fun getTags(eventId: String): List<LocalizedObject> {
+    suspend fun getTag(eventId: String, tagId: String): LocalizedObject? {
+        return withContext(Dispatchers.IO) {
+            dbQuery.selectTag(eventId, tagId).executeAsOneOrNull()
+                ?.toLocalizedObject()
+        }
+    }
+
+    private suspend fun getTags(eventId: String): List<LocalizedObject> {
         return withContext(Dispatchers.IO) {
             dbQuery.selectAllTags(eventId).executeAsList().map { it.toLocalizedObject()!! }
         }
@@ -124,7 +138,14 @@ internal class OPassDatabaseHelper {
         }
     }
 
-    suspend fun getSessionTypes(eventId: String): List<LocalizedObject> {
+    suspend fun getSessionType(eventId: String, sessionTypeId: String): LocalizedObject? {
+        return withContext(Dispatchers.IO) {
+            dbQuery.selectSessionType(eventId, sessionTypeId).executeAsOneOrNull()
+                ?.toLocalizedObject()
+        }
+    }
+
+    private suspend fun getSessionTypes(eventId: String): List<LocalizedObject> {
         return withContext(Dispatchers.IO) {
             dbQuery.selectAllSessionTypes(eventId).executeAsList().map { it.toLocalizedObject()!! }
         }
@@ -152,7 +173,7 @@ internal class OPassDatabaseHelper {
         }
     }
 
-    suspend fun getSpeakers(eventId: String): List<Speaker> {
+    private suspend fun getSpeakers(eventId: String): List<Speaker> {
         return withContext(Dispatchers.IO) {
             dbQuery.selectAllSpeakers(eventId).executeAsList().map { it.toSpeaker() }
         }
@@ -185,7 +206,7 @@ internal class OPassDatabaseHelper {
         }
     }
 
-    suspend fun getSessions(eventId: String): List<Session> {
+    private suspend fun getSessions(eventId: String): List<Session> {
         return withContext(Dispatchers.IO) {
             dbQuery.selectAllSessions(eventId).executeAsList().map { it.toSession() }
         }

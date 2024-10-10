@@ -7,6 +7,7 @@ package app.opass.ccip.helpers
 
 import app.opass.ccip.database.OPassDatabaseHelper
 import app.opass.ccip.network.PortalClient
+import app.opass.ccip.network.models.common.LocalizedObject
 import app.opass.ccip.network.models.event.Event
 import app.opass.ccip.network.models.eventconfig.EventConfig
 import app.opass.ccip.network.models.eventconfig.FeatureType
@@ -88,7 +89,37 @@ class PortalHelper {
     }
 
     /**
-     * Fetches [Schedule] for specified id from Event's website
+     * Fetches [LocalizedObject] for specified event using given id
+     * @param eventId ID of the event
+     * @param roomId ID of the room
+     * @return null if schedule hasn't been cached yet; room otherwise
+     */
+    suspend fun getRoom(eventId: String, roomId: String): LocalizedObject? {
+        return dbHelper.getRoom(eventId, roomId)
+    }
+
+    /**
+     * Fetches [LocalizedObject] for specified event using given id
+     * @param eventId ID of the event
+     * @param tagId ID of the speaker
+     * @return null if schedule hasn't been cached yet; tag otherwise
+     */
+    suspend fun getTag(eventId: String, tagId: String): LocalizedObject? {
+        return dbHelper.getTag(eventId, tagId)
+    }
+
+    /**
+     * Fetches [LocalizedObject] for specified event using given id
+     * @param eventId ID of the event
+     * @param sessionTypeId ID of the session type
+     * @return null if schedule hasn't been cached yet; session's type otherwise
+     */
+    suspend fun getSessionType(eventId: String, sessionTypeId: String): LocalizedObject? {
+        return dbHelper.getSessionType(eventId, sessionTypeId)
+    }
+
+    /**
+     * Fetches [Session] for specified event using given id
      * @param eventId ID of the event
      * @param sessionId ID of the session
      * @return null if schedule hasn't been cached yet; session otherwise
