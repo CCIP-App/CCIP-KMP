@@ -11,6 +11,7 @@ version = 1
 
 [[annotations]]
 path = [
+    "README.md",
     "gradle/wrapper/*",
     "androidApp/src/main/**/*.png",
     "androidApp/src/main/res/resources.properties"
