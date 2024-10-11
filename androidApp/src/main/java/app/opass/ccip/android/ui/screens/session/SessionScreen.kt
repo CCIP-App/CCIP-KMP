@@ -23,11 +23,14 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.platform.UriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -37,6 +40,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import app.opass.ccip.android.R
 import app.opass.ccip.android.ui.components.TopAppBar
+import app.opass.ccip.android.ui.extensions.browse
 import app.opass.ccip.android.ui.navigation.Screen
 import app.opass.ccip.network.models.schedule.Session
 import com.mikepenz.markdown.m3.Markdown
@@ -141,12 +145,21 @@ private fun SessionDescItem(description: String) {
             containerColor = MaterialTheme.colorScheme.surfaceContainer
         )
     ) {
-        Markdown(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(10.dp),
-            content = description
-        )
+        val context = LocalContext.current
+        val uriHandler = object : UriHandler {
+            override fun openUri(uri: String) {
+                context.browse(uri)
+            }
+
+        }
+        CompositionLocalProvider(LocalUriHandler provides uriHandler) {
+            Markdown(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(10.dp),
+                content = description
+            )
+        }
     }
 }
 

@@ -6,7 +6,6 @@
 package app.opass.ccip.android.utils
 
 import android.graphics.Rect
-import android.net.Uri
 import android.os.Parcel
 import android.text.Spannable
 import android.text.Spanned
@@ -16,7 +15,7 @@ import android.text.util.Linkify
 import android.util.Log
 import android.view.View
 import android.widget.TextView
-import androidx.browser.customtabs.CustomTabsIntent
+import app.opass.ccip.android.ui.extensions.browse
 
 open class LinkTransformationMethod : TransformationMethod {
 
@@ -28,9 +27,7 @@ open class LinkTransformationMethod : TransformationMethod {
 
         override fun onClick(widget: View) {
             try {
-                CustomTabsIntent.Builder()
-                    .build()
-                    .launchUrl(widget.context, Uri.parse(url))
+                widget.context.browse(url)
             } catch (exception: Exception) {
                 Log.e(TAG, "Failed to open link in custom tab!", exception)
                 super.onClick(widget)
