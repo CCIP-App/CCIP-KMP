@@ -60,6 +60,7 @@ import app.opass.ccip.android.ui.navigation.Screen
 import app.opass.ccip.android.utils.Preferences.CURRENT_EVENT_ID
 import app.opass.ccip.network.models.event.Event
 import coil.compose.SubcomposeAsyncImage
+import coil.request.CachePolicy
 import coil.request.ImageRequest
 
 @Composable
@@ -214,6 +215,10 @@ private fun EventPreviewItem(
                     .placeholder(R.drawable.ic_event)
                     .error(R.drawable.ic_broken_image)
                     .crossfade(true)
+                    .memoryCacheKey(logoUrl)
+                    .diskCacheKey(logoUrl)
+                    .diskCachePolicy(CachePolicy.ENABLED)
+                    .memoryCachePolicy(CachePolicy.ENABLED)
                     .build(),
                 contentDescription = "",
                 contentScale = ContentScale.Fit,

@@ -64,6 +64,7 @@ import app.opass.ccip.android.ui.screens.eventpreview.EventPreviewScreen
 import app.opass.ccip.android.utils.WifiUtil
 import app.opass.ccip.network.models.eventconfig.FeatureType
 import coil.compose.SubcomposeAsyncImage
+import coil.request.CachePolicy
 import coil.request.ImageRequest
 
 @Composable
@@ -248,6 +249,10 @@ private fun HeaderImage(logoUrl: String?) {
             .placeholder(R.drawable.ic_landscape)
             .error(R.drawable.ic_broken_image)
             .crossfade(true)
+            .memoryCacheKey(logoUrl)
+            .diskCacheKey(logoUrl)
+            .diskCachePolicy(CachePolicy.ENABLED)
+            .memoryCachePolicy(CachePolicy.ENABLED)
             .build(),
         contentDescription = "",
         contentScale = ContentScale.Fit,
@@ -292,6 +297,10 @@ private fun FeatureItem(
                     .placeholder(R.drawable.ic_event)
                     .error(R.drawable.ic_broken_image)
                     .crossfade(true)
+                    .memoryCacheKey(iconUrl)
+                    .diskCacheKey(iconUrl)
+                    .diskCachePolicy(CachePolicy.ENABLED)
+                    .memoryCachePolicy(CachePolicy.ENABLED)
                     .build(),
                 contentDescription = "",
                 contentScale = ContentScale.Fit,
