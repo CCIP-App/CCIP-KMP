@@ -55,7 +55,7 @@ fun SetupNavGraph(navHostController: NavHostController, startDestination: Screen
 }
 
 @Composable
-inline fun <reified T : ViewModel> NavBackStackEntry.sharedViewModel(navController: NavController): T {
+private inline fun <reified T : ViewModel> NavBackStackEntry.sharedViewModel(navController: NavController): T {
     val parentEntry = remember (this) { navController.getBackStackEntry(this.destination.route!!) }
     return hiltViewModel<T>(parentEntry)
 }

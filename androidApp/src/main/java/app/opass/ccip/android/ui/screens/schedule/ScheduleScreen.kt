@@ -135,7 +135,7 @@ fun Screen.Schedule.ScheduleScreen(
 }
 
 @Composable
-fun SessionPreviewItem(
+private fun SessionPreviewItem(
     title: String,
     startTime: String,
     endTime: String,

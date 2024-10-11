@@ -241,7 +241,7 @@ fun Screen.Event.EventScreen(
 }
 
 @Composable
-fun HeaderImage(logoUrl: String?) {
+private fun HeaderImage(logoUrl: String?) {
     SubcomposeAsyncImage(
         model = ImageRequest.Builder(LocalContext.current)
             .data(logoUrl)
@@ -261,7 +261,7 @@ fun HeaderImage(logoUrl: String?) {
 }
 
 @Composable
-fun FeatureItem(
+private fun FeatureItem(
     label: String,
     @DrawableRes iconRes: Int? = null,
     iconUrl: String? = null,

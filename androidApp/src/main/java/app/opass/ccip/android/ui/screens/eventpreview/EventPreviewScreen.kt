@@ -188,7 +188,7 @@ fun Screen.EventPreview.EventPreviewScreen(
 }
 
 @Composable
-fun EventPreviewItem(
+private fun EventPreviewItem(
     name: String,
     logoUrl: String,
     isLoading: Boolean = false,

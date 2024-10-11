@@ -74,7 +74,7 @@ fun Screen.Session.SessionScreen(
 }
 
 @Composable
-fun LoadSession(session: Session, dateTime: String, modifier: Modifier) {
+private fun LoadSession(session: Session, dateTime: String, modifier: Modifier) {
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -101,7 +101,7 @@ fun LoadSession(session: Session, dateTime: String, modifier: Modifier) {
 }
 
 @Composable
-fun SessionInfoItems(sessionType: String?, room: String, dateTime: String, speakers: List<String>) {
+private fun SessionInfoItems(sessionType: String?, room: String, dateTime: String, speakers: List<String>) {
     Card(
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceContainer
