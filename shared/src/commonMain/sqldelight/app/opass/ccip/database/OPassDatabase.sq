@@ -109,6 +109,20 @@ CREATE TABLE SessionTable (
 
 CREATE INDEX idx_SessionTable_title ON SessionTable(titleEn, titleZh, eventId);
 
+-- Create Attendee table and index
+
+CREATE TABLE AttendeeTable(
+    primaryId INTEGER PRIMARY KEY AUTOINCREMENT,
+    userId TEXT NOT NULL,
+    attr TEXT NOT NULL,
+    firstUse INTEGER NOT NULL,
+    role TEXT NOT NULL,
+    scenarios TEXT NOT NULL,
+    token TEXT NOT NULL,
+    eventId TEXT NOT NULL,
+    FOREIGN KEY (eventId) REFERENCES EventConfigTable(id) ON DELETE CASCADE
+);
+
 -- Named queries for event table
 
 selectAllEvents:
@@ -202,3 +216,15 @@ DELETE FROM SessionTable WHERE eventId = :eventId;
 insertSession:
 INSERT INTO SessionTable (id, titleEn, titleZh, descriptionEn, descriptionZh, start, end, room, speakers, tags, type, broadcast, liveUrl, url, coWriteUrl, slide, language, qa, record, eventId)
 VALUES (:id, :titleEn, :titleZh, :descriptionEn, :descriptionZh, :start, :end, :room, :speakers, :tags, :type, :broadcast, :liveUrl, :url, :coWriteUrl, :slide, :language, :qa, :record, :eventId);
+
+-- Named queries for attendee table
+
+selectAttendee:
+SELECT * FROM AttendeeTable WHERE eventId = :eventId AND token = :token;
+
+deleteAttendee:
+DELETE FROM AttendeeTable WHERE eventId = :eventId AND token = :token;
+
+insertAttendee:
+INSERT INTO AttendeeTable (userId, attr, firstUse, role, scenarios, token, eventId)
+VALUES (:userId, :attr, :firstUse, :role, :scenarios, :token, :eventId);

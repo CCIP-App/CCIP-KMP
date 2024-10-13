@@ -11,6 +11,7 @@ import app.opass.ccip.network.models.common.LocalizedObject
 import app.opass.ccip.network.models.event.Event
 import app.opass.ccip.network.models.eventconfig.EventConfig
 import app.opass.ccip.network.models.eventconfig.FeatureType
+import app.opass.ccip.network.models.fastpass.Attendee
 import app.opass.ccip.network.models.schedule.Schedule
 import app.opass.ccip.network.models.schedule.Session
 import app.opass.ccip.network.models.schedule.Speaker
@@ -76,6 +77,42 @@ class PortalHelper {
             // Fetch from DB to let the sorting work
             dbHelper.getSchedule(eventId)
         }
+    }
+
+    /**
+     * Fetches [Attendee] for specified event using given token from event's FastPass feature
+     * @param eventId ID of the event
+     * @param token Token to identify attendee
+     * @param forceReload Whether to ignore cache, false by default
+     * @return null if attendee hasn't been cached yet or token is invalid; Attendee otherwise
+     */
+    suspend fun getAttendee(
+        eventId: String,
+        token: String,
+        forceReload: Boolean = false
+    ): Attendee? {
+        val eventConfig = dbHelper.getEventConfig(eventId) ?: return null
+        val feat = eventConfig.features.find { f -> f.type == FeatureType.FAST_PASS } ?: return null
+
+        val cachedAttendee = dbHelper.getAttendee(eventId, token)
+        return if (cachedAttendee != null && !forceReload) {
+            cachedAttendee
+        } else {
+            client.getFastPassStatus(feat.url!!, token).also {
+                dbHelper.addAttendee(eventId, it)
+            }
+        }
+    }
+
+    /**
+     * Deletes an attendee's information from the database
+     *
+     * Consider calling this method when a user wants to logout from the app.
+     * @param eventId ID of the event
+     * @param token Token to identify attendee
+     */
+    suspend fun deleteAttendee(eventId: String, token: String) {
+        dbHelper.deleteAttendee(eventId, token)
     }
 
     /**

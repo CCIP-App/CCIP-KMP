@@ -5,6 +5,7 @@
 
 package app.opass.ccip.database
 
+import app.opass.ccip.extensions.toAttendee
 import app.opass.ccip.extensions.toEvent
 import app.opass.ccip.extensions.toEventConfig
 import app.opass.ccip.extensions.toLocalizedObject
@@ -13,6 +14,7 @@ import app.opass.ccip.extensions.toSpeaker
 import app.opass.ccip.network.models.common.LocalizedObject
 import app.opass.ccip.network.models.event.Event
 import app.opass.ccip.network.models.eventconfig.EventConfig
+import app.opass.ccip.network.models.fastpass.Attendee
 import app.opass.ccip.network.models.schedule.Schedule
 import app.opass.ccip.network.models.schedule.Session
 import app.opass.ccip.network.models.schedule.Speaker
@@ -252,5 +254,34 @@ internal class OPassDatabaseHelper {
             speakers = getSpeakers(eventId),
             sessions = getSessions(eventId)
         )
+    }
+
+    suspend fun getAttendee(eventId: String, token: String): Attendee? {
+        return withContext(Dispatchers.IO) {
+            dbQuery.selectAttendee(eventId, token).executeAsOneOrNull()?.toAttendee()
+        }
+    }
+
+    suspend fun deleteAttendee(eventId: String, token: String) {
+        return withContext(Dispatchers.IO) {
+            dbQuery.deleteAttendee(eventId, token)
+        }
+    }
+
+    suspend fun addAttendee(eventId: String, attendee: Attendee) {
+        withContext(Dispatchers.IO) {
+            dbQuery.transaction {
+                dbQuery.deleteAttendee(eventId, attendee.token)
+                dbQuery.insertAttendee(
+                    userId = attendee.userId,
+                    attr = Json.encodeToString(attendee.attr),
+                    firstUse = attendee.firstUse,
+                    role = attendee.role,
+                    scenarios = Json.encodeToString(attendee.scenarios),
+                    token = attendee.token,
+                    eventId = eventId
+                )
+            }
+        }
     }
 }

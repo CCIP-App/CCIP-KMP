@@ -7,12 +7,15 @@ package app.opass.ccip.network
 
 import app.opass.ccip.network.models.event.Event
 import app.opass.ccip.network.models.eventconfig.EventConfig
+import app.opass.ccip.network.models.fastpass.Attendee
 import app.opass.ccip.network.models.schedule.Schedule
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.defaultRequest
 import io.ktor.client.request.get
+import io.ktor.client.request.parameter
+import io.ktor.client.request.url
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
@@ -43,5 +46,12 @@ internal class PortalClient {
 
     suspend fun getEventSchedule(url: String): Schedule {
         return universalClient.get(url).body()
+    }
+
+    suspend fun getFastPassStatus(url: String, token: String): Attendee {
+        return universalClient.get {
+            url("$url/status")
+            parameter("token", token)
+        }.body()
     }
 }
