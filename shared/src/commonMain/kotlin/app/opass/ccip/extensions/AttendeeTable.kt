@@ -18,6 +18,6 @@ internal fun AttendeeTable.toAttendee(): Attendee {
         role = this.role,
         scenarios = Json.decodeFromString<List<Scenario>>(this.scenarios),
         token = this.token,
-        userId = this.eventId,
+        userId = this.userId,
     )
 }
