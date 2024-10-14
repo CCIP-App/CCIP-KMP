@@ -100,7 +100,7 @@ private fun LoadSession(session: Session, dateTime: String, modifier: Modifier) 
         SessionInfoItems(session.type, session.room, dateTime, session.speakers)
 
         // Description
-        SessionDescItem(session.description)
+        if (session.description.isNotBlank()) SessionDescItem(session.description)
     }
 }
 
