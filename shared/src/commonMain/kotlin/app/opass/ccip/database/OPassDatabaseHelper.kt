@@ -5,6 +5,7 @@
 
 package app.opass.ccip.database
 
+import app.opass.ccip.extensions.toAnnouncement
 import app.opass.ccip.extensions.toAttendee
 import app.opass.ccip.extensions.toEvent
 import app.opass.ccip.extensions.toEventConfig
@@ -14,6 +15,7 @@ import app.opass.ccip.extensions.toSpeaker
 import app.opass.ccip.network.models.common.LocalizedObject
 import app.opass.ccip.network.models.event.Event
 import app.opass.ccip.network.models.eventconfig.EventConfig
+import app.opass.ccip.network.models.fastpass.Announcement
 import app.opass.ccip.network.models.fastpass.Attendee
 import app.opass.ccip.network.models.schedule.Schedule
 import app.opass.ccip.network.models.schedule.Session
@@ -281,6 +283,37 @@ internal class OPassDatabaseHelper {
                     token = attendee.token,
                     eventId = eventId
                 )
+            }
+        }
+    }
+
+    suspend fun getAllAnnouncements(eventId: String, token: String? = null): List<Announcement> {
+        return withContext(Dispatchers.IO) {
+            dbQuery.selectAllAnnouncements(eventId, token)
+                .executeAsList()
+                .map { it.toAnnouncement() }
+        }
+    }
+
+    suspend fun addAnnouncements(
+        eventId: String,
+        announcements: List<Announcement>,
+        token: String? = null
+    ) {
+        withContext(Dispatchers.IO) {
+            dbQuery.transaction {
+                dbQuery.deleteAllAnnouncements(eventId, token)
+                announcements.forEach {
+                    dbQuery.insertAnnouncement(
+                        datetime = it.datetime,
+                        url = it.url,
+                        msg_en = it._msg_en,
+                        msg_zh = it._msg_zh,
+                        role = Json.encodeToString(it.role),
+                        token = token,
+                        eventId = eventId
+                    )
+                }
             }
         }
     }

@@ -123,6 +123,20 @@ CREATE TABLE AttendeeTable(
     FOREIGN KEY (eventId) REFERENCES EventConfigTable(id) ON DELETE CASCADE
 );
 
+-- Create Announcement table
+
+CREATE TABLE AnnouncementTable(
+    primaryId INTEGER PRIMARY KEY AUTOINCREMENT,
+    datetime INTEGER NOT NULL,
+    role TEXT NOT NULL,
+    msg_en TEXT NOT NULL,
+    msg_zh TEXT NOT NULL,
+    token TEXT,
+    url TEXT NOT NULL,
+    eventId TEXT NOT NULL,
+    FOREIGN KEY (eventId) REFERENCES EventConfigTable(id) ON DELETE CASCADE
+);
+
 -- Named queries for event table
 
 selectAllEvents:
@@ -228,3 +242,16 @@ DELETE FROM AttendeeTable WHERE eventId = :eventId AND token = :token;
 insertAttendee:
 INSERT INTO AttendeeTable (userId, attr, firstUse, role, scenarios, token, eventId)
 VALUES (:userId, :attr, :firstUse, :role, :scenarios, :token, :eventId);
+
+-- Named queries for announcement table
+
+selectAllAnnouncements:
+SELECT * FROM AnnouncementTable WHERE eventId = :eventId AND token = :token;
+
+deleteAllAnnouncements:
+DELETE FROM AnnouncementTable WHERE eventId = :eventId AND token = :token;
+
+insertAnnouncement:
+INSERT INTO AnnouncementTable (datetime, role, msg_en, msg_zh, token, url, eventId)
+VALUES (:datetime, :role, :msg_en, :msg_zh, :token, :url, :eventId);
+

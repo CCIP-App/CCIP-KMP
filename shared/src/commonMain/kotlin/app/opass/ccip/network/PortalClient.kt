@@ -7,6 +7,7 @@ package app.opass.ccip.network
 
 import app.opass.ccip.network.models.event.Event
 import app.opass.ccip.network.models.eventconfig.EventConfig
+import app.opass.ccip.network.models.fastpass.Announcement
 import app.opass.ccip.network.models.fastpass.Attendee
 import app.opass.ccip.network.models.schedule.Schedule
 import io.ktor.client.HttpClient
@@ -16,6 +17,7 @@ import io.ktor.client.plugins.defaultRequest
 import io.ktor.client.request.get
 import io.ktor.client.request.parameter
 import io.ktor.client.request.url
+import io.ktor.http.ContentType
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
@@ -33,7 +35,10 @@ internal class PortalClient {
         install(ContentNegotiation) { json(json) }
     }
     private val universalClient = HttpClient {
-        install(ContentNegotiation) { json(json) }
+        install(ContentNegotiation) {
+            // Register content type as any as some events have wrong content type
+            json(json = json, contentType = ContentType.Any)
+        }
     }
 
     suspend fun getEvents(): List<Event> {
@@ -52,6 +57,13 @@ internal class PortalClient {
         return universalClient.get {
             url("$url/status")
             parameter("token", token)
+        }.body()
+    }
+
+    suspend fun getAnnouncements(url: String, token: String? = null): List<Announcement> {
+        return universalClient.get {
+            url("$url/announcement")
+            if (token != null) parameter("token", token)
         }.body()
     }
 }

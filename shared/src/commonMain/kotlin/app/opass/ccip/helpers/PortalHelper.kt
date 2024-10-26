@@ -11,6 +11,7 @@ import app.opass.ccip.network.models.common.LocalizedObject
 import app.opass.ccip.network.models.event.Event
 import app.opass.ccip.network.models.eventconfig.EventConfig
 import app.opass.ccip.network.models.eventconfig.FeatureType
+import app.opass.ccip.network.models.fastpass.Announcement
 import app.opass.ccip.network.models.fastpass.Attendee
 import app.opass.ccip.network.models.schedule.Schedule
 import app.opass.ccip.network.models.schedule.Session
@@ -76,6 +77,31 @@ class PortalHelper {
             }
             // Fetch from DB to let the sorting work
             dbHelper.getSchedule(eventId)
+        }
+    }
+
+    /**
+     * Fetches [Announcement] for specified event using given token from event's FastPass feature
+     * @param eventId ID of the event
+     * @param token Token to identify attendee
+     * @param forceReload Whether to ignore cache, false by default
+     * @return empty list if announcements haven't been cached yet or token is invalid; Announcements otherwise
+     */
+    suspend fun getAnnouncements(
+        eventId: String,
+        token: String? = null,
+        forceReload: Boolean = false
+    ): List<Announcement> {
+        val eventConfig = dbHelper.getEventConfig(eventId) ?: return emptyList()
+        val feat = eventConfig.features.find { f -> f.type == FeatureType.FAST_PASS } ?: return emptyList()
+
+        val cachedAnnouncements = dbHelper.getAllAnnouncements(eventId, token)
+        return if (cachedAnnouncements.isNotEmpty() && !forceReload) {
+            cachedAnnouncements
+        } else {
+            client.getAnnouncements(feat.url!!, token).also {
+                dbHelper.addAnnouncements(eventId, it, token)
+            }
         }
     }
 
