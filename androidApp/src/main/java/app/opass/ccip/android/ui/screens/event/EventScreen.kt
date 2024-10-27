@@ -142,7 +142,11 @@ fun Screen.Event.EventScreen(
                                 FeatureItem(
                                     label = stringResource(id = R.string.announcement),
                                     iconRes = R.drawable.ic_announcement
-                                )
+                                ) {
+                                    navHostController.navigate(
+                                        Screen.Announcement(this@EventScreen.id, attendee?.token)
+                                    )
+                                }
                             }
 
                             FeatureType.FAST_PASS -> {
