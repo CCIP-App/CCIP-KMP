@@ -51,8 +51,8 @@ class SelectEventViewModel {
     private var events: [Event]?
 
     func loadEvents() async {
-        async let cache = portal.getEvents(forceReload: false)
-        async let remote = portal.getEvents(forceReload: true)
+        async let cache = PortalHelper.shared.getEvents(forceReload: false)
+        async let remote = PortalHelper.shared.getEvents(forceReload: true)
 
         do {
             events = try? await cache

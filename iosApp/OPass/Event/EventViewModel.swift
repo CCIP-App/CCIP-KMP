@@ -17,13 +17,14 @@ class EventViewModel {
     @ObservationIgnored
     @AppStorage("EventID") private var eventID = ""
 
-    var config: EventConfig?
+    private(set) var config: EventConfig?
 
     private var error: Error?
 
-    func loadEvent() async {
-        async let cache = portal.getEventConfig(eventId: eventID, forceReload: false)
-        async let remote = portal.getEventConfig(eventId: eventID, forceReload: true)
+    func loadEvent(reload: Bool = false) async {
+        if reload { config = nil }
+        async let cache = PortalHelper.shared.getEventConfig(eventId: eventID, forceReload: false)
+        async let remote = PortalHelper.shared.getEventConfig(eventId: eventID, forceReload: true)
 
         do {
             config = try? await cache
@@ -36,5 +37,9 @@ class EventViewModel {
                 logger.info("Faild with remote data: \(error)")
             }
         }
+    }
+
+    func reset() {
+        config = nil
     }
 }

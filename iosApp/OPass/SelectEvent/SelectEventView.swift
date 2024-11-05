@@ -18,6 +18,7 @@ struct SelectEventView: View {
     @Environment(\.dismiss) private var dismiss
 
     @AppStorage("EventID") private var eventID = ""
+    @AppStorage("HapticFeedback") private var hapticFeedback = true
 
     // MARK: - View
     var body: some View {
@@ -80,7 +81,7 @@ struct SelectEventView: View {
         }
         .animation(events.isEmpty ? nil : .default, value: events)
         .scrollDismissesKeyboard(.interactively)
-        .sensoryFeedback(.success, trigger: eventID)
+        .sensoryFeedback(.success, trigger: eventID) { _, _ in hapticFeedback }
         .searchable(text: $viewModel.searchText,
                     placement: .navigationBarDrawer,
                     prompt: "Search Event")

@@ -9,9 +9,11 @@
 import SwiftUI
 
 struct AppearanceSettingsView: View {
+    // MARK: - Variable
+    @AppStorage("HapticFeedback") private var hapticFeedback = true
     @AppStorage("DarkMode") private var darkMode: DarkMode = .system
-    @Environment(\.colorScheme) private var colorScheme
 
+    // MARK: - View
     var body: some View {
         Form {
             Section {
@@ -31,7 +33,7 @@ struct AppearanceSettingsView: View {
                     }
                     .labelStyle(CenterLabelStyle())
                 }
-                .sensoryFeedback(.success, trigger: darkMode)
+                .sensoryFeedback(.success, trigger: darkMode) { _, _ in hapticFeedback }
             }
 
             Button("Reset Appearance") {

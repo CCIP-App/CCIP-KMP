@@ -16,9 +16,6 @@ import FirebasePerformance
 import FirebaseCrashlytics
 import OneSignalFramework
 
-// Shared Portal Object
-let portal = PortalHelper()
-
 @main
 struct OPassApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate

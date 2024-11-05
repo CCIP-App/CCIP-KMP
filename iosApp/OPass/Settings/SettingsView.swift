@@ -9,15 +9,19 @@
 import SwiftUI
 
 struct SettingsView: View {
+    // MARK: - Variable
     private let websiteURL = URL(string: "https://opass.app")!
     private let gitHubURL = URL(string: "https://github.com/CCIP-App/CCIP-KMP")!
     private let policyURL = URL(string: "https://opass.app/privacy-policy.html")!
 
     @Environment(\.colorScheme) private var colorScheme
+
+    @AppStorage("HapticFeedback") private var hapticFeedback = true
+
     @State private var safariUrl = URL(string: "https://opass.app")!
     @State private var safariPresented = false
 
-    // MARK: - Views
+    // MARK: - View
     var body: some View {
         Form {
             introductionSection()
@@ -32,18 +36,18 @@ struct SettingsView: View {
         .analyticsScreen(name: "SettingsView")
         .navigationBarTitleDisplayMode(.large)
         .navigationTitle("Settings")
-        .listSectionSpacing(.compact)
+        .listSectionSpacing(0)
     }
 
     @ViewBuilder
     private func introductionSection() -> some View {
         VStack(spacing: 5) {
             Image(.opassIcon)
-                .interpolation(.none)
+                //.interpolation(.high)
                 .resizable()
                 .scaledToFit()
                 .frame(width: 100)
-                .clipShape(.rect(cornerRadius: 15.625))
+                .clipShape(.rect(cornerRadius: 22)) // radius = width * 2/9
 
             Text("OPass")
                 .font(.title2)
@@ -59,6 +63,20 @@ struct SettingsView: View {
     @ViewBuilder
     private func generalSection() -> some View {
         Section("GENERAL") {
+            NavigationLink {
+                GeneralSettingsView()
+            } label: {
+                Label {
+                    Text("General")
+                } icon: {
+                    Image(systemName: "gear")
+                        .resizable()
+                        .scaledToFit()
+                        .foregroundStyle(.gray)
+                }
+                .labelStyle(CenterLabelStyle())
+            }
+
             NavigationLink {
                 AppearanceSettingsView()
             } label: {
@@ -163,7 +181,7 @@ struct SettingsView: View {
             }
             .labelStyle(CenterLabelStyle())
         }
-        .sensoryFeedback(.selection, trigger: safariPresented) { $1 }
+        .sensoryFeedback(.selection, trigger: safariPresented) { $1 && hapticFeedback }
     }
 
     @ViewBuilder

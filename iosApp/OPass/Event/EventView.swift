@@ -6,6 +6,7 @@
 //  2024 OPass.
 //
 
+import Shared
 import SwiftUI
 
 @MainActor
@@ -13,20 +14,33 @@ struct EventView: View {
     // MARK: - Variable
     @State private var viewModel = EventViewModel()
 
+    @AppStorage("EventID") private var eventID = ""
+
     // MARK: - View
     var body: some View {
         Group {
             if let config = viewModel.config {
-                VStack {
-                    Text(config.name)
-                    Text(config.logoUrl)
-                }
+                eventView(config)
             } else {
-                ProgressView("Loading")
-                    .task { await viewModel.loadEvent() }
+                loadingView()
             }
         }
         .analyticsScreen(name: "EventView")
+    }
+
+    @ViewBuilder
+    private func eventView(_ config: EventConfig) -> some View {
+        VStack {
+            Text(config.name)
+            Text(config.logoUrl)
+        }
+        .onChange(of: eventID) { viewModel.reset() }
+    }
+
+    @ViewBuilder
+    private func loadingView() -> some View {
+        ProgressView("Loading")
+            .task { await viewModel.loadEvent() }
     }
 }
 

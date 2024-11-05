@@ -12,6 +12,8 @@ import SwiftUI
 struct ContentView: View {
     // MARK: - Variable
     @AppStorage("EventID") private var eventID = ""
+    @AppStorage("HapticFeedback") private var hapticFeedback = true
+
     @State private var selectEventSheetPresented = false
 
     // MARK: - View
@@ -19,19 +21,22 @@ struct ContentView: View {
         NavigationStack {
             Group {
                 if eventID.isEmpty {
-                    ProgressView("Loading")
-                        .onAppear { selectEventSheetPresented.toggle() }
+                    loadingView()
                 } else {
                     EventView()
                 }
             }
+            .sensoryFeedback(.selection, trigger: selectEventSheetPresented) { $1 && hapticFeedback }
+            .sheet(isPresented: $selectEventSheetPresented) { SelectEventView() }
             .toolbar { toolbar() }
-            .sensoryFeedback(.selection, trigger: selectEventSheetPresented) { $1 }
-            .sheet(isPresented: $selectEventSheetPresented) {
-                SelectEventView()
-            }
         }
         .analyticsScreen(name: "ContentView")
+    }
+
+    @ViewBuilder
+    private func loadingView() -> some View {
+        ProgressView("Loading")
+            .onAppear { selectEventSheetPresented.toggle() }
     }
 
     @ToolbarContentBuilder
