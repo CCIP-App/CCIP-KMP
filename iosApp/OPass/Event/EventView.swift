@@ -49,12 +49,20 @@ struct EventView: View {
 
             FeatureGrid(config: config)
         }
-        .onChange(of: eventID) { viewModel.reset() }
+        .onChange(of: eventID) { Task { await viewModel.loadEvent(reload: true) } }
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text(config.name)
+                    .bold()
+            }
+        }
     }
 
     @ViewBuilder
     private func loadingView() -> some View {
         ProgressView("Loading")
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
             .task { await viewModel.loadEvent() }
     }
 }

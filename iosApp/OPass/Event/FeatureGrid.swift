@@ -41,11 +41,11 @@ struct FeatureGrid: View {
                             .renderingMode(.template)
                             .interpolation(.none)
                             .resizable()
-                            .scaledToFill()
+                            .scaledToFit()
                     default:
                         Image(systemName: feature.symbol)
                             .resizable()
-                            .scaledToFill()
+                            .scaledToFit()
                             .padding(3)
                     }
                 }
@@ -57,7 +57,6 @@ struct FeatureGrid: View {
                 .font(.custom("RobotoCondensed-Regular", size: 11, relativeTo: .caption2))
                 .fixedSize(horizontal: false, vertical: true)
                 .multilineTextAlignment(.center)
-
         }
     }
 }
