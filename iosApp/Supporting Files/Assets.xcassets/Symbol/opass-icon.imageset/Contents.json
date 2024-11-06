@@ -6,12 +6,10 @@
       "scale" : "1x"
     },
     {
-      "filename" : "1F1B715F5E5BB49DC938AFC9CF02C3B212EA2256 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "1F1B715F5E5BB49DC938AFC9CF02C3B212EA2256 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
@@ -21,7 +19,6 @@
     "version" : 1
   },
   "properties" : {
-    "compression-type" : "gpu-optimized-best",
-    "preserves-vector-representation" : true
+    "compression-type" : "lossless"
   }
 }

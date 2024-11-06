@@ -46,8 +46,8 @@ struct SettingsView: View {
                 //.interpolation(.high)
                 .resizable()
                 .scaledToFit()
-                .frame(width: 100)
-                .clipShape(.rect(cornerRadius: 22)) // radius = width * 2/9
+                .frame(width: 70)
+                .clipShape(.rect(cornerRadius: 15.6)) // radius = width * 2/9
 
             Text("OPass")
                 .font(.title2)
@@ -58,6 +58,7 @@ struct SettingsView: View {
                 .padding(.horizontal, 5)
         }
         .frame(maxWidth: .infinity, alignment: .center)
+        .padding(.vertical, 5)
     }
 
     @ViewBuilder
