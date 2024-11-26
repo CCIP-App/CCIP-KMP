@@ -5,13 +5,22 @@
 
 package app.opass.ccip.android.ui.screens.ticket
 
+import android.Manifest
+import android.content.Context
 import android.content.pm.PackageManager
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts.PickVisualMedia
+import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
+import androidx.camera.core.CameraSelector
+import androidx.camera.core.ImageAnalysis
+import androidx.camera.core.Preview
+import androidx.camera.lifecycle.ProcessCameraProvider
+import androidx.camera.view.PreviewView
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
@@ -32,6 +41,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -55,8 +65,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
+import androidx.core.content.ContextCompat
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import app.opass.ccip.android.R
@@ -72,6 +86,9 @@ import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
 import kotlinx.coroutines.android.awaitFrame
+import zxingcpp.BarcodeReader
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 
 @Composable
 fun Screen.Ticket.TicketScreen(
@@ -161,8 +178,15 @@ private fun RequestTicket(
     val eventConfig by viewModel.eventConfig.collectAsStateWithLifecycle()
     val isVerifying by viewModel.isVerifying.collectAsStateWithLifecycle()
 
+    var shouldShowCameraPreview by rememberSaveable { mutableStateOf(false) }
     var shouldShowVerificationDialog by rememberSaveable { mutableStateOf(false) }
     var shouldShowManualEntryDialog by rememberSaveable { mutableStateOf(false) }
+
+    val hasCamera = context.packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)
+    val cameraPermissionLauncher = rememberLauncherForActivityResult(
+        contract = RequestPermission(),
+        onResult = { shouldShowCameraPreview = it }
+    )
 
     val startActivityForResult = rememberLauncherForActivityResult(
         contract = PickVisualMedia(),
@@ -185,6 +209,16 @@ private fun RequestTicket(
                 viewModel.getAttendee(eventConfig!!.id, it)
             },
             onDismiss = { shouldShowManualEntryDialog = false }
+        )
+    }
+
+    if (shouldShowCameraPreview) {
+        CameraPreviewScreen(
+            onTokenFound = {
+                viewModel.getAttendee(eventConfig!!.id, it)
+                shouldShowCameraPreview = false
+            },
+            onDismiss = { shouldShowCameraPreview = false }
         )
     }
 
@@ -222,8 +256,21 @@ private fun RequestTicket(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterHorizontally)
             ) {
-                if (context.packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)) {
-                    Button(onClick = {}) {
+                if (hasCamera) {
+                    Button(
+                        onClick = {
+                            val hasCameraPerm = ContextCompat.checkSelfPermission(
+                                context,
+                                Manifest.permission.CAMERA
+                            ) == PackageManager.PERMISSION_GRANTED
+
+                            if (hasCameraPerm) {
+                                shouldShowCameraPreview = true
+                            } else {
+                                cameraPermissionLauncher.launch(Manifest.permission.CAMERA)
+                            }
+                        }
+                    ) {
                         Text(text = stringResource(R.string.scan))
                     }
                 }
@@ -388,4 +435,68 @@ private fun ManualEntryDialog(onConfirm: (token: String) -> Unit = {}, onDismiss
             }
         }
     )
+}
+
+@Composable
+fun CameraPreviewScreen(onTokenFound: (token: String) -> Unit = {}, onDismiss: () -> Unit = {}) {
+    val lensFacing = CameraSelector.LENS_FACING_BACK
+    val lifecycleOwner = LocalLifecycleOwner.current
+    val context = LocalContext.current
+    val previewView = remember { PreviewView(context) }
+
+    val preview = Preview.Builder()
+        .build()
+    val cameraxSelector = CameraSelector.Builder()
+        .requireLensFacing(CameraSelector.LENS_FACING_BACK)
+        .build()
+    val reader = BarcodeReader().apply {
+        options.tryRotate = true
+    }
+
+    val imageAnalysis = ImageAnalysis.Builder()
+        .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
+        .build().apply {
+            setAnalyzer(ContextCompat.getMainExecutor(context)) { imageProxy ->
+                reader.read(imageProxy).firstOrNull()?.let { result ->
+                    if (result.format == BarcodeReader.Format.QR_CODE || !result.text.isNullOrBlank()) {
+                        onTokenFound(result.text!!)
+                    }
+                }
+                imageProxy.close()
+            }
+        }
+
+    LaunchedEffect(key1 = lensFacing) {
+        val cameraProvider = getCameraProvider(context)
+        cameraProvider.unbindAll()
+        cameraProvider.bindToLifecycle(lifecycleOwner, cameraxSelector, imageAnalysis, preview)
+        preview.surfaceProvider = previewView.surfaceProvider
+    }
+
+    Dialog(
+        onDismissRequest = {
+
+            onDismiss()
+        },
+        properties = DialogProperties(
+            dismissOnBackPress = true,
+            dismissOnClickOutside = false,
+            decorFitsSystemWindows = true,
+            usePlatformDefaultWidth = false
+        ),
+    ) {
+        Surface(modifier = Modifier.fillMaxSize()) {
+            AndroidView(factory = { previewView }, modifier = Modifier.fillMaxSize())
+        }
+    }
+}
+
+private suspend fun getCameraProvider(context: Context): ProcessCameraProvider {
+    return suspendCoroutine { continuation ->
+        ProcessCameraProvider.getInstance(context).also { cameraProvider ->
+            cameraProvider.addListener({
+                continuation.resume(cameraProvider.get())
+            }, ContextCompat.getMainExecutor(context))
+        }
+    }
 }
