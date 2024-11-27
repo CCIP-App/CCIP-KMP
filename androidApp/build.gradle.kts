@@ -70,6 +70,7 @@ dependencies {
 
     // Coil
     implementation(libs.coil.compose)
+    implementation(libs.coil.okhttp)
 
     // Navigation
     implementation(libs.androidx.navigation.compose)

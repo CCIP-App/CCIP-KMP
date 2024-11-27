@@ -18,7 +18,7 @@ androidx-composeNavigation = "2.8.4"
 androidx-hilt = "1.2.0"
 androidx-lifecycle = "2.8.7"
 androidx-startupRuntime = "1.2.0"
-coil = "2.7.0"
+coil = "3.0.4"
 hilt = "2.52"
 markdown = "0.27.0"
 material = "1.12.0"
@@ -40,7 +40,8 @@ androidx-startup-runtime = { module = "androidx.startup:startup-runtime", versio
 cash-sqldelight-android = { module = "app.cash.sqldelight:android-driver", version.ref = "sqlDelight" }
 cash-sqldelight-native = { module = "app.cash.sqldelight:native-driver", version.ref = "sqlDelight" }
 cash-sqldelight-runtime = { module = "app.cash.sqldelight:runtime", version.ref = "sqlDelight" }
-coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
+coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
+coil-okhttp = { module = "io.coil-kt.coil3:coil-network-okhttp", version.ref = "coil" }
 compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
 compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
 compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }

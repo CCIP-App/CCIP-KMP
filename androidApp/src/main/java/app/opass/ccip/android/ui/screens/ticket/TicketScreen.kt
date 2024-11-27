@@ -22,7 +22,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -69,9 +68,9 @@ import app.opass.ccip.android.ui.extensions.shimmer
 import app.opass.ccip.android.ui.navigation.Screen
 import app.opass.ccip.android.utils.CommonUtil.setBrightness
 import app.opass.ccip.android.utils.ZXingUtil
-import coil.compose.SubcomposeAsyncImage
-import coil.request.CachePolicy
-import coil.request.ImageRequest
+import coil3.compose.AsyncImage
+import coil3.request.ImageRequest
+import coil3.request.crossfade
 import kotlinx.coroutines.android.awaitFrame
 
 @Composable
@@ -249,17 +248,13 @@ private fun RequestTicket(
 
 @Composable
 private fun HeaderImage(logoUrl: String?) {
-    SubcomposeAsyncImage(
+    AsyncImage(
         model = ImageRequest.Builder(LocalContext.current)
             .data(logoUrl)
-            .placeholder(R.drawable.ic_landscape)
-            .error(R.drawable.ic_broken_image)
             .crossfade(true)
-            .memoryCacheKey(logoUrl)
-            .diskCacheKey(logoUrl)
-            .diskCachePolicy(CachePolicy.ENABLED)
-            .memoryCachePolicy(CachePolicy.ENABLED)
             .build(),
+        placeholder = painterResource(R.drawable.ic_landscape),
+        error = painterResource(R.drawable.ic_broken_image),
         contentDescription = null,
         contentScale = ContentScale.Fit,
         modifier = Modifier
