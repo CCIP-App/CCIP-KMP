@@ -54,7 +54,7 @@ data class Session(
 
     @Serializable
     data class Localized(
-        val description: String = String(),
+        val description: String = "",
         val title: String
     )
 }
