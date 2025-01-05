@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D300355C2C85E31A0049B7B3 /* Shared+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D300355B2C85E31A0049B7B3 /* Shared+Extension.swift */; };
+		D30235DB2CDC7AA80033D599 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30235DA2CDC7AA80033D599 /* BlurView.swift */; };
 		D307A8812C76039D00BB00FB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D307A8802C76039D00BB00FB /* GoogleService-Info.plist */; };
 		D307A8842C76055F00BB00FB /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = D307A8832C76055F00BB00FB /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		D307A8862C76055F00BB00FB /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = D307A8852C76055F00BB00FB /* FirebaseAppCheck */; };
@@ -72,6 +73,7 @@
 
 /* Begin PBXFileReference section */
 		D300355B2C85E31A0049B7B3 /* Shared+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Shared+Extension.swift"; sourceTree = "<group>"; };
+		D30235DA2CDC7AA80033D599 /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		D307A8802C76039D00BB00FB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D307A8922C760F8E00BB00FB /* AppearanceSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceSettingsView.swift; sourceTree = "<group>"; };
 		D34BEEC72C723BC6008F9A4C /* OPass.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OPass.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -178,7 +180,7 @@
 				D3EBBF652C8454D700A49285 /* Event */,
 				D39AC9DA2C7B394600084689 /* SelectEvent */,
 				D307A8912C760F5100BB00FB /* Settings */,
-				D3B1E77E2C774609002DBA07 /* General */,
+				D3B1E77E2C774609002DBA07 /* Common */,
 				D300355A2C85E3010049B7B3 /* Extension */,
 			);
 			path = OPass;
@@ -215,14 +217,15 @@
 			path = SelectEvent;
 			sourceTree = "<group>";
 		};
-		D3B1E77E2C774609002DBA07 /* General */ = {
+		D3B1E77E2C774609002DBA07 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				D30235DA2CDC7AA80033D599 /* BlurView.swift */,
 				D3B1E77F2C774623002DBA07 /* SafariView.swift */,
 				D3B1E7812C775E7C002DBA07 /* CenterLabelStyle.swift */,
 				D35A64EE2CDB00CD0085D41F /* CachedAsyncImage.swift */,
 			);
-			path = General;
+			path = Common;
 			sourceTree = "<group>";
 		};
 		D3C398062C73A190002FFD42 /* OneSignalNotificationServiceExtension */ = {
@@ -434,6 +437,7 @@
 			files = (
 				D35A64F12CDB04100085D41F /* FeatureGrid.swift in Sources */,
 				D3D1B8A02C7475A00075A747 /* SettingsView.swift in Sources */,
+				D30235DB2CDC7AA80033D599 /* BlurView.swift in Sources */,
 				D35A64EF2CDB00CD0085D41F /* CachedAsyncImage.swift in Sources */,
 				D34BEECD2C723BC6008F9A4C /* ContentView.swift in Sources */,
 				D3FA31322C8C457800949ECF /* GeneralSettingsView.swift in Sources */,
