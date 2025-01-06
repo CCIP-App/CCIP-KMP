@@ -131,6 +131,26 @@ class PortalHelper {
     }
 
     /**
+     * Uses Scenario for specified event using given token from event's FastPass feature
+     * @param eventId ID of the event
+     * @param token Token to identify attendee
+     * @param scenarioId ID of the scenario
+     * @return [Attendee] on success, null otherwise
+     */
+    suspend fun useScenario(
+        eventId: String,
+        token: String,
+        scenarioId: String
+    ): Attendee? {
+        val eventConfig = dbHelper.getEventConfig(eventId) ?: return null
+        val feat = eventConfig.features.find { f -> f.type == FeatureType.FAST_PASS } ?: return null
+
+        return client.useScenario(feat.url!!, token, scenarioId).also {
+            dbHelper.addAttendee(eventId, it)
+        }
+    }
+
+    /**
      * Deletes an attendee's information from the database
      *
      * Consider calling this method when a user wants to logout from the app.

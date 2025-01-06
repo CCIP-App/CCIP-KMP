@@ -66,4 +66,11 @@ internal class PortalClient {
             if (token != null) parameter("token", token)
         }.body()
     }
+
+    suspend fun useScenario(url: String, token: String, scenarioId: String): Attendee {
+        return universalClient.get {
+            url("$url/use/$scenarioId")
+            parameter("token", token)
+        }.body()
+    }
 }
