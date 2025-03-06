@@ -15,10 +15,10 @@
     <string name="fast_pass">Fast Pass</string>
     <string name="announcement">Announcement</string>
     <string name="puzzle">Booth Reward Activity</string>
-    <string name="telegram" translatable="false">Telegram</string>
+    <string name="telegram">Telegram</string>
     <string name="venue">Venue</string>
     <string name="sponsors">Sponsors</string>
-    <string name="staff">Staff</string>
+    <string name="staffs">Staffs</string>
     <string name="wifi">Wi-Fi</string>
     <string name="irc" translatable="false">IRC</string>
 
@@ -32,8 +32,8 @@
     <!-- TicketScreen -->
     <string name="auto_brighten">Auto-brighten</string>
     <string name="ticket">Ticket</string>
-    <string name="scan">Scan QR</string>
-    <string name="upload_from_gallery">Upload from Gallery</string>
+    <string name="scan_qr_code">Scan QR code</string>
+    <string name="select_from_gallery">Select from Gallery</string>
     <string name="enter_token_manually_title">Token</string>
     <string name="enter_token_manually_desc">Enter the token manually that you may have received via email or organizers.</string>
     <string name="verifying">Verifying ticket</string>

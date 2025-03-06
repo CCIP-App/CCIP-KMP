@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-FileCopyrightText: 2024 OPass
+    SPDX-License-Identifier: GPL-3.0-only
+-->
+<resources>
+    <!-- EventPreviewScreen -->
+    <string name="select_event">நிகழ்வைத் தேர்ந்தெடுக்கவும்</string>
+
+    <!-- EventScreen -->
+    <string name="event">நிகழ்வு</string>
+    <string name="fast_pass">வேகமான பாச்</string>
+    <string name="announcement">அறிவிப்பு</string>
+    <string name="puzzle">பூத் வெகுமதி செயல்பாடு</string>
+    <string name="telegram">தந்தி</string>
+    <string name="venue">இடம்</string>
+    <string name="sponsors">ஒப்புரவாளர்கள்</string>
+    <string name="staffs">பணியாளர்கள்</string>
+
+    <!-- ScheduleScreen -->
+    <string name="schedule">அட்டவணை</string>
+
+    <!-- TicketScreen -->
+    <string name="ticket">டிக்கெட்</string>
+    <string name="scan_qr_code">QR குறியீட்டை ச்கேன் செய்யுங்கள்</string>
+    <string name="select_from_gallery">கேலரியில் இருந்து தேர்ந்தெடுக்கவும்</string>
+</resources>

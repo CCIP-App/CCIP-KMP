@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-FileCopyrightText: 2024 OPass
+    SPDX-License-Identifier: GPL-3.0-only
+-->
+<resources>
+    <!-- EventPreviewScreen -->
+    <string name="select_event">Suán-ti̍k ua̍h-tāng</string>
+
+    <!-- EventScreen -->
+    <string name="event">Ua̍h-tāng</string>
+    <string name="announcement">Tāi-huē kong-kò</string>
+    <string name="telegram">Telegram</string>
+    <string name="venue">Huē-tiûnn tē-tôo</string>
+    <string name="sponsors">Tsàn-tsōo</string>
+
+    <!-- ScheduleScreen -->
+    <string name="schedule">Gī-tîng</string>
+
+    <!-- TicketScreen -->
+    <string name="ticket">Phiò-kǹg</string>
+</resources>
