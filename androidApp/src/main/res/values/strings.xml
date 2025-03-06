@@ -19,7 +19,7 @@
     <string name="venue">Venue</string>
     <string name="sponsors">Sponsors</string>
     <string name="staff">Staff</string>
-    <string name="wifi">WiFi</string>
+    <string name="wifi">Wi-Fi</string>
     <string name="irc" translatable="false">IRC</string>
 
     <!-- ScheduleScreen -->
