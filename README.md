@@ -11,6 +11,14 @@ Some of the conferences in which OPass has been in use for the past few years ar
 - [COSCUP (Conference for Open Source Coders, Users and Promoters)](https://coscup.org/)
 - [SITCON (Students' Information Technology Conference)](https://sitcon.org/)
 
+## Translations
+
+Don't see your preferred language? Click on the widget below to help translate OPass!
+
+<a href="https://hosted.weblate.org/engage/opass/">
+  <img src="https://hosted.weblate.org/widgets/opass/-/287x66-grey.png" alt="Translation status" />
+</a>
+
 ## Development
 
 OPass uses [Kotlin Multiplatform Project](https://www.jetbrains.com/kotlin-multiplatform/) to
