@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-FileCopyrightText: 2024 OPass
+    SPDX-License-Identifier: GPL-3.0-only
+-->
+<resources>
+    <!-- EventPreviewScreen -->
+    <string name="select_event">आयोजन चुनें</string>
+
+    <!-- EventScreen -->
+    <string name="event">आयोजन</string>
+    <string name="fast_pass">फ़ास्ट पास</string>
+    <string name="announcement">घोषणा</string>
+    <string name="puzzle">बूथ पुरस्कार गतिविधि</string>
+    <string name="telegram">Telegram</string>
+    <string name="venue">कार्यक्रम का स्थान</string>
+    <string name="sponsors">प्रायोजक</string>
+    <string name="staffs">कर्मचारी</string>
+
+    <!-- ScheduleScreen -->
+    <string name="schedule">सारणी</string>
+
+    <!-- TicketScreen -->
+    <string name="ticket">टिकट</string>
+    <string name="scan_qr_code">क्यूआर कोड स्कैन करें</string>
+    <string name="select_from_gallery">गैलरी से चयन करें</string>
+</resources>

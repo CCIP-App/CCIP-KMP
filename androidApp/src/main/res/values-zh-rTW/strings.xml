@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-FileCopyrightText: 2024 OPass
+    SPDX-License-Identifier: GPL-3.0-only
+-->
+<resources>
+    <!-- EventPreviewScreen -->
+    <string name="select_event">選擇活動</string>
+
+    <!-- EventScreen -->
+    <string name="event">活動</string>
+    <string name="fast_pass">快速通關</string>
+    <string name="announcement">大會訊息</string>
+    <string name="puzzle">真·實境矩陣</string>
+    <string name="telegram">Telegram</string>
+    <string name="venue">會場地圖</string>
+    <string name="sponsors">贊助</string>
+    <string name="staffs">工作人員</string>
+
+    <!-- ScheduleScreen -->
+    <string name="schedule">議程</string>
+
+    <!-- TicketScreen -->
+    <string name="ticket">票券</string>
+    <string name="scan_qr_code">掃描 QR code</string>
+    <string name="select_from_gallery">從相簿中挑選</string>
+</resources>

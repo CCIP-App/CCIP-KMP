@@ -194,7 +194,7 @@ fun Screen.Event.EventScreen(
 
                             FeatureType.STAFFS -> {
                                 FeatureItem(
-                                    label = stringResource(id = R.string.staff),
+                                    label = stringResource(id = R.string.staffs),
                                     iconRes = R.drawable.ic_staff
                                 ) {
                                     context.browse(feature.url!!)

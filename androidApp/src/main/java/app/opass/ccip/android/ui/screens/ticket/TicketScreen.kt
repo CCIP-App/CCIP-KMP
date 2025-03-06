@@ -224,7 +224,7 @@ private fun RequestTicket(
             ) {
                 if (context.packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)) {
                     Button(onClick = {}) {
-                        Text(text = stringResource(R.string.scan))
+                        Text(text = stringResource(R.string.scan_qr_code))
                     }
                 }
                 FilledTonalButton(
@@ -239,7 +239,7 @@ private fun RequestTicket(
                         contentDescription = null,
                         modifier = Modifier.padding(end = 5.dp)
                     )
-                    Text(text = stringResource(R.string.upload_from_gallery))
+                    Text(text = stringResource(R.string.select_from_gallery))
                 }
             }
         }
