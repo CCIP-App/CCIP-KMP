@@ -2,11 +2,9 @@
 <!--
     SPDX-FileCopyrightText: 2024 OPass
     SPDX-License-Identifier: GPL-3.0-only
--->
-<resources>
+--><resources>
     <!-- EventPreviewScreen -->
     <string name="select_event">आयोजन चुनें</string>
-
     <!-- EventScreen -->
     <string name="event">आयोजन</string>
     <string name="fast_pass">फ़ास्ट पास</string>
@@ -16,12 +14,19 @@
     <string name="venue">कार्यक्रम का स्थान</string>
     <string name="sponsors">प्रायोजक</string>
     <string name="staffs">कर्मचारी</string>
-
     <!-- ScheduleScreen -->
     <string name="schedule">सारणी</string>
-
     <!-- TicketScreen -->
     <string name="ticket">टिकट</string>
     <string name="scan_qr_code">क्यूआर कोड स्कैन करें</string>
     <string name="select_from_gallery">गैलरी से चयन करें</string>
+    <string name="session">सत्र</string>
+    <string name="auto_brighten">स्वतः चमक बढ़ाएं</string>
+    <string name="verifying">टिकट सत्यापित किया जा रहा है</string>
+    <string name="ticket_verification_help_title">कृपया अपना टिकट सत्यापित करें</string>
+    <string name="enter_token_manually_title">टोकन</string>
+    <string name="search_event">आयोजन खोजें</string>
+    <string name="enter_token_manually_desc">मैन्युअल रूप से टोकन दर्ज करें जो आपको ईमेल या आयोजकों के माध्यम से प्राप्त हुआ हो।</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="ticket_verification_help_desc">टिकट आमतौर पर आपके ईमेल के इनबॉक्स या स्पैम फ़ोल्डर में होता है। यदि आपको यह प्राप्त नहीं हुआ है, तो कृपया कार्यक्रम आयोजकों से संपर्क करें।</string>
 </resources>
