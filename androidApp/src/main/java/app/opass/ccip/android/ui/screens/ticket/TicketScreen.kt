@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: 2024 OPass
+ * SPDX-FileCopyrightText: 2024-2025 OPass
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
@@ -67,7 +67,6 @@ import app.opass.ccip.android.ui.extensions.overrideBrightness
 import app.opass.ccip.android.ui.extensions.popBackToEventScreen
 import app.opass.ccip.android.ui.extensions.sharedPreferences
 import app.opass.ccip.android.ui.extensions.shimmer
-import app.opass.ccip.android.ui.navigation.Screen
 import app.opass.ccip.android.utils.ZXingUtil
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
@@ -75,14 +74,15 @@ import coil3.request.crossfade
 import kotlinx.coroutines.android.awaitFrame
 
 @Composable
-fun Screen.Ticket.TicketScreen(
+fun TicketScreen(
+    eventId: String,
     navHostController: NavHostController,
     viewModel: TicketViewModel = hiltViewModel()
 ) {
 
     // Always pop back to reflect latest status of attendee
     BackHandler {
-        navHostController.popBackToEventScreen(this.eventId)
+        navHostController.popBackToEventScreen(eventId)
     }
 
     val context = LocalContext.current
@@ -94,15 +94,15 @@ fun Screen.Ticket.TicketScreen(
             activity?.overrideBrightness(context.sharedPreferences.autoBrighten)
             onDispose { activity?.overrideBrightness(false) }
         }
-        ShowTicket(this, navHostController, viewModel)
+        ShowTicket(eventId, navHostController, viewModel)
     } else {
-        RequestTicket(this, navHostController, viewModel)
+        RequestTicket(eventId, navHostController, viewModel)
     }
 }
 
 @Composable
 private fun ShowTicket(
-    screen: Screen.Ticket,
+    eventId: String,
     navHostController: NavHostController,
     viewModel: TicketViewModel
 ) {
@@ -112,10 +112,10 @@ private fun ShowTicket(
         modifier = Modifier.fillMaxSize(),
         topBar = {
             TopAppBar(
-                title = stringResource(screen.title),
+                title = stringResource(R.string.ticket),
                 onNavigate = { navHostController.navigateUp() },
                 actions = {
-                    IconButton(onClick = { viewModel.logout(screen.eventId, token!!) }) {
+                    IconButton(onClick = { viewModel.logout(eventId, token!!) }) {
                         Icon(
                             painter = painterResource(R.drawable.ic_logout),
                             contentDescription = stringResource(R.string.enter_token_manually_title)
@@ -153,7 +153,7 @@ private fun ShowTicket(
 
 @Composable
 private fun RequestTicket(
-    screen: Screen.Ticket,
+    eventId: String,
     navHostController: NavHostController,
     viewModel: TicketViewModel
 ) {
@@ -172,7 +172,7 @@ private fun RequestTicket(
         }
     )
 
-    LaunchedEffect(key1 = Unit) { viewModel.getEventConfig(screen.eventId) }
+    LaunchedEffect(key1 = Unit) { viewModel.getEventConfig(eventId) }
     LaunchedEffect(key1 = isVerifying) { shouldShowVerificationDialog = isVerifying }
 
     if (isVerifying) {
@@ -193,7 +193,7 @@ private fun RequestTicket(
         modifier = Modifier.fillMaxSize(),
         topBar = {
             TopAppBar(
-                title = stringResource(screen.title),
+                title = stringResource(R.string.ticket),
                 onNavigate = { navHostController.navigateUp() },
                 actions = {
                     IconButton(onClick = { shouldShowManualEntryDialog = true }) {

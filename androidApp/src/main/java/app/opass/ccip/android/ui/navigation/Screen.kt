@@ -1,51 +1,33 @@
 /*
- * SPDX-FileCopyrightText: 2024 OPass
+ * SPDX-FileCopyrightText: 2024-2025 OPass
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
 package app.opass.ccip.android.ui.navigation
 
-import androidx.annotation.DrawableRes
-import androidx.annotation.StringRes
-import app.opass.ccip.android.R
 import kotlinx.serialization.Serializable
 
+/**
+ * Destination (Screen) for navigation in compose
+ */
 @Serializable
-sealed class Screen(@StringRes val title: Int, @DrawableRes val icon: Int) {
+sealed class Screen {
 
     @Serializable
-    data object EventPreview : Screen(
-        title = R.string.select_event,
-        icon = R.drawable.ic_calendar
-    )
+    data object EventPreview : Screen()
 
     @Serializable
-    data class Event(val id: String) : Screen(
-        title = R.string.event,
-        icon = R.drawable.ic_event
-    )
+    data class Event(val eventId: String) : Screen()
 
     @Serializable
-    data class Schedule(val eventId: String) : Screen(
-        title = R.string.schedule,
-        icon = R.drawable.ic_schedule
-    )
+    data class Schedule(val eventId: String) : Screen()
 
     @Serializable
-    data class Session(val eventId: String, val sessionId: String) : Screen(
-        title = R.string.session,
-        icon = R.drawable.ic_podium
-    )
+    data class Session(val eventId: String, val sessionId: String) : Screen()
 
     @Serializable
-    data class Ticket(val eventId: String) : Screen(
-        title = R.string.ticket,
-        icon = R.drawable.ic_ticket
-    )
+    data class Ticket(val eventId: String) : Screen()
 
     @Serializable
-    data class Announcement(val eventId: String, val token: String? = null) : Screen(
-        title = R.string.announcement,
-        icon = R.drawable.ic_announcement
-    )
+    data class Announcement(val eventId: String, val token: String? = null) : Screen()
 }

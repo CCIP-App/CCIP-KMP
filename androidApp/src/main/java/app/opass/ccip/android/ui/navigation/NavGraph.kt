@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: 2024 OPass
+ * SPDX-FileCopyrightText: 2024-2025 OPass
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
@@ -22,41 +22,66 @@ import app.opass.ccip.android.ui.screens.schedule.ScheduleScreen
 import app.opass.ccip.android.ui.screens.session.SessionScreen
 import app.opass.ccip.android.ui.screens.ticket.TicketScreen
 
+/**
+ * Navigation graph for compose screens
+ * @param navHostController [NavHostController] to navigate with compose
+ * @param startDestination Starting destination for the activity/app
+ */
 @Composable
-fun SetupNavGraph(navHostController: NavHostController, startDestination: Screen) {
+fun NavGraph(navHostController: NavHostController, startDestination: Screen) {
     NavHost(navController = navHostController, startDestination = startDestination) {
         composable<Screen.EventPreview> {
-            Screen.EventPreview.EventPreviewScreen(navHostController)
+            EventPreviewScreen(navHostController = navHostController)
         }
 
         composable<Screen.Event> { backStackEntry ->
-            backStackEntry.toRoute<Screen.Event>().EventScreen(
-                navHostController,
-                backStackEntry.sharedViewModel(navHostController)
+            val event = backStackEntry.toRoute<Screen.Event>()
+            EventScreen(
+                eventId = event.eventId,
+                navHostController = navHostController,
+                viewModel = backStackEntry.sharedViewModel(navHostController)
             )
         }
 
         composable<Screen.Schedule> { backStackEntry ->
-            backStackEntry.toRoute<Screen.Schedule>().ScheduleScreen(
-                navHostController,
-                backStackEntry.sharedViewModel(navHostController)
+            val schedule = backStackEntry.toRoute<Screen.Schedule>()
+            ScheduleScreen(
+                eventId = schedule.eventId,
+                navHostController = navHostController,
+                viewModel = backStackEntry.sharedViewModel(navHostController)
             )
         }
 
         composable<Screen.Session> { backStackEntry ->
-            backStackEntry.toRoute<Screen.Session>().SessionScreen(navHostController)
+            val session = backStackEntry.toRoute<Screen.Session>()
+            SessionScreen(
+                eventId = session.eventId,
+                sessionId = session.sessionId,
+                navHostController = navHostController
+            )
         }
 
         composable<Screen.Ticket> { backStackEntry ->
-            backStackEntry.toRoute<Screen.Ticket>().TicketScreen(navHostController)
+            val ticket = backStackEntry.toRoute<Screen.Ticket>()
+            TicketScreen(
+                eventId = ticket.eventId,
+                navHostController = navHostController
+            )
         }
 
         composable<Screen.Announcement> { backStackEntry ->
-            backStackEntry.toRoute<Screen.Announcement>().AnnouncementScreen(navHostController)
+            val announcement = backStackEntry.toRoute<Screen.Announcement>()
+            AnnouncementScreen(
+                eventId = announcement.eventId,
+                navHostController = navHostController
+            )
         }
     }
 }
 
+/**
+ * Gets viewModel from the parent composable
+ */
 @Composable
 private inline fun <reified T : ViewModel> NavBackStackEntry.sharedViewModel(navController: NavController): T {
     val parentEntry = remember (this) { navController.getBackStackEntry(this.destination.route!!) }

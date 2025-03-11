@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: 2024 OPass
+ * SPDX-FileCopyrightText: 2024-2025 OPass
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
@@ -35,11 +35,12 @@ import androidx.navigation.NavHostController
 import app.opass.ccip.android.R
 import app.opass.ccip.android.ui.components.TopAppBar
 import app.opass.ccip.android.ui.extensions.browse
-import app.opass.ccip.android.ui.navigation.Screen
 import app.opass.ccip.network.models.fastpass.Announcement
 
 @Composable
-fun Screen.Announcement.AnnouncementScreen(
+fun AnnouncementScreen(
+    eventId: String,
+    token: String? = null,
     navHostController: NavHostController,
     viewModel: AnnouncementViewModel = hiltViewModel()
 ) {
@@ -47,23 +48,19 @@ fun Screen.Announcement.AnnouncementScreen(
     val announcements by viewModel.announcements.collectAsStateWithLifecycle()
 
     LaunchedEffect(key1 = Unit) {
-        viewModel.getAnnouncements(this@AnnouncementScreen.eventId, this@AnnouncementScreen.token)
+        viewModel.getAnnouncements(eventId, token)
     }
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
             TopAppBar(
-                title = stringResource(this.title),
+                title = stringResource(R.string.announcement),
                 onNavigate = { navHostController.navigateUp() },
                 actions = {
                     IconButton(
                         onClick = {
-                            viewModel.getAnnouncements(
-                                this@AnnouncementScreen.eventId,
-                                this@AnnouncementScreen.token,
-                                true
-                            )
+                            viewModel.getAnnouncements(eventId, token, true)
                         }
                     ) {
                         Icon(

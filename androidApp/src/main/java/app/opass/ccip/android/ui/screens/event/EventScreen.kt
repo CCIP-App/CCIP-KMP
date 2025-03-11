@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: 2024 OPass
+ * SPDX-FileCopyrightText: 2024-2025 OPass
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
@@ -67,7 +67,8 @@ import coil3.request.crossfade
 
 @Composable
 @OptIn(ExperimentalLayoutApi::class, ExperimentalMaterial3Api::class)
-fun Screen.Event.EventScreen(
+fun EventScreen(
+    eventId: String,
     navHostController: NavHostController,
     viewModel: EventViewModel = hiltViewModel()
 ) {
@@ -79,7 +80,7 @@ fun Screen.Event.EventScreen(
 
     var shouldShowBottomSheet by rememberSaveable { mutableStateOf(false) }
 
-    LaunchedEffect(key1 = Unit) { viewModel.getEventConfig(this@EventScreen.id) }
+    LaunchedEffect(key1 = Unit) { viewModel.getEventConfig(eventId) }
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -95,7 +96,7 @@ fun Screen.Event.EventScreen(
 
         if (shouldShowBottomSheet) {
             ModalBottomSheet(onDismissRequest = { shouldShowBottomSheet = false }) {
-                Screen.EventPreview.EventPreviewScreen(
+                EventPreviewScreen(
                     navHostController = navHostController,
                     isPullToRefreshEnabled = false,
                     containerColor = BottomSheetDefaults.ContainerColor
@@ -135,7 +136,7 @@ fun Screen.Event.EventScreen(
                                     iconRes = R.drawable.ic_announcement
                                 ) {
                                     navHostController.navigate(
-                                        Screen.Announcement(this@EventScreen.id, attendee?.token)
+                                        Screen.Announcement(eventId, attendee?.token)
                                     )
                                 }
                             }
@@ -170,7 +171,7 @@ fun Screen.Event.EventScreen(
                                     label = stringResource(id = R.string.schedule),
                                     iconRes = R.drawable.ic_schedule
                                 ) {
-                                    navHostController.navigate(Screen.Schedule(this@EventScreen.id))
+                                    navHostController.navigate(Screen.Schedule(eventId))
                                 }
                             }
 
@@ -206,7 +207,7 @@ fun Screen.Event.EventScreen(
                                     label = stringResource(id = R.string.ticket),
                                     iconRes = R.drawable.ic_ticket
                                 ) {
-                                    navHostController.navigate(Screen.Ticket(this@EventScreen.id))
+                                    navHostController.navigate(Screen.Ticket(eventId))
                                 }
                             }
 

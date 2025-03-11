@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: 2024 OPass
+ * SPDX-FileCopyrightText: 2024-2025 OPass
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
@@ -49,14 +49,15 @@ import app.opass.ccip.network.models.schedule.Session
 import kotlinx.coroutines.launch
 
 @Composable
-fun Screen.Schedule.ScheduleScreen(
+fun ScheduleScreen(
+    eventId: String,
     navHostController: NavHostController,
     viewModel: EventViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
     val schedule by viewModel.schedule.collectAsStateWithLifecycle()
 
-    LaunchedEffect(key1 = Unit) { viewModel.getSchedule(this@ScheduleScreen.eventId) }
+    LaunchedEffect(key1 = Unit) { viewModel.getSchedule(eventId) }
 
     @Composable
     fun LoadSessionPreviewItems(
@@ -107,7 +108,7 @@ fun Screen.Schedule.ScheduleScreen(
                             room = session.room
                         ) {
                             navHostController.navigate(
-                                Screen.Session(this@ScheduleScreen.eventId, session.id)
+                                Screen.Session(eventId, session.id)
                             )
                         }
                     }
@@ -119,7 +120,7 @@ fun Screen.Schedule.ScheduleScreen(
         modifier = Modifier.fillMaxSize(),
         topBar = {
             TopAppBar(
-                title = stringResource(id = this.title),
+                title = stringResource(id = R.string.schedule),
                 onNavigate = { navHostController.navigateUp() }
             )
         }

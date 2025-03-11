@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: 2024 OPass
+ * SPDX-FileCopyrightText: 2024-2025 OPass
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
@@ -46,7 +46,9 @@ import app.opass.ccip.network.models.schedule.Session
 import com.mikepenz.markdown.m3.Markdown
 
 @Composable
-fun Screen.Session.SessionScreen(
+fun SessionScreen(
+    eventId: String,
+    sessionId: String,
     navHostController: NavHostController,
     viewModel: SessionViewModel = hiltViewModel()
 ) {
@@ -55,7 +57,7 @@ fun Screen.Session.SessionScreen(
     val session by viewModel.session.collectAsStateWithLifecycle()
 
     LaunchedEffect(key1 = Unit) {
-        viewModel.getSession(this@SessionScreen.eventId, this@SessionScreen.sessionId)
+        viewModel.getSession(eventId, sessionId)
     }
 
     Scaffold(

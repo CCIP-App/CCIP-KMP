@@ -64,7 +64,7 @@ import coil3.request.crossfade
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-fun Screen.EventPreview.EventPreviewScreen(
+fun EventPreviewScreen(
     navHostController: NavHostController,
     viewModel: EventPreviewViewModel = hiltViewModel(),
     isPullToRefreshEnabled: Boolean = true,

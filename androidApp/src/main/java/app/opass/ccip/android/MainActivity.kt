@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: 2024 OPass
+ * SPDX-FileCopyrightText: 2024-2025 OPass
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
@@ -13,7 +13,7 @@ import androidx.navigation.compose.rememberNavController
 import app.opass.ccip.android.ui.extensions.currentEventId
 import app.opass.ccip.android.ui.extensions.sharedPreferences
 import app.opass.ccip.android.ui.navigation.Screen
-import app.opass.ccip.android.ui.navigation.SetupNavGraph
+import app.opass.ccip.android.ui.navigation.NavGraph
 import app.opass.ccip.android.ui.theme.OPassTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -30,7 +30,7 @@ class MainActivity : ComponentActivity() {
             OPassTheme {
                 val navController = rememberNavController()
 
-                SetupNavGraph(
+                NavGraph(
                     navHostController = navController,
                     startDestination = if (currentEventId.isNullOrBlank()) {
                         Screen.EventPreview
