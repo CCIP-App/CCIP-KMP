@@ -5,8 +5,6 @@
 
 package app.opass.ccip.android.ui.navigation
 
-import androidx.compose.animation.EnterTransition
-import androidx.compose.animation.ExitTransition
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -26,12 +24,7 @@ import app.opass.ccip.android.ui.screens.ticket.TicketScreen
 
 @Composable
 fun SetupNavGraph(navHostController: NavHostController, startDestination: Screen) {
-    NavHost(
-        navController = navHostController,
-        startDestination = startDestination,
-        enterTransition = { EnterTransition.None },
-        exitTransition = { ExitTransition.None }
-    ) {
+    NavHost(navController = navHostController, startDestination = startDestination) {
         composable<Screen.EventPreview> {
             Screen.EventPreview.EventPreviewScreen(navHostController)
         }
