@@ -21,4 +21,10 @@
     <string name="scan_qr_code">掃描 QR code</string>
     <string name="select_from_gallery">從相簿中挑選</string>
     <string name="search_event">搜尋活動</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="session">議程</string>
+    <string name="auto_brighten">自動調整亮度</string>
+    <string name="enter_token_manually_title">token</string>
+    <string name="verifying">正在驗證票券</string>
+    <string name="ticket_verification_help_title">請驗證票券</string>
 </resources>
