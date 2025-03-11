@@ -7,6 +7,7 @@ package app.opass.ccip.android.ui.screens.ticket
 
 import android.content.pm.PackageManager
 import androidx.activity.compose.BackHandler
+import androidx.activity.compose.LocalActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts.PickVisualMedia
@@ -62,11 +63,11 @@ import androidx.navigation.NavHostController
 import app.opass.ccip.android.R
 import app.opass.ccip.android.ui.components.TopAppBar
 import app.opass.ccip.android.ui.extensions.autoBrighten
+import app.opass.ccip.android.ui.extensions.overrideBrightness
 import app.opass.ccip.android.ui.extensions.popBackToEventScreen
 import app.opass.ccip.android.ui.extensions.sharedPreferences
 import app.opass.ccip.android.ui.extensions.shimmer
 import app.opass.ccip.android.ui.navigation.Screen
-import app.opass.ccip.android.utils.CommonUtil.setBrightness
 import app.opass.ccip.android.utils.ZXingUtil
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
@@ -85,13 +86,13 @@ fun Screen.Ticket.TicketScreen(
     }
 
     val context = LocalContext.current
+    val activity = LocalActivity.current
     val token by viewModel.token.collectAsStateWithLifecycle()
+
     if (!token.isNullOrBlank()) {
         DisposableEffect(Unit) {
-            if (context.sharedPreferences.autoBrighten) setBrightness(context, isFull = true)
-            onDispose {
-                setBrightness(context, isFull = false)
-            }
+            activity?.overrideBrightness(context.sharedPreferences.autoBrighten)
+            onDispose { activity?.overrideBrightness(false) }
         }
         ShowTicket(this, navHostController, viewModel)
     } else {
@@ -269,6 +270,7 @@ private fun HeaderImage(logoUrl: String?) {
 
 @Composable
 private fun BrightnessControl() {
+    val activity = LocalActivity.current
     val context = LocalContext.current
     var isOverridingBrightness by rememberSaveable {
         mutableStateOf(context.sharedPreferences.autoBrighten)
@@ -296,7 +298,7 @@ private fun BrightnessControl() {
             onCheckedChange = {
                 isOverridingBrightness = it
                 context.sharedPreferences.autoBrighten(it)
-                setBrightness(context, it)
+                activity!!.overrideBrightness(it)
             }
         )
     }
