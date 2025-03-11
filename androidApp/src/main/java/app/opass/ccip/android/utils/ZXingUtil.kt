@@ -9,6 +9,7 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
+import androidx.core.graphics.createBitmap
 
 object ZXingUtil {
 
@@ -30,7 +31,7 @@ object ZXingUtil {
             }
         }
 
-        return Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888).apply {
+        return createBitmap(width, height).apply {
             setPixels(pixels, 0, width, 0, 0, width, height)
         }
     }
