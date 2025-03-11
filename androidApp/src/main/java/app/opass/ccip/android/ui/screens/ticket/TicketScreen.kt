@@ -113,7 +113,7 @@ private fun ShowTicket(
         topBar = {
             TopAppBar(
                 title = stringResource(screen.title),
-                navHostController = navHostController,
+                onNavigate = { navHostController.navigateUp() },
                 actions = {
                     IconButton(onClick = { viewModel.logout(screen.eventId, token!!) }) {
                         Icon(
@@ -194,7 +194,7 @@ private fun RequestTicket(
         topBar = {
             TopAppBar(
                 title = stringResource(screen.title),
-                navHostController = navHostController,
+                onNavigate = { navHostController.navigateUp() },
                 actions = {
                     IconButton(onClick = { shouldShowManualEntryDialog = true }) {
                         Icon(

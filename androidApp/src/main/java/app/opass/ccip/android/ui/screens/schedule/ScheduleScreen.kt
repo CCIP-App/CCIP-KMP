@@ -118,7 +118,10 @@ fun Screen.Schedule.ScheduleScreen(
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
-            TopAppBar(title = stringResource(id = this.title), navHostController = navHostController)
+            TopAppBar(
+                title = stringResource(id = this.title),
+                onNavigate = { navHostController.navigateUp() }
+            )
         }
     ) { paddingValues ->
         LoadSessionPreviewItems(

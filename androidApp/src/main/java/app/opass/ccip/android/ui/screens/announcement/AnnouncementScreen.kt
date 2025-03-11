@@ -55,7 +55,7 @@ fun Screen.Announcement.AnnouncementScreen(
         topBar = {
             TopAppBar(
                 title = stringResource(this.title),
-                navHostController = navHostController,
+                onNavigate = { navHostController.navigateUp() },
                 actions = {
                     IconButton(
                         onClick = {

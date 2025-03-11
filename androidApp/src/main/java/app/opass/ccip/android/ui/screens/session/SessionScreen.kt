@@ -60,7 +60,7 @@ fun Screen.Session.SessionScreen(
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
-        topBar = { TopAppBar(navHostController = navHostController) }
+        topBar = { TopAppBar(onNavigate = { navHostController.navigateUp() }) }
     ) { paddingValues ->
         if (session != null) {
             LoadSession(

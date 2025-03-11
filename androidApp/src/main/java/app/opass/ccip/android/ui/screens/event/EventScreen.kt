@@ -25,8 +25,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
@@ -89,15 +87,8 @@ fun Screen.Event.EventScreen(
             TopAppBar(
                 title = eventConfig?.name ?: String(),
                 subtitle = attendee?.userId ?: String(),
-                navigationIcon = {
-                    IconButton(onClick = { shouldShowBottomSheet = true }) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_drawer),
-                            contentDescription = null,
-                            tint = MaterialTheme.colorScheme.primary
-                        )
-                    }
-                }
+                navigationIcon = R.drawable.ic_drawer,
+                onNavigate = { shouldShowBottomSheet = true }
             )
         }
     ) { paddingValues ->
