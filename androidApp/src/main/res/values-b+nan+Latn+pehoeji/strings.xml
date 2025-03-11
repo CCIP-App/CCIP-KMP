@@ -2,12 +2,8 @@
 <!--
     SPDX-FileCopyrightText: 2024 OPass
     SPDX-License-Identifier: GPL-3.0-only
--->
-<resources>
-    <!-- EventPreviewScreen -->
+--><resources>
     <string name="select_event">Soán-te̍k oa̍h-tāng</string>
-
-    <!-- EventScreen -->
     <string name="event">Oa̍h-tāng</string>
     <string name="fast_pass">Khoài-sok Thong-koan</string>
     <string name="announcement">Tāi-hōe kong-kò</string>
@@ -16,11 +12,7 @@
     <string name="venue">Hōe-tiûⁿ tē-tô͘</string>
     <string name="sponsors">Chàn-chō͘</string>
     <string name="staffs">Kang-chok Jîn-oân</string>
-
-    <!-- ScheduleScreen -->
     <string name="schedule">Gī-têng</string>
-
-    <!-- TicketScreen -->
     <string name="ticket">Phiò-kǹg</string>
     <string name="scan_qr_code">Sàu-biâu QR bé</string>
     <string name="select_from_gallery">Tùi tô͘-khò͘ soán-te̍k</string>
