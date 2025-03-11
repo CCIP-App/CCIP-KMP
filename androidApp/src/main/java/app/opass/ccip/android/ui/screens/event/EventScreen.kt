@@ -23,19 +23,13 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.BottomSheetDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -58,7 +52,6 @@ import app.opass.ccip.android.ui.components.TopAppBar
 import app.opass.ccip.android.ui.extensions.browse
 import app.opass.ccip.android.ui.extensions.shimmer
 import app.opass.ccip.android.ui.navigation.Screen
-import app.opass.ccip.android.ui.screens.eventpreview.EventPreviewScreen
 import app.opass.ccip.android.utils.WifiUtil
 import app.opass.ccip.network.models.eventconfig.FeatureType
 import coil3.compose.AsyncImage
@@ -66,7 +59,7 @@ import coil3.request.ImageRequest
 import coil3.request.crossfade
 
 @Composable
-@OptIn(ExperimentalLayoutApi::class, ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalLayoutApi::class)
 fun EventScreen(
     eventId: String,
     navHostController: NavHostController,
@@ -78,8 +71,6 @@ fun EventScreen(
     val eventConfig by viewModel.eventConfig.collectAsStateWithLifecycle()
     val attendee by viewModel.attendee.collectAsStateWithLifecycle()
 
-    var shouldShowBottomSheet by rememberSaveable { mutableStateOf(false) }
-
     LaunchedEffect(key1 = Unit) { viewModel.getEventConfig(eventId) }
 
     Scaffold(
@@ -89,23 +80,10 @@ fun EventScreen(
                 title = eventConfig?.name ?: String(),
                 subtitle = attendee?.userId ?: String(),
                 navigationIcon = R.drawable.ic_drawer,
-                onNavigate = { shouldShowBottomSheet = true }
+                onNavigate = { navHostController.navigate(Screen.EventPreview) }
             )
         }
     ) { paddingValues ->
-
-        if (shouldShowBottomSheet) {
-            ModalBottomSheet(onDismissRequest = { shouldShowBottomSheet = false }) {
-                EventPreviewScreen(
-                    navHostController = navHostController,
-                    isPullToRefreshEnabled = false,
-                    containerColor = BottomSheetDefaults.ContainerColor
-                ) {
-                    shouldShowBottomSheet = false
-                }
-            }
-        }
-
         Column(
             modifier = Modifier
                 .fillMaxSize()

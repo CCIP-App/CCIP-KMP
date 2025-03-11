@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: 2024 OPass
+ * SPDX-FileCopyrightText: 2024-2025 OPass
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
@@ -26,6 +26,9 @@ class EventPreviewViewModel @Inject constructor(
     private val _events: MutableStateFlow<List<Event>?> = MutableStateFlow(emptyList())
     val events = _events.asStateFlow()
 
+    private val _searchResult: MutableStateFlow<List<Event>> = MutableStateFlow(emptyList())
+    val searchResult = _searchResult.asStateFlow()
+
     private val _isRefreshing = MutableStateFlow(false)
     val isRefreshing = _isRefreshing.asStateFlow()
 
@@ -44,6 +47,14 @@ class EventPreviewViewModel @Inject constructor(
             } finally {
                 _isRefreshing.value = false
             }
+        }
+    }
+
+    fun search(query: String) {
+        if (query.isNotBlank()) {
+            _searchResult.value = _events.value!!.filter { it.name.contains(query, true) }
+        } else {
+            _searchResult.value = emptyList()
         }
     }
 }
