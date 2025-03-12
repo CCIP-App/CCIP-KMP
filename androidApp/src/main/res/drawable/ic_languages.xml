@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ SPDX-FileCopyrightText: Codex / Wikimedia
-  ~ SPDX-License-Identifier: GPL-2.0
+  ~ SPDX-License-Identifier: GPL-2.0-or-later
   -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="24dp"

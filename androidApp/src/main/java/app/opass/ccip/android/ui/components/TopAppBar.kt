@@ -45,7 +45,7 @@ fun TopAppBar(
         title = {
             if (title != null) {
                 Column(
-                    verticalArrangement = Arrangement.spacedBy(5.dp),
+                    verticalArrangement = Arrangement.spacedBy(5.dp, Alignment.CenterVertically),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(

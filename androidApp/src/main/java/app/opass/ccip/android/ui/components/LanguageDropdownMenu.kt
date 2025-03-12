@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: 2024-2025 OPass
+ * SPDX-FileCopyrightText: 2025 OPass
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
@@ -8,6 +8,7 @@ package app.opass.ccip.android.ui.components
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.util.fastForEach
 import app.opass.ccip.android.R
 import app.opass.ccip.android.ui.models.LanguageOptionItem
 
@@ -17,50 +18,55 @@ fun LanguageDropdownMenu(
     onHideDropdownMenu: () -> Unit = {},
     onDismissRequest: () -> Unit = {}
 ) {
-    val languageOptions: Map<String, LanguageOptionItem> = mapOf(
-        "en-US" to LanguageOptionItem(
+    val languageOptions = listOf(
+        LanguageOptionItem(
+            locale = "en-US",
             localNameResId = R.string.lang_local_name_en_us,
             translatedNameResId = R.string.lang_translated_name_en_us
         ),
-        "nan-Hant-TW" to LanguageOptionItem(
+        LanguageOptionItem(
+            locale = "nan-Hant-TW",
             localNameResId = R.string.lang_local_name_nan_hant_tw,
             translatedNameResId = R.string.lang_translated_name_nan_hant_tw
         ),
-        "nan-Latn-TW-pehoeji" to LanguageOptionItem(
+        LanguageOptionItem(
+            locale = "nan-Latn-TW-pehoeji",
             localNameResId = R.string.lang_local_name_nan_latn_tw_pehoeji,
             translatedNameResId = R.string.lang_translated_name_nan_latn_tw_pehoeji
         ),
-        "nan-Latn-TW-tailo" to LanguageOptionItem(
+        LanguageOptionItem(
+            locale = "nan-Latn-TW-tailo",
             localNameResId = R.string.lang_local_name_nan_latn_tw_tailo,
             translatedNameResId = R.string.lang_translated_name_nan_latn_tw_tailo
         ),
-        "hi-IN" to LanguageOptionItem(
+        LanguageOptionItem(
+            locale = "hi-IN",
             localNameResId = R.string.lang_local_name_hi_in,
             translatedNameResId = R.string.lang_translated_name_hi_in
         ),
-        "nb-NO" to LanguageOptionItem(
+        LanguageOptionItem(
+            locale = "nb-NO",
             localNameResId = R.string.lang_local_name_nb_no,
             translatedNameResId = R.string.lang_translated_name_nb_no
         ),
-        "ta-IN" to LanguageOptionItem(
+        LanguageOptionItem(
+            locale = "ta-IN",
             localNameResId = R.string.lang_local_name_ta_in,
             translatedNameResId = R.string.lang_translated_name_ta_in
         ),
-        "zh-Hant-TW" to LanguageOptionItem(
+        LanguageOptionItem(
+            locale = "zh-Hant-TW",
             localNameResId = R.string.lang_local_name_zh_hant_tw,
             translatedNameResId = R.string.lang_translated_name_zh_hant_tw
         )
     )
 
-    DropdownMenu(
-        expanded = expanded,
-        onDismissRequest = onDismissRequest
-    ) {
-        languageOptions.forEach { option ->
+    DropdownMenu(expanded = expanded, onDismissRequest = onDismissRequest) {
+        languageOptions.fastForEach { option ->
             LanguageDropdownMenuItem(
-                key = option.key,
-                localNameResId = option.value.localNameResId,
-                translatedNameResId = option.value.translatedNameResId,
+                key = option.locale,
+                localNameResId = option.localNameResId,
+                translatedNameResId = option.translatedNameResId,
                 onHideDropdownMenu = onHideDropdownMenu
             )
         }

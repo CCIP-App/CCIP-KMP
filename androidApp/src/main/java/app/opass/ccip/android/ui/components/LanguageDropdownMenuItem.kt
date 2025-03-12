@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: 2024-2025 OPass
+ * SPDX-FileCopyrightText: 2025 OPass
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
@@ -23,17 +23,13 @@ import app.opass.ccip.android.R
 @Composable
 fun LanguageDropdownMenuItem(
     key: String,
-    @StringRes
-    localNameResId: Int,
-    @StringRes
-    translatedNameResId: Int,
+    @StringRes localNameResId: Int,
+    @StringRes translatedNameResId: Int,
     onHideDropdownMenu: () -> Unit = {}
 ) {
     DropdownMenuItem(
         text = {
-            Column(
-                modifier = Modifier.padding(horizontal = 2.dp, vertical = 10.dp)
-            ) {
+            Column(modifier = Modifier.padding(horizontal = 2.dp, vertical = 10.dp)) {
                 Text(
                     text = stringResource(id = localNameResId),
                     style = MaterialTheme.typography.titleMedium
