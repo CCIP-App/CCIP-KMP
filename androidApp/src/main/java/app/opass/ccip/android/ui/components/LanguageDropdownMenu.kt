@@ -20,42 +20,42 @@ fun LanguageDropdownMenu(
 ) {
     val languageOptions = listOf(
         LanguageOptionItem(
-            locale = "en-US",
+            languageTag = "en-US",
             localNameResId = R.string.lang_local_name_en_us,
             translatedNameResId = R.string.lang_translated_name_en_us
         ),
         LanguageOptionItem(
-            locale = "nan-Hant-TW",
+            languageTag = "nan-Hant-TW",
             localNameResId = R.string.lang_local_name_nan_hant_tw,
             translatedNameResId = R.string.lang_translated_name_nan_hant_tw
         ),
         LanguageOptionItem(
-            locale = "nan-Latn-TW-pehoeji",
+            languageTag = "nan-Latn-TW-pehoeji",
             localNameResId = R.string.lang_local_name_nan_latn_tw_pehoeji,
             translatedNameResId = R.string.lang_translated_name_nan_latn_tw_pehoeji
         ),
         LanguageOptionItem(
-            locale = "nan-Latn-TW-tailo",
+            languageTag = "nan-Latn-TW-tailo",
             localNameResId = R.string.lang_local_name_nan_latn_tw_tailo,
             translatedNameResId = R.string.lang_translated_name_nan_latn_tw_tailo
         ),
         LanguageOptionItem(
-            locale = "hi-IN",
+            languageTag = "hi-IN",
             localNameResId = R.string.lang_local_name_hi_in,
             translatedNameResId = R.string.lang_translated_name_hi_in
         ),
         LanguageOptionItem(
-            locale = "nb-NO",
+            languageTag = "nb-NO",
             localNameResId = R.string.lang_local_name_nb_no,
             translatedNameResId = R.string.lang_translated_name_nb_no
         ),
         LanguageOptionItem(
-            locale = "ta-IN",
+            languageTag = "ta-IN",
             localNameResId = R.string.lang_local_name_ta_in,
             translatedNameResId = R.string.lang_translated_name_ta_in
         ),
         LanguageOptionItem(
-            locale = "zh-Hant-TW",
+            languageTag = "zh-Hant-TW",
             localNameResId = R.string.lang_local_name_zh_hant_tw,
             translatedNameResId = R.string.lang_translated_name_zh_hant_tw
         )
@@ -64,7 +64,7 @@ fun LanguageDropdownMenu(
     DropdownMenu(expanded = expanded, onDismissRequest = onDismissRequest) {
         languageOptions.fastForEach { option ->
             LanguageDropdownMenuItem(
-                key = option.locale,
+                key = option.languageTag,
                 localNameResId = option.localNameResId,
                 translatedNameResId = option.translatedNameResId,
                 onHideDropdownMenu = onHideDropdownMenu
