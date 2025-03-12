@@ -41,6 +41,7 @@ class EventPreviewViewModel @Inject constructor(
             try {
                 _isRefreshing.value = true
                 _events.value = portalHelper.getEvents(forceReload)
+                _searchResult.value = _events.value ?: emptyList()
             } catch (exception: Exception) {
                 Log.e(TAG, "Failed to fetch events", exception)
                 _events.value = null
@@ -54,7 +55,7 @@ class EventPreviewViewModel @Inject constructor(
         if (query.isNotBlank()) {
             _searchResult.value = _events.value!!.filter { it.name.contains(query, true) }
         } else {
-            _searchResult.value = emptyList()
+            _searchResult.value = _events.value!!
         }
     }
 }
