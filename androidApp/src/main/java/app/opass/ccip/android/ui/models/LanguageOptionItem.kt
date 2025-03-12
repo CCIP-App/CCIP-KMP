@@ -8,7 +8,7 @@ package app.opass.ccip.android.ui.models
 import androidx.annotation.StringRes
 
 data class LanguageOptionItem(
-    val locale: String,
+    val languageTag: String,
     @StringRes val localNameResId: Int,
     @StringRes val translatedNameResId: Int
 )
