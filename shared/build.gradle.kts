@@ -1,9 +1,8 @@
 /*
- * SPDX-FileCopyrightText: 2024 OPass
+ * SPDX-FileCopyrightText: 2024-2025 OPass
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -14,10 +13,11 @@ plugins {
 }
 
 kotlin {
+    jvmToolchain(21)
+
     androidTarget {
-        @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_17)
+            jvmTarget.set(JvmTarget.JVM_21)
         }
     }
 
@@ -32,7 +32,6 @@ kotlin {
         }
     }
 
-    @OptIn(ExperimentalKotlinGradlePluginApi::class)
     compilerOptions {
         freeCompilerArgs.addAll("-Xexpect-actual-classes", "-opt-in=kotlin.uuid.ExperimentalUuidApi")
     }
@@ -69,8 +68,8 @@ android {
         consumerProguardFiles("consumer-rules.pro")
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
 }
 

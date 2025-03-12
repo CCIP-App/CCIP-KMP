@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: 2024 OPass
+ * SPDX-FileCopyrightText: 2024-2025 OPass
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
@@ -10,6 +10,10 @@ plugins {
     alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.googleHiltAndroid)
+}
+
+kotlin {
+    jvmToolchain(21)
 }
 
 android {
@@ -42,11 +46,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
     kotlinOptions {
-        jvmTarget = "17"
+        jvmTarget = "21"
     }
     lint {
         lintConfig = file("lint.xml")
