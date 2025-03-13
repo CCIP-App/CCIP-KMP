@@ -14,7 +14,7 @@ import kotlinx.serialization.Serializable
 sealed class Screen {
 
     @Serializable
-    data object EventPreview : Screen()
+    data object Preview : Screen()
 
     @Serializable
     data class Event(val eventId: String) : Screen()

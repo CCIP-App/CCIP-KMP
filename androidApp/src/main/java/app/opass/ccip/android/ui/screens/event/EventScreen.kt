@@ -87,7 +87,7 @@ fun EventScreen(
                 title = eventConfig?.name ?: String(),
                 subtitle = attendee?.userId ?: String(),
                 navigationIcon = R.drawable.ic_drawer,
-                onNavigate = { navHostController.navigate(Screen.EventPreview) },
+                onNavigate = { navHostController.navigate(Screen.Preview) },
                 actions = {
                     IconButton(onClick = { shouldShowLanguagePicker = true }) {
                         Icon(

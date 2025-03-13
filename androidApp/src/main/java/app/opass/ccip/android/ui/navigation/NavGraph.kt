@@ -17,7 +17,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import app.opass.ccip.android.ui.screens.announcement.AnnouncementScreen
 import app.opass.ccip.android.ui.screens.event.EventScreen
-import app.opass.ccip.android.ui.screens.eventpreview.EventPreviewScreen
+import app.opass.ccip.android.ui.screens.preview.PreviewScreen
 import app.opass.ccip.android.ui.screens.schedule.ScheduleScreen
 import app.opass.ccip.android.ui.screens.session.SessionScreen
 import app.opass.ccip.android.ui.screens.ticket.TicketScreen
@@ -30,8 +30,8 @@ import app.opass.ccip.android.ui.screens.ticket.TicketScreen
 @Composable
 fun NavGraph(navHostController: NavHostController, startDestination: Screen) {
     NavHost(navController = navHostController, startDestination = startDestination) {
-        composable<Screen.EventPreview> {
-            EventPreviewScreen(navHostController = navHostController)
+        composable<Screen.Preview> {
+            PreviewScreen(navHostController = navHostController)
         }
 
         composable<Screen.Event> { backStackEntry ->

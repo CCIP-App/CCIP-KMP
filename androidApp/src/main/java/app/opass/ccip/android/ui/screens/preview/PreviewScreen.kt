@@ -1,9 +1,9 @@
 /*
- * SPDX-FileCopyrightText: 2024 OPass
+ * SPDX-FileCopyrightText: 2024-2025 OPass
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
-package app.opass.ccip.android.ui.screens.eventpreview
+package app.opass.ccip.android.ui.screens.preview
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -53,9 +53,9 @@ import coil3.request.crossfade
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-fun EventPreviewScreen(
+fun PreviewScreen(
     navHostController: NavHostController,
-    viewModel: EventPreviewViewModel = hiltViewModel(),
+    viewModel: PreviewViewModel = hiltViewModel(),
     onEventSelected: () -> Unit = {}
 ) {
     val sharedPreferences = LocalContext.current.sharedPreferences
@@ -73,7 +73,7 @@ fun EventPreviewScreen(
             ) {
                 LazyColumn {
                     items(items = searchResult, key = { e -> e.id }) { event: Event ->
-                        EventPreviewItem(name = event.name, logoUrl = event.logoUrl) {
+                        PreviewItem(name = event.name, logoUrl = event.logoUrl) {
                             sharedPreferences.saveCurrentEventId(event.id)
                             navHostController.navigate(Screen.Event(event.id))
                         }
@@ -90,7 +90,7 @@ fun EventPreviewScreen(
             LazyColumn(contentPadding = PaddingValues(horizontal = 20.dp)) {
                 if (events.isNullOrEmpty()) {
                     items(20) {
-                        EventPreviewItem(
+                        PreviewItem(
                             name = "                                   ",
                             logoUrl = String(),
                             isLoading = true
@@ -98,7 +98,7 @@ fun EventPreviewScreen(
                     }
                 } else {
                     items(items = events!!, key = { e -> e.id }) { event: Event ->
-                        EventPreviewItem(name = event.name, logoUrl = event.logoUrl) {
+                        PreviewItem(name = event.name, logoUrl = event.logoUrl) {
                             onEventSelected()
                             sharedPreferences.saveCurrentEventId(event.id)
                             navHostController.popBackToEventScreen(event.id)
@@ -111,7 +111,7 @@ fun EventPreviewScreen(
 }
 
 @Composable
-private fun EventPreviewItem(
+private fun PreviewItem(
     name: String,
     logoUrl: String,
     isLoading: Boolean = false,

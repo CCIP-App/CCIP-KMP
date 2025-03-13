@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
                 NavGraph(
                     navHostController = navController,
                     startDestination = if (currentEventId.isNullOrBlank()) {
-                        Screen.EventPreview
+                        Screen.Preview
                     } else {
                         Screen.Event(currentEventId)
                     }

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
-package app.opass.ccip.android.ui.screens.eventpreview
+package app.opass.ccip.android.ui.screens.preview
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
@@ -17,11 +17,11 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 @HiltViewModel
-class EventPreviewViewModel @Inject constructor(
+class PreviewViewModel @Inject constructor(
     private val portalHelper: PortalHelper
 ) : ViewModel() {
 
-    private val TAG = EventPreviewViewModel::class.java.simpleName
+    private val TAG = PreviewViewModel::class.java.simpleName
 
     private val _events: MutableStateFlow<List<Event>?> = MutableStateFlow(emptyList())
     val events = _events.asStateFlow()
