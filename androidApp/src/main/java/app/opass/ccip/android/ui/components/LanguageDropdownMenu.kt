@@ -20,6 +20,11 @@ fun LanguageDropdownMenu(
 ) {
     val languageOptions = listOf(
         LanguageOptionItem(
+            languageTag = "x-default",
+            localNameResId = R.string.lang_translated_name_x_default,
+            translatedNameResId = R.string.lang_translated_name_x_default
+        ),
+        LanguageOptionItem(
             languageTag = "en-US",
             localNameResId = R.string.lang_local_name_en_us,
             translatedNameResId = R.string.lang_translated_name_en_us
@@ -64,7 +69,7 @@ fun LanguageDropdownMenu(
     DropdownMenu(expanded = expanded, onDismissRequest = onDismissRequest) {
         languageOptions.fastForEach { option ->
             LanguageDropdownMenuItem(
-                key = option.languageTag,
+                languageTag = option.languageTag,
                 localNameResId = option.localNameResId,
                 translatedNameResId = option.translatedNameResId,
                 onHideDropdownMenu = onHideDropdownMenu

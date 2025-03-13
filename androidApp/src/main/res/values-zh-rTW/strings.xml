@@ -6,6 +6,7 @@
     <string name="select_event">選擇活動</string>
     <string name="search_event">搜尋活動</string>
     <string name="switch_language">切換語言</string>
+    <string name="lang_translated_name_x_default">系統預設</string>
     <string name="lang_translated_name_en_us">英語</string>
     <string name="lang_translated_name_nan_hant_tw">閩南語 - 傳統漢字</string>
     <string name="lang_translated_name_nan_latn_tw_pehoeji">閩南語 - 白話字</string>

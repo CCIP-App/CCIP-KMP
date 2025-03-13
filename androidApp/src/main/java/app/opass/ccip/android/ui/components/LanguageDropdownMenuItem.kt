@@ -22,7 +22,7 @@ import app.opass.ccip.android.R
 
 @Composable
 fun LanguageDropdownMenuItem(
-    key: String,
+    languageTag: String,
     @StringRes localNameResId: Int,
     @StringRes translatedNameResId: Int,
     onHideDropdownMenu: () -> Unit = {}
@@ -44,7 +44,13 @@ fun LanguageDropdownMenuItem(
             onHideDropdownMenu()
 
             AppCompatDelegate.setApplicationLocales(
-                LocaleListCompat.forLanguageTags(key)
+                (
+                    if (languageTag == "x-default") {
+                        LocaleListCompat.getEmptyLocaleList()
+                    } else {
+                        LocaleListCompat.forLanguageTags(languageTag)
+                    }
+                )
             )
         }
     )
@@ -54,7 +60,7 @@ fun LanguageDropdownMenuItem(
 @Composable
 private fun TopAppBarPreview() {
     LanguageDropdownMenuItem(
-        key = "zh-Hant-TW",
+        languageTag = "zh-Hant-TW",
         localNameResId = R.string.lang_local_name_zh_hant_tw,
         translatedNameResId = R.string.lang_translated_name_zh_hant_tw
     )
