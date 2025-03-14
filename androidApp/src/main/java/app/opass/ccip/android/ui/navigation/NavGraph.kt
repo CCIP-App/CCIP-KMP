@@ -47,8 +47,13 @@ fun NavGraph(navHostController: NavHostController, startDestination: Screen) {
             val schedule = backStackEntry.toRoute<Screen.Schedule>()
             ScheduleScreen(
                 eventId = schedule.eventId,
-                navHostController = navHostController,
-                viewModel = backStackEntry.sharedViewModel(navHostController)
+                viewModel = backStackEntry.sharedViewModel(navHostController),
+                onNavigateUp = { navHostController.navigateUp() },
+                onNavigateToSession = { sessionId ->
+                    navHostController.navigate(
+                        Screen.Session(schedule.eventId, sessionId)
+                    )
+                }
             )
         }
 

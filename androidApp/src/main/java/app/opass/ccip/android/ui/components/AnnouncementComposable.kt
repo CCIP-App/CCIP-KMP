@@ -16,6 +16,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import androidx.compose.ui.unit.dp
 
 /**
@@ -46,7 +47,7 @@ fun AnnouncementComposable(message: String, isClickable: Boolean, onClicked: () 
 @Composable
 private fun AnnouncementComposablePreview() {
     AnnouncementComposable(
-        message = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        message = LoremIpsum(11).values.first(),
         isClickable = false
     )
 }
