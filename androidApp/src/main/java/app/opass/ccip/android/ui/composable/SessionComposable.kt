@@ -35,6 +35,7 @@ import app.opass.ccip.android.ui.extensions.shimmer
  * @param room Room where the session is being held, can be null for events such as lunch or breaks
  * @param isLoading Whether to play shimmer animation on the composable to indicate loading progress
  * @param onClicked Callback when the composable is clicked
+ * @see SessionInfoComposable
  */
 @Composable
 fun SessionComposable(
@@ -59,7 +60,7 @@ fun SessionComposable(
             horizontalArrangement = Arrangement.spacedBy(10.dp)
         ) {
             Text(
-                text = room ?: stringResource(R.string.na),
+                text = if (room.isNullOrBlank()) stringResource(R.string.na) else room,
                 fontSize = 12.sp,
                 modifier = Modifier
                     .clip(RoundedCornerShape(8.dp))

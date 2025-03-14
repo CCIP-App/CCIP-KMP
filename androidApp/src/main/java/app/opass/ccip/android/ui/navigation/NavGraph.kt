@@ -66,7 +66,7 @@ fun NavGraph(navHostController: NavHostController, startDestination: Screen) {
             SessionScreen(
                 eventId = session.eventId,
                 sessionId = session.sessionId,
-                navHostController = navHostController
+                onNavigateUp = { navHostController.navigateUp() }
             )
         }
 

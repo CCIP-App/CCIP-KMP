@@ -35,6 +35,7 @@ import app.opass.ccip.android.R
  * @param onSearch Callback when user submits a new query to search
  * @param isEnabled If the search bar is enabled or disabled, defaults to true
  * @param content Content to show in search view when a new query has been submitted
+ * @see TopAppBarComposable
  */
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
@@ -112,6 +113,6 @@ fun SearchAppBarComposable(
 
 @Preview(showBackground = true)
 @Composable
-private fun SearchAppBarPreview() {
+private fun SearchAppBarComposablePreview() {
     SearchAppBarComposable(searchHint = R.string.search_event, onSearch = {})
 }

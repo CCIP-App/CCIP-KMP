@@ -31,6 +31,7 @@ import app.opass.ccip.android.R
  * @param navigationIcon Navigation icon, fallbacks to [R.drawable.ic_arrow_back] if null
  * @param onNavigate Callback when the navigation icon is clicked
  * @param actions Menu actions to show on the top app bar
+ * @see SearchAppBarComposable
  */
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
@@ -79,7 +80,7 @@ fun TopAppBarComposable(
 
 @Preview(showBackground = true)
 @Composable
-private fun TopAppBarPreview() {
+private fun TopAppBarComposablePreview() {
     val context = LocalContext.current
     TopAppBarComposable(
         title = context.getString(R.string.select_event)
