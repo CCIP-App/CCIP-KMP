@@ -73,7 +73,7 @@ fun NavGraph(navHostController: NavHostController, startDestination: Screen) {
             val announcement = backStackEntry.toRoute<Screen.Announcement>()
             AnnouncementScreen(
                 eventId = announcement.eventId,
-                navHostController = navHostController
+                onNavigateUp = { navHostController.navigateUp() }
             )
         }
     }
