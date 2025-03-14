@@ -61,7 +61,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import app.opass.ccip.android.R
-import app.opass.ccip.android.ui.components.TopAppBarComposable
+import app.opass.ccip.android.ui.composable.TopAppBarComposable
 import app.opass.ccip.android.ui.extensions.autoBrighten
 import app.opass.ccip.android.ui.extensions.overrideBrightness
 import app.opass.ccip.android.ui.extensions.popBackToEventScreen

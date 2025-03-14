@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
-package app.opass.ccip.android.ui.components
+package app.opass.ccip.android.ui.composable
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column

@@ -26,8 +26,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.opass.ccip.android.R
-import app.opass.ccip.android.ui.components.AnnouncementComposable
-import app.opass.ccip.android.ui.components.TopAppBarComposable
+import app.opass.ccip.android.ui.composable.AnnouncementComposable
+import app.opass.ccip.android.ui.composable.TopAppBarComposable
 import app.opass.ccip.android.ui.extensions.browse
 import app.opass.ccip.network.models.fastpass.Announcement
 

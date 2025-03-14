@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
-package app.opass.ccip.android.ui.components
+package app.opass.ccip.android.ui.composable
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.background

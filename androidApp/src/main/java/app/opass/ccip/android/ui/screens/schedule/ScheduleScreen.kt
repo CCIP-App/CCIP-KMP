@@ -29,8 +29,8 @@ import androidx.compose.ui.util.fastForEachIndexed
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.opass.ccip.android.R
-import app.opass.ccip.android.ui.components.SessionComposable
-import app.opass.ccip.android.ui.components.TopAppBarComposable
+import app.opass.ccip.android.ui.composable.SessionComposable
+import app.opass.ccip.android.ui.composable.TopAppBarComposable
 import app.opass.ccip.android.ui.screens.event.EventViewModel
 import app.opass.ccip.network.models.schedule.Session
 import kotlinx.coroutines.launch

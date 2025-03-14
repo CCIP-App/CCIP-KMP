@@ -40,7 +40,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import app.opass.ccip.android.R
-import app.opass.ccip.android.ui.components.SearchAppBarComposable
+import app.opass.ccip.android.ui.composable.SearchAppBarComposable
 import app.opass.ccip.android.ui.extensions.popBackToEventScreen
 import app.opass.ccip.android.ui.extensions.saveCurrentEventId
 import app.opass.ccip.android.ui.extensions.sharedPreferences
