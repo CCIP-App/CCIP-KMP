@@ -14,6 +14,7 @@ import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.MenuDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -22,12 +23,19 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import app.opass.ccip.android.R
 
+/**
+ * Composable to show language details in a dropdown menu
+ * @param localNameResId Local name of the language
+ * @param translatedNameResId Localized name of the language
+ * @param isSelected Whether this language is currently selected
+ * @param onClick Callback when this composable is clicked
+ */
 @Composable
 fun LanguageDropdownMenuItem(
     @StringRes localNameResId: Int,
     @StringRes translatedNameResId: Int,
+    isSelected: Boolean = false,
     onClick: () -> Unit = {},
-    isSelected: Boolean = false
 ) {
     DropdownMenuItem(
         text = {
@@ -43,21 +51,16 @@ fun LanguageDropdownMenuItem(
             }
         },
         onClick = onClick,
-        modifier = (
-            if (isSelected) {
-                Modifier.background(
-                    color = MaterialTheme.colorScheme.secondaryContainer
-                )
+        modifier = Modifier.background(
+            color = if (isSelected) {
+                MaterialTheme.colorScheme.secondaryContainer
             } else {
-                Modifier
+                MenuDefaults.containerColor
             }
         ),
         trailingIcon = {
             if (isSelected) {
-                Icon(
-                    imageVector = Icons.Default.Check,
-                    contentDescription = null
-                )
+                Icon(imageVector = Icons.Default.Check, contentDescription = null)
             }
         }
     )

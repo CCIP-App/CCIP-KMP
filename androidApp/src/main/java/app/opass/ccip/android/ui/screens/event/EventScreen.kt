@@ -53,7 +53,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.window.core.layout.WindowWidthSizeClass
 import app.opass.ccip.android.R
-import app.opass.ccip.android.ui.composable.LanguageDropdownMenu
+import app.opass.ccip.android.ui.menu.LanguageDropdownMenu
 import app.opass.ccip.android.ui.composable.TopAppBarComposable
 import app.opass.ccip.android.ui.extensions.browse
 import app.opass.ccip.android.ui.extensions.shimmer
