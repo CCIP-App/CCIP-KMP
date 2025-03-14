@@ -54,7 +54,7 @@ import androidx.navigation.NavHostController
 import androidx.window.core.layout.WindowWidthSizeClass
 import app.opass.ccip.android.R
 import app.opass.ccip.android.ui.components.LanguageDropdownMenu
-import app.opass.ccip.android.ui.components.TopAppBar
+import app.opass.ccip.android.ui.components.TopAppBarComposable
 import app.opass.ccip.android.ui.extensions.browse
 import app.opass.ccip.android.ui.extensions.shimmer
 import app.opass.ccip.android.ui.navigation.Screen
@@ -83,7 +83,7 @@ fun EventScreen(
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
-            TopAppBar(
+            TopAppBarComposable(
                 title = eventConfig?.name ?: String(),
                 subtitle = attendee?.userId ?: String(),
                 navigationIcon = R.drawable.ic_drawer,

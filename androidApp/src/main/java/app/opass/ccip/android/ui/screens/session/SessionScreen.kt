@@ -39,9 +39,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import app.opass.ccip.android.R
-import app.opass.ccip.android.ui.components.TopAppBar
+import app.opass.ccip.android.ui.components.TopAppBarComposable
 import app.opass.ccip.android.ui.extensions.browse
-import app.opass.ccip.android.ui.navigation.Screen
 import app.opass.ccip.network.models.schedule.Session
 import com.mikepenz.markdown.m3.Markdown
 
@@ -62,7 +61,7 @@ fun SessionScreen(
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
-        topBar = { TopAppBar(onNavigate = { navHostController.navigateUp() }) }
+        topBar = { TopAppBarComposable(onNavigate = { navHostController.navigateUp() }) }
     ) { paddingValues ->
         if (session != null) {
             LoadSession(

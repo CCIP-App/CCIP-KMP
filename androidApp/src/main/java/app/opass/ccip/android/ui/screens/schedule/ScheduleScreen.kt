@@ -30,7 +30,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.opass.ccip.android.R
 import app.opass.ccip.android.ui.components.SessionComposable
-import app.opass.ccip.android.ui.components.TopAppBar
+import app.opass.ccip.android.ui.components.TopAppBarComposable
 import app.opass.ccip.android.ui.screens.event.EventViewModel
 import app.opass.ccip.network.models.schedule.Session
 import kotlinx.coroutines.launch
@@ -77,7 +77,7 @@ private fun ScreenContent(
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
-            TopAppBar(
+            TopAppBarComposable(
                 title = stringResource(id = R.string.schedule),
                 onNavigate = onNavigateUp
             )

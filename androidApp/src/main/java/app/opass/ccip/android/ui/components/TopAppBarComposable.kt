@@ -34,7 +34,7 @@ import app.opass.ccip.android.R
  */
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-fun TopAppBar(
+fun TopAppBarComposable(
     title: String? = null,
     subtitle: String? = null,
     @DrawableRes navigationIcon: Int? = null,
@@ -81,7 +81,7 @@ fun TopAppBar(
 @Composable
 private fun TopAppBarPreview() {
     val context = LocalContext.current
-    TopAppBar(
+    TopAppBarComposable(
         title = context.getString(R.string.select_event)
     )
 }

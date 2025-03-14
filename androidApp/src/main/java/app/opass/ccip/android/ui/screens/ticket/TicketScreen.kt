@@ -61,7 +61,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import app.opass.ccip.android.R
-import app.opass.ccip.android.ui.components.TopAppBar
+import app.opass.ccip.android.ui.components.TopAppBarComposable
 import app.opass.ccip.android.ui.extensions.autoBrighten
 import app.opass.ccip.android.ui.extensions.overrideBrightness
 import app.opass.ccip.android.ui.extensions.popBackToEventScreen
@@ -111,7 +111,7 @@ private fun ShowTicket(
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
-            TopAppBar(
+            TopAppBarComposable(
                 title = stringResource(R.string.ticket),
                 onNavigate = { navHostController.navigateUp() },
                 actions = {
@@ -192,7 +192,7 @@ private fun RequestTicket(
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
-            TopAppBar(
+            TopAppBarComposable(
                 title = stringResource(R.string.ticket),
                 onNavigate = { navHostController.navigateUp() },
                 actions = {

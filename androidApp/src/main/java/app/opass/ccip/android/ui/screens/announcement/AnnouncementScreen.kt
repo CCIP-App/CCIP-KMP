@@ -27,7 +27,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.opass.ccip.android.R
 import app.opass.ccip.android.ui.components.AnnouncementComposable
-import app.opass.ccip.android.ui.components.TopAppBar
+import app.opass.ccip.android.ui.components.TopAppBarComposable
 import app.opass.ccip.android.ui.extensions.browse
 import app.opass.ccip.network.models.fastpass.Announcement
 
@@ -60,7 +60,7 @@ private fun ScreenContent(
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
-            TopAppBar(
+            TopAppBarComposable(
                 title = stringResource(R.string.announcement),
                 onNavigate = onNavigateUp,
                 actions = {

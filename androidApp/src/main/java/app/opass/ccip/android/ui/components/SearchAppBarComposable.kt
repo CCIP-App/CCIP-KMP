@@ -38,10 +38,11 @@ import app.opass.ccip.android.R
  */
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-fun SearchAppBar(
+fun SearchAppBarComposable(
     onSearch: (query: String) -> Unit,
     isEnabled: Boolean = true,
     @StringRes searchHint: Int? = null,
+    onNavigateUp: (() -> Unit)? = null,
     content: @Composable ColumnScope.() -> Unit = {}
 ) {
     var query by rememberSaveable { mutableStateOf("") }
@@ -80,7 +81,16 @@ fun SearchAppBar(
                                 )
                             }
                         } else {
-                            Icon(Icons.Default.Search, contentDescription = null)
+                            if (onNavigateUp != null) {
+                                IconButton(onClick = onNavigateUp) {
+                                    Icon(
+                                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                                        contentDescription = null
+                                    )
+                                }
+                            } else {
+                                Icon(Icons.Default.Search, contentDescription = null)
+                            }
                         }
                     },
                     trailingIcon = {
@@ -103,5 +113,5 @@ fun SearchAppBar(
 @Preview(showBackground = true)
 @Composable
 private fun SearchAppBarPreview() {
-    SearchAppBar(searchHint = R.string.search_event, onSearch = {})
+    SearchAppBarComposable(searchHint = R.string.search_event, onSearch = {})
 }

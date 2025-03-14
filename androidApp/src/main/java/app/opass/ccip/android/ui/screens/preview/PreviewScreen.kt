@@ -40,7 +40,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import app.opass.ccip.android.R
-import app.opass.ccip.android.ui.components.SearchAppBar
+import app.opass.ccip.android.ui.components.SearchAppBarComposable
 import app.opass.ccip.android.ui.extensions.popBackToEventScreen
 import app.opass.ccip.android.ui.extensions.saveCurrentEventId
 import app.opass.ccip.android.ui.extensions.sharedPreferences
@@ -66,10 +66,11 @@ fun PreviewScreen(
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
-            SearchAppBar(
+            SearchAppBarComposable(
                 searchHint = R.string.search_event,
                 isEnabled = !events.isNullOrEmpty(),
-                onSearch = { query -> viewModel.search(query) }
+                onSearch = { query -> viewModel.search(query) },
+                onNavigateUp = { navHostController.navigateUp() }
             ) {
                 LazyColumn {
                     items(items = searchResult, key = { e -> e.id }) { event: Event ->
