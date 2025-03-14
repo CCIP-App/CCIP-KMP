@@ -23,4 +23,16 @@ data class Event(
 ) {
     val name: String
         get() = _name.localized()
+
+    val isLogoTinted: Boolean
+        get() = id in tintedLogos
+
+    /**
+     * List of event ID whose logos are either colorful or already tinted
+     */
+    private val tintedLogos = listOf(
+        "devfest_taipei_2024",
+        "HKOSCon_2024",
+        "devfest_taipei_2023"
+    )
 }

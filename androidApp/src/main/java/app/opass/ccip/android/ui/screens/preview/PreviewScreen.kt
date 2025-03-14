@@ -28,15 +28,6 @@ import app.opass.ccip.android.ui.extensions.saveCurrentEventId
 import app.opass.ccip.android.ui.extensions.sharedPreferences
 import app.opass.ccip.network.models.event.Event
 
-/**
- * List of event IDs with colored or tinted images
- */
-private val tintedLogos = listOf(
-    "devfest_taipei_2024",
-    "HKOSCon_2024",
-    "devfest_taipei_2023"
-)
-
 @Composable
 fun PreviewScreen(
     onNavigateUp: (() -> Unit)? = null,
@@ -110,7 +101,7 @@ private fun ScreenContent(
                         EventComposable(
                             name = event.name,
                             logoUrl = event.logoUrl,
-                            isLogoTinted = event.id in tintedLogos
+                            isLogoTinted = event.isLogoTinted
                         ) {
                             sharedPreferences.saveCurrentEventId(event.id)
                             onEventSelected(event.id)
