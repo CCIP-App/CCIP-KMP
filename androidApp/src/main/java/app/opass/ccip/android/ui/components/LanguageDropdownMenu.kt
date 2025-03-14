@@ -5,18 +5,19 @@
 
 package app.opass.ccip.android.ui.components
 
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.util.fastForEach
+import androidx.core.os.LocaleListCompat
 import app.opass.ccip.android.R
 import app.opass.ccip.android.ui.models.LanguageOptionItem
 
 @Composable
 fun LanguageDropdownMenu(
     expanded: Boolean,
-    onHideDropdownMenu: () -> Unit = {},
-    onDismissRequest: () -> Unit = {}
+    onHideDropdownMenu: () -> Unit = {}
 ) {
     val languageOptions = listOf(
         LanguageOptionItem(
@@ -66,13 +67,31 @@ fun LanguageDropdownMenu(
         )
     )
 
-    DropdownMenu(expanded = expanded, onDismissRequest = onDismissRequest) {
+    DropdownMenu(expanded = expanded, onDismissRequest = onHideDropdownMenu) {
         languageOptions.fastForEach { option ->
             LanguageDropdownMenuItem(
-                languageTag = option.languageTag,
                 localNameResId = option.localNameResId,
                 translatedNameResId = option.translatedNameResId,
-                onHideDropdownMenu = onHideDropdownMenu
+                onClick = {
+                    onHideDropdownMenu()
+
+                    AppCompatDelegate.setApplicationLocales(
+                        (
+                            if (option.languageTag == "x-default") {
+                                LocaleListCompat.getEmptyLocaleList()
+                            } else {
+                                LocaleListCompat.forLanguageTags(option.languageTag)
+                            }
+                        )
+                    )
+                },
+                isSelected = (
+                    if (option.languageTag == "x-default") {
+                        AppCompatDelegate.getApplicationLocales() == LocaleListCompat.getEmptyLocaleList()
+                    } else {
+                        AppCompatDelegate.getApplicationLocales() == LocaleListCompat.forLanguageTags(option.languageTag)
+                    }
+                )
             )
         }
     }

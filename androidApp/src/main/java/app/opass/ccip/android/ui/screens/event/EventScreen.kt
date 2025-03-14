@@ -98,8 +98,7 @@ fun EventScreen(
 
                     LanguageDropdownMenu(
                         expanded = shouldShowLanguagePicker,
-                        onHideDropdownMenu = { shouldShowLanguagePicker = false },
-                        onDismissRequest = { shouldShowLanguagePicker = false }
+                        onHideDropdownMenu = { shouldShowLanguagePicker = false }
                     )
                 }
             )
