@@ -6,10 +6,13 @@
 package app.opass.ccip.android.ui.components
 
 import androidx.annotation.StringRes
-import androidx.appcompat.app.AppCompatDelegate
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -17,15 +20,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.core.os.LocaleListCompat
 import app.opass.ccip.android.R
 
 @Composable
 fun LanguageDropdownMenuItem(
-    languageTag: String,
     @StringRes localNameResId: Int,
     @StringRes translatedNameResId: Int,
-    onHideDropdownMenu: () -> Unit = {}
+    onClick: () -> Unit = {},
+    isSelected: Boolean = false
 ) {
     DropdownMenuItem(
         text = {
@@ -40,19 +42,34 @@ fun LanguageDropdownMenuItem(
                 )
             }
         },
-        onClick = {
-            onHideDropdownMenu()
-
-            AppCompatDelegate.setApplicationLocales(
-                (
-                    if (languageTag == "x-default") {
-                        LocaleListCompat.getEmptyLocaleList()
-                    } else {
-                        LocaleListCompat.forLanguageTags(languageTag)
-                    }
+        onClick = onClick,
+        modifier = (
+            if (isSelected) {
+                Modifier.background(
+                    color = MaterialTheme.colorScheme.secondaryContainer
                 )
-            )
+            } else {
+                Modifier
+            }
+        ),
+        trailingIcon = {
+            if (isSelected) {
+                Icon(
+                    imageVector = Icons.Default.Check,
+                    contentDescription = null
+                )
+            }
         }
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun TopAppBarSelectedPreview() {
+    LanguageDropdownMenuItem(
+        localNameResId = R.string.lang_translated_name_x_default,
+        translatedNameResId = R.string.lang_translated_name_x_default,
+        isSelected = true
     )
 }
 
@@ -60,7 +77,6 @@ fun LanguageDropdownMenuItem(
 @Composable
 private fun TopAppBarPreview() {
     LanguageDropdownMenuItem(
-        languageTag = "zh-Hant-TW",
         localNameResId = R.string.lang_local_name_zh_hant_tw,
         translatedNameResId = R.string.lang_translated_name_zh_hant_tw
     )
