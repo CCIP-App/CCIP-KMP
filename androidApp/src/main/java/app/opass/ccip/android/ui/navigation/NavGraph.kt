@@ -6,15 +6,12 @@
 package app.opass.ccip.android.ui.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.ViewModel
-import androidx.navigation.NavBackStackEntry
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
+import app.opass.ccip.android.ui.extensions.popBackToEventScreen
+import app.opass.ccip.android.ui.extensions.sharedViewModel
 import app.opass.ccip.android.ui.screens.announcement.AnnouncementScreen
 import app.opass.ccip.android.ui.screens.event.EventScreen
 import app.opass.ccip.android.ui.screens.preview.PreviewScreen
@@ -31,7 +28,14 @@ import app.opass.ccip.android.ui.screens.ticket.TicketScreen
 fun NavGraph(navHostController: NavHostController, startDestination: Screen) {
     NavHost(navController = navHostController, startDestination = startDestination) {
         composable<Screen.Preview> {
-            PreviewScreen(navHostController = navHostController)
+            PreviewScreen(
+                onEventSelected = { eventId -> navHostController.popBackToEventScreen(eventId) },
+                onNavigateUp = if (navHostController.previousBackStackEntry != null) {
+                    { navHostController.navigateUp() }
+                } else {
+                    null
+                }
+            )
         }
 
         composable<Screen.Event> { backStackEntry ->
@@ -82,13 +86,4 @@ fun NavGraph(navHostController: NavHostController, startDestination: Screen) {
             )
         }
     }
-}
-
-/**
- * Gets viewModel from the parent composable
- */
-@Composable
-private inline fun <reified T : ViewModel> NavBackStackEntry.sharedViewModel(navController: NavController): T {
-    val parentEntry = remember (this) { navController.getBackStackEntry(this.destination.route!!) }
-    return hiltViewModel<T>(parentEntry)
 }
