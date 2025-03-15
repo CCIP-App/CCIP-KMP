@@ -6,6 +6,7 @@
 package app.opass.ccip.network.models.eventconfig
 
 import app.opass.ccip.extensions.localized
+import app.opass.ccip.network.models.common.CommonVars.tintedLogos
 import app.opass.ccip.network.models.common.DateTime
 import app.opass.ccip.network.models.common.LocalizedString
 import app.opass.ccip.network.models.schedule.Schedule
@@ -35,4 +36,7 @@ data class EventConfig(
 ) {
     val name: String
         get() = _name.localized()
+
+    val isLogoTinted: Boolean
+        get() = id in tintedLogos
 }

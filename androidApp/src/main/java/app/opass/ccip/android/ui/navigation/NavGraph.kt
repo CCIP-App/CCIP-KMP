@@ -29,7 +29,7 @@ fun NavGraph(navHostController: NavHostController, startDestination: Screen) {
     NavHost(navController = navHostController, startDestination = startDestination) {
         composable<Screen.Preview> {
             PreviewScreen(
-                onEventSelected = { eventId -> navHostController.popBackToEventScreen(eventId) },
+                onNavigateToEvent = { eventId -> navHostController.popBackToEventScreen(eventId) },
                 onNavigateUp = if (navHostController.previousBackStackEntry != null) {
                     { navHostController.navigateUp() }
                 } else {
@@ -42,8 +42,15 @@ fun NavGraph(navHostController: NavHostController, startDestination: Screen) {
             val event = backStackEntry.toRoute<Screen.Event>()
             EventScreen(
                 eventId = event.eventId,
-                navHostController = navHostController,
-                viewModel = backStackEntry.sharedViewModel(navHostController)
+                viewModel = backStackEntry.sharedViewModel(navHostController),
+                onNavigateUp = { navHostController.navigate(Screen.Preview) },
+                onNavigateToTicket = { navHostController.navigate(Screen.Ticket(event.eventId)) },
+                onNavigateToSchedule = { navHostController.navigate(Screen.Schedule(event.eventId)) },
+                onNavigateToAnnouncement = { token ->
+                    navHostController.navigate(
+                        Screen.Announcement(event.eventId, token)
+                    )
+                }
             )
         }
 

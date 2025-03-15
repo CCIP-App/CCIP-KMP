@@ -6,6 +6,7 @@
 package app.opass.ccip.network.models.event
 
 import app.opass.ccip.extensions.localized
+import app.opass.ccip.network.models.common.CommonVars.tintedLogos
 import app.opass.ccip.network.models.common.LocalizedString
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -26,13 +27,4 @@ data class Event(
 
     val isLogoTinted: Boolean
         get() = id in tintedLogos
-
-    /**
-     * List of event ID whose logos are either colorful or already tinted
-     */
-    private val tintedLogos = listOf(
-        "devfest_taipei_2024",
-        "HKOSCon_2024",
-        "devfest_taipei_2023"
-    )
 }

@@ -31,7 +31,7 @@ import app.opass.ccip.network.models.event.Event
 @Composable
 fun PreviewScreen(
     onNavigateUp: (() -> Unit)? = null,
-    onEventSelected: (eventId: String) -> Unit = {},
+    onNavigateToEvent: (eventId: String) -> Unit = {},
     viewModel: PreviewViewModel = hiltViewModel()
 ) {
     val isRefreshing by viewModel.isRefreshing.collectAsStateWithLifecycle()
@@ -43,7 +43,7 @@ fun PreviewScreen(
         searchResult = searchResult,
         isRefreshing = isRefreshing,
         onNavigateUp = onNavigateUp,
-        onEventSelected = onEventSelected,
+        onNavigateToEvent = onNavigateToEvent,
         onSearch = { query -> viewModel.search(query) },
         onRefresh = { viewModel.getEvents(true) }
     )
@@ -55,10 +55,10 @@ private fun ScreenContent(
     events: List<Event> = emptyList(),
     searchResult: List<Event> = emptyList(),
     isRefreshing: Boolean = false,
-    onNavigateUp: (() -> Unit)? = null,
     onSearch: (query: String) -> Unit = {},
     onRefresh: () -> Unit = {},
-    onEventSelected: (eventId: String) -> Unit = {},
+    onNavigateUp: (() -> Unit)? = null,
+    onNavigateToEvent: (eventId: String) -> Unit = {},
 ) {
     val sharedPreferences = LocalContext.current.sharedPreferences
 
@@ -75,7 +75,7 @@ private fun ScreenContent(
                     items(items = searchResult, key = { e -> e.id }) { event: Event ->
                         EventComposable(name = event.name, logoUrl = event.logoUrl) {
                             sharedPreferences.saveCurrentEventId(event.id)
-                            onEventSelected(event.id)
+                            onNavigateToEvent(event.id)
                         }
                     }
                 }
@@ -104,7 +104,7 @@ private fun ScreenContent(
                             isLogoTinted = event.isLogoTinted
                         ) {
                             sharedPreferences.saveCurrentEventId(event.id)
-                            onEventSelected(event.id)
+                            onNavigateToEvent(event.id)
                         }
                     }
                 }
