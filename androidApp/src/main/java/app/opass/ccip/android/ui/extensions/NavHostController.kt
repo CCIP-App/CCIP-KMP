@@ -5,13 +5,12 @@
 
 package app.opass.ccip.android.ui.extensions
 
-import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import app.opass.ccip.android.ui.navigation.Screen
 
 fun NavHostController.popBackToScreen(screen: Screen) {
     navigate(screen) {
-        popUpTo(graph.findStartDestination().id) { inclusive = true }
+        popUpTo(previousBackStackEntry!!.id) { inclusive = true }
         launchSingleTop = true
     }
 }

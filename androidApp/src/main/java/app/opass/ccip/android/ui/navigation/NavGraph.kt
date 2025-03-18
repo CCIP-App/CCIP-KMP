@@ -96,6 +96,7 @@ fun NavGraph(navHostController: NavHostController, startDestination: Screen) {
                 RequestTicketScreen(
                     eventId = ticket.eventId,
                     onNavigateUp = { navHostController.navigateUp() },
+                    viewModel = backStackEntry.sharedViewModel(navHostController),
                     onNavigateToShowTicket = { token ->
                         navHostController.popBackToScreen(
                             Screen.Ticket(ticket.eventId, token)
@@ -107,6 +108,7 @@ fun NavGraph(navHostController: NavHostController, startDestination: Screen) {
                     eventId = ticket.eventId,
                     token = ticket.token,
                     onNavigateUp = { navHostController.navigateUp() },
+                    viewModel = backStackEntry.sharedViewModel(navHostController),
                     onNavigateToRequestTicket = {
                         navHostController.popBackToScreen(
                             Screen.Ticket(ticket.eventId)

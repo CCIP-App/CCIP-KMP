@@ -9,6 +9,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import zxingcpp.BarcodeReader
 import java.text.SimpleDateFormat
 import java.util.Locale
 import javax.inject.Singleton
@@ -21,5 +22,13 @@ object CommonModule {
     @Singleton
     fun providesSDFInstance(): SimpleDateFormat {
         return SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZZZZ", Locale.getDefault())
+    }
+
+    @Provides
+    @Singleton
+    fun provideBarcodeReaderInstance(): BarcodeReader {
+        return BarcodeReader().apply {
+            options.tryRotate = true
+        }
     }
 }
