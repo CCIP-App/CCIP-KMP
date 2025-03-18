@@ -10,14 +10,15 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
-import app.opass.ccip.android.ui.extensions.popBackToEventScreen
+import app.opass.ccip.android.ui.extensions.popBackToScreen
 import app.opass.ccip.android.ui.extensions.sharedViewModel
 import app.opass.ccip.android.ui.screens.announcement.AnnouncementScreen
 import app.opass.ccip.android.ui.screens.event.EventScreen
 import app.opass.ccip.android.ui.screens.preview.PreviewScreen
 import app.opass.ccip.android.ui.screens.schedule.ScheduleScreen
 import app.opass.ccip.android.ui.screens.session.SessionScreen
-import app.opass.ccip.android.ui.screens.ticket.TicketScreen
+import app.opass.ccip.android.ui.screens.ticket.RequestTicketScreen
+import app.opass.ccip.android.ui.screens.ticket.ShowTicketScreen
 
 /**
  * Navigation graph for compose screens
@@ -29,7 +30,11 @@ fun NavGraph(navHostController: NavHostController, startDestination: Screen) {
     NavHost(navController = navHostController, startDestination = startDestination) {
         composable<Screen.Preview> {
             PreviewScreen(
-                onNavigateToEvent = { eventId -> navHostController.popBackToEventScreen(eventId) },
+                onNavigateToEvent = { eventId ->
+                    navHostController.popBackToScreen(
+                        Screen.Event(eventId)
+                    )
+                },
                 onNavigateUp = if (navHostController.previousBackStackEntry != null) {
                     { navHostController.navigateUp() }
                 } else {
@@ -44,8 +49,16 @@ fun NavGraph(navHostController: NavHostController, startDestination: Screen) {
                 eventId = event.eventId,
                 viewModel = backStackEntry.sharedViewModel(navHostController),
                 onNavigateUp = { navHostController.navigate(Screen.Preview) },
-                onNavigateToTicket = { navHostController.navigate(Screen.Ticket(event.eventId)) },
-                onNavigateToSchedule = { navHostController.navigate(Screen.Schedule(event.eventId)) },
+                onNavigateToSchedule = {
+                    navHostController.navigate(
+                        Screen.Schedule(event.eventId)
+                    )
+                },
+                onNavigateToTicket = { token ->
+                    navHostController.navigate(
+                        Screen.Ticket(event.eventId, token)
+                    )
+                },
                 onNavigateToAnnouncement = { token ->
                     navHostController.navigate(
                         Screen.Announcement(event.eventId, token)
@@ -79,10 +92,28 @@ fun NavGraph(navHostController: NavHostController, startDestination: Screen) {
 
         composable<Screen.Ticket> { backStackEntry ->
             val ticket = backStackEntry.toRoute<Screen.Ticket>()
-            TicketScreen(
-                eventId = ticket.eventId,
-                navHostController = navHostController
-            )
+            if (ticket.token.isNullOrBlank()) {
+                RequestTicketScreen(
+                    eventId = ticket.eventId,
+                    onNavigateUp = { navHostController.navigateUp() },
+                    onNavigateToShowTicket = { token ->
+                        navHostController.popBackToScreen(
+                            Screen.Ticket(ticket.eventId, token)
+                        )
+                    }
+                )
+            } else {
+                ShowTicketScreen(
+                    eventId = ticket.eventId,
+                    token = ticket.token,
+                    onNavigateUp = { navHostController.navigateUp() },
+                    onNavigateToRequestTicket = {
+                        navHostController.popBackToScreen(
+                            Screen.Ticket(ticket.eventId)
+                        )
+                    }
+                )
+            }
         }
 
         composable<Screen.Announcement> { backStackEntry ->

@@ -52,9 +52,10 @@
     <string name="ticket">Ticket</string>
     <string name="scan_qr_code">Scan QR code</string>
     <string name="select_from_gallery">Select from Gallery</string>
-    <string name="enter_token_manually_title">Token</string>
-    <string name="enter_token_manually_desc">Enter the token manually that you may have received via email or organizers.</string>
+    <string name="enter_token_manually_title">Ticket</string>
+    <string name="enter_token_manually_desc">Enter the ticket manually that you may have received via email or organizers.</string>
     <string name="verifying">Verifying ticket</string>
     <string name="ticket_verification_help_title">Please verify your ticket</string>
     <string name="ticket_verification_help_desc">The ticket is usually in your email\'s inbox or spam folder. In case you haven\'t received it, please contact the event organisers.</string>
+    <string name="ticket_verification_failed">Failed to verify ticket!</string>
 </resources>

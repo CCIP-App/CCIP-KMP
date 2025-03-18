@@ -9,8 +9,6 @@ import android.content.Context
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import app.opass.ccip.android.ui.extensions.currentEventId
-import app.opass.ccip.android.ui.extensions.getToken
 import app.opass.ccip.android.ui.extensions.removeToken
 import app.opass.ccip.android.ui.extensions.saveToken
 import app.opass.ccip.android.ui.extensions.sharedPreferences
@@ -18,7 +16,9 @@ import app.opass.ccip.helpers.PortalHelper
 import app.opass.ccip.network.models.eventconfig.EventConfig
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -31,28 +31,19 @@ class TicketViewModel @Inject constructor(
 
     private val TAG = TicketViewModel::class.java.simpleName
 
-    private val currentEventId = context.sharedPreferences.currentEventId
-    private val currentTokenId = context.sharedPreferences.getToken(currentEventId ?: "")
-
     private val _eventConfig: MutableStateFlow<EventConfig?> = MutableStateFlow(null)
     val eventConfig = _eventConfig.asStateFlow()
 
-    private val _token: MutableStateFlow<String?> = MutableStateFlow(currentTokenId)
-    val token = _token.asStateFlow()
+    private val _token: MutableSharedFlow<String?> = MutableSharedFlow()
+    val token = _token.asSharedFlow()
 
     private val _isVerifying = MutableStateFlow(false)
     val isVerifying = _isVerifying.asStateFlow()
 
-    init {
-        if (!currentEventId.isNullOrBlank() && !currentTokenId.isNullOrBlank()) {
-            getAttendee(currentEventId, currentTokenId)
-        }
-    }
-
-    fun getEventConfig(eventId: String, forceReload: Boolean = false) {
+    fun getEventConfig(eventId: String) {
         viewModelScope.launch {
             try {
-                _eventConfig.value = portalHelper.getEventConfig(eventId, forceReload)
+                _eventConfig.value = portalHelper.getEventConfig(eventId)
             } catch (exception: Exception) {
                 Log.e(TAG, "Failed to fetch event config", exception)
                 _eventConfig.value = null
@@ -60,17 +51,18 @@ class TicketViewModel @Inject constructor(
         }
     }
 
-    fun getAttendee(eventId: String, token: String, forceReload: Boolean = false) {
+    fun getAttendee(eventId: String, token: String) {
         viewModelScope.launch {
             try {
                 _isVerifying.value = true
-                if (portalHelper.getAttendee(eventId, token, forceReload) != null) {
+                if (portalHelper.getAttendee(eventId, token, true) != null) {
+                    Log.i(TAG, "Token is valid")
                     context.sharedPreferences.saveToken(eventId, token)
-                    _token.value = token
+                    _token.emit(token)
                 }
             } catch (exception: Exception) {
                 Log.e(TAG, "Failed to fetch attendee", exception)
-                _token.value = null
+                _token.emit(null)
             } finally {
                 _isVerifying.value = false
             }
@@ -81,7 +73,7 @@ class TicketViewModel @Inject constructor(
         viewModelScope.launch {
             portalHelper.deleteAttendee(eventId, token)
             context.sharedPreferences.removeToken(eventId)
-            _token.value = null
+            _token.emit(null)
         }
     }
 }

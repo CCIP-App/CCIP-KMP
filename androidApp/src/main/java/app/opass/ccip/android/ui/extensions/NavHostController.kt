@@ -9,8 +9,8 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import app.opass.ccip.android.ui.navigation.Screen
 
-fun NavHostController.popBackToEventScreen(eventId: String) {
-    navigate(Screen.Event(eventId)) {
+fun NavHostController.popBackToScreen(screen: Screen) {
+    navigate(screen) {
         popUpTo(graph.findStartDestination().id) { inclusive = true }
         launchSingleTop = true
     }

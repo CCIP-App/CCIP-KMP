@@ -60,7 +60,7 @@ import coil3.request.crossfade
 @Composable
 fun EventScreen(
     eventId: String,
-    onNavigateToTicket: () -> Unit,
+    onNavigateToTicket: (token: String?) -> Unit,
     onNavigateToSchedule: () -> Unit,
     onNavigateToAnnouncement: (token: String?) -> Unit,
     onNavigateUp: () -> Unit,
@@ -75,9 +75,9 @@ fun EventScreen(
         attendee = attendee,
         eventConfig = eventConfig,
         onNavigateUp = onNavigateUp,
-        onNavigateToTicket = onNavigateToTicket,
+        onNavigateToTicket = { onNavigateToTicket(attendee?.token) },
         onNavigateToSchedule = onNavigateToSchedule,
-        onNavigateToAnnouncement = { token -> onNavigateToAnnouncement(token) }
+        onNavigateToAnnouncement = { onNavigateToAnnouncement(attendee?.token) }
     )
 }
 
@@ -88,7 +88,7 @@ private fun ScreenContent(
     eventConfig: EventConfig? = null,
     onNavigateToTicket: () -> Unit = {},
     onNavigateToSchedule: () -> Unit = {},
-    onNavigateToAnnouncement: (token: String?) -> Unit = {},
+    onNavigateToAnnouncement: () -> Unit = {},
     onNavigateUp: () -> Unit = {},
 ) {
     val context = LocalContext.current
@@ -139,7 +139,7 @@ private fun ScreenContent(
                 contentScale = ContentScale.Fit,
                 modifier = Modifier
                     .padding(horizontal = 60.dp)
-                    .aspectRatio(3.0f)
+                    .aspectRatio(2.0f)
                     .heightIn(max = 180.dp)
                     .clip(RoundedCornerShape(10.dp))
                     .shimmer(eventConfig?.logoUrl.isNullOrBlank()),
@@ -170,7 +170,7 @@ private fun ScreenContent(
                         feature = feature,
                         onNavigateToTicket = onNavigateToTicket,
                         onNavigateToSchedule = onNavigateToSchedule,
-                        onNavigateToAnnouncement = { onNavigateToAnnouncement(attendee?.token) },
+                        onNavigateToAnnouncement = onNavigateToAnnouncement,
                         onBrowse = { url -> context.browse(url) },
                         onConnectToWiFi = {
                             WifiUtil.installOrSuggestNetworks(context, feature.wifi!!)

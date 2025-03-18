@@ -26,7 +26,7 @@ sealed class Screen {
     data class Session(val eventId: String, val sessionId: String) : Screen()
 
     @Serializable
-    data class Ticket(val eventId: String) : Screen()
+    data class Ticket(val eventId: String, val token: String? = null) : Screen()
 
     @Serializable
     data class Announcement(val eventId: String, val token: String? = null) : Screen()
