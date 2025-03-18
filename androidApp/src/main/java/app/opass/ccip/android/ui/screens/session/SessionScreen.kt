@@ -5,13 +5,18 @@
 
 package app.opass.ccip.android.ui.screens.session
 
+import android.content.Intent
+import android.provider.CalendarContract
 import android.text.format.DateUtils
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -21,13 +26,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.platform.UriHandler
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import app.opass.ccip.android.R
 import app.opass.ccip.android.ui.composable.SessionInfoComposable
 import app.opass.ccip.android.ui.composable.TopAppBarComposable
 import app.opass.ccip.android.ui.extensions.browse
+import app.opass.ccip.android.ui.extensions.toast
+import app.opass.ccip.network.models.schedule.Session
+
+private const val TAG = "SessionScreen"
 
 @Composable
 fun SessionScreen(
@@ -42,20 +54,41 @@ fun SessionScreen(
     LaunchedEffect(key1 = Unit) { viewModel.getSession(eventId, sessionId) }
 
     if (session != null) {
+        val startTime = viewModel.sdf.parse(session!!.start)!!.time
+        val endTime = viewModel.sdf.parse(session!!.end)!!.time
+
         ScreenContent(
             title = session!!.title,
             description = session!!.description,
             dateTime = DateUtils.formatDateRange(
                 context,
-                viewModel.sdf.parse(session!!.start)!!.time,
-                viewModel.sdf.parse(session!!.end)!!.time,
+                startTime,
+                endTime,
                 DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_SHOW_TIME or DateUtils.FORMAT_ABBREV_ALL
             ),
             sessionType = session!!.type,
             room = session!!.room,
             tags = session!!.tags,
             speakers = session!!.speakers,
-            onNavigateUp = onNavigateUp
+            url = session!!.url,
+            onNavigateUp = onNavigateUp,
+            onAddToCalendar = {
+                try {
+                    context.startActivity(getCalendarIntent(session!!, startTime, endTime))
+                } catch (exception: Exception) {
+                    Log.e(TAG, "Failed to add event to the calendar app", exception)
+                    context.toast(R.string.add_to_calendar_failed)
+                }
+            },
+            onShareSession = {
+                try {
+                    context.startActivity(
+                        Intent.createChooser(getShareIntent(session!!.url!!), "")
+                    )
+                } catch (exception: Exception) {
+                    Log.e(TAG, "Failed to share session", exception)
+                }
+            }
         )
     }
 }
@@ -67,9 +100,12 @@ private fun ScreenContent(
     dateTime: String,
     sessionType: String? = null,
     room: String? = null,
+    url: String? = null,
     tags: List<String>? = emptyList(),
     speakers: List<String> = emptyList(),
-    onNavigateUp: () -> Unit = {}
+    onNavigateUp: () -> Unit = {},
+    onAddToCalendar: () -> Unit = {},
+    onShareSession: () -> Unit = {}
 ) {
     val context = LocalContext.current
     val uriHandler = object : UriHandler {
@@ -80,7 +116,25 @@ private fun ScreenContent(
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
-        topBar = { TopAppBarComposable(onNavigate = onNavigateUp) }
+        topBar = {
+            TopAppBarComposable(
+                onNavigate = onNavigateUp,
+                actions = {
+                    IconButton(onClick = onAddToCalendar) {
+                        Icon(
+                            painter = painterResource(R.drawable.ic_calendar_add),
+                            contentDescription = stringResource(R.string.add_to_calendar)
+                        )
+                    }
+                    IconButton(onClick = onShareSession, enabled = !url.isNullOrBlank()) {
+                        Icon(
+                            painter = painterResource(R.drawable.ic_share),
+                            contentDescription = stringResource(R.string.share)
+                        )
+                    }
+                }
+            )
+        }
     ) { paddingValues ->
         Column(
             modifier = Modifier
@@ -100,6 +154,28 @@ private fun ScreenContent(
                 )
             }
         }
+    }
+}
+
+private fun getShareIntent(url: String): Intent {
+    return Intent(Intent.ACTION_SEND).apply {
+        type = "text/plain"
+        putExtra(Intent.EXTRA_TEXT, url)
+    }
+}
+
+private fun getCalendarIntent(session: Session, startTime: Long, endTime: Long): Intent {
+    return Intent(Intent.ACTION_INSERT).apply {
+        setData(CalendarContract.Events.CONTENT_URI)
+        putExtra(CalendarContract.Events.TITLE, session.title)
+        putExtra(CalendarContract.Events.DESCRIPTION, session.description)
+        putExtra(CalendarContract.Events.EVENT_LOCATION, session.room)
+        putExtra(CalendarContract.Events.AVAILABILITY, CalendarContract.Events.AVAILABILITY_BUSY)
+        putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, startTime)
+        putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endTime)
+
+        // Extras for which Android doesn't have variables
+        putExtra("url", session.url)
     }
 }
 
