@@ -5,6 +5,7 @@
 
 package app.opass.ccip.android.ui.screens.announcement
 
+import android.text.format.DateUtils
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -82,7 +83,16 @@ private fun ScreenContent(
             verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
             items(announcements) { announcement: Announcement ->
-                AnnouncementComposable(announcement.message, announcement.url.isNotBlank()) {
+                AnnouncementComposable(
+                    message = announcement.message,
+                    isClickable = announcement.url.isNotBlank(),
+                    // TODO: Fix the wrong formatting of dateTime
+                    dateTime = DateUtils.formatDateTime(
+                        context,
+                        announcement.datetime,
+                        DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_SHOW_TIME or DateUtils.FORMAT_ABBREV_ALL
+                    )
+                ) {
                     context.browse(announcement.url)
                 }
             }
