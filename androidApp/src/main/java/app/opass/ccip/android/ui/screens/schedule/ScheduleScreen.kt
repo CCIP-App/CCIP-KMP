@@ -23,14 +23,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.util.fastForEachIndexed
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.opass.ccip.android.R
+import app.opass.ccip.android.ui.composable.SearchAppBarComposable
 import app.opass.ccip.android.ui.composable.SessionComposable
-import app.opass.ccip.android.ui.composable.TopAppBarComposable
 import app.opass.ccip.android.ui.screens.event.EventViewModel
 import app.opass.ccip.network.models.schedule.Session
 import kotlinx.coroutines.launch
@@ -44,6 +43,7 @@ fun ScheduleScreen(
 ) {
     val context = LocalContext.current
     val schedule by viewModel.schedule.collectAsStateWithLifecycle()
+    val searchResult by viewModel.searchResult.collectAsStateWithLifecycle()
 
     LaunchedEffect(key1 = Unit) { viewModel.getSchedule(eventId) }
 
@@ -55,8 +55,10 @@ fun ScheduleScreen(
                 DateUtils.FORMAT_SHOW_DATE
             )
         } ?: emptyMap(),
+        searchResult = searchResult,
         onNavigateUp = onNavigateUp,
         onNavigateToSession = onNavigateToSession,
+        onSearch = { query -> viewModel.search(query) },
         onFormatDateTime = { time ->
             DateUtils.formatDateTime(
                 context,
@@ -70,17 +72,33 @@ fun ScheduleScreen(
 @Composable
 private fun ScreenContent(
     sessions: Map<String, List<Session>> = emptyMap(),
+    searchResult: List<Session> = emptyList(),
     onNavigateUp: () -> Unit = {},
     onNavigateToSession: (sessionId: String) -> Unit = {},
-    onFormatDateTime: (time: String) -> String = { "" }
+    onFormatDateTime: (time: String) -> String = { "" },
+    onSearch: (query: String) -> Unit = {},
 ) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
-            TopAppBarComposable(
-                title = stringResource(id = R.string.schedule),
-                onNavigate = onNavigateUp
-            )
+            SearchAppBarComposable(
+                searchHint = R.string.search_session,
+                isEnabled = sessions.isNotEmpty(),
+                onSearch = onSearch,
+                onNavigateUp = onNavigateUp
+            ) {
+                LazyColumn {
+                    items(items = searchResult, key = { s -> s.id }) { session ->
+                        SessionComposable(
+                            title = session.title,
+                            startTime = onFormatDateTime(session.start),
+                            endTime = onFormatDateTime(session.end),
+                            room = session.room,
+                            onClicked = { onNavigateToSession(session.id) }
+                        )
+                    }
+                }
+            }
         }
     ) { paddingValues ->
         val tabData = sessions.keys.toList()

@@ -8,7 +8,7 @@
 
     <!-- EventPreviewScreen -->
     <string name="select_event">Select event</string>
-    <string name="search_event">Search events</string>
+    <string name="search_event">Search for events</string>
 
     <!-- EventScreen -->
     <string name="switch_language">Switch language</string>
@@ -43,6 +43,7 @@
     <!-- ScheduleScreen -->
     <string name="schedule">Schedule</string>
     <string name="na" translatable="false">N/A</string>
+    <string name="search_session">Search for sessions</string>
 
     <!-- SessionScreen -->
     <string name="session">Session</string>
