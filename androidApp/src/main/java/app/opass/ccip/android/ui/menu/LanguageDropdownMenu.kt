@@ -32,6 +32,11 @@ private val languageOptions = listOf(
         translatedNameResId = R.string.lang_translated_name_en_us
     ),
     LanguageOptionItem(
+        languageTag = "hi-IN",
+        localNameResId = R.string.lang_local_name_hi_in,
+        translatedNameResId = R.string.lang_translated_name_hi_in
+    ),
+    LanguageOptionItem(
         languageTag = "nan-Hant-TW",
         localNameResId = R.string.lang_local_name_nan_hant_tw,
         translatedNameResId = R.string.lang_translated_name_nan_hant_tw
@@ -45,11 +50,6 @@ private val languageOptions = listOf(
         languageTag = "nan-Latn-TW-tailo",
         localNameResId = R.string.lang_local_name_nan_latn_tw_tailo,
         translatedNameResId = R.string.lang_translated_name_nan_latn_tw_tailo
-    ),
-    LanguageOptionItem(
-        languageTag = "hi-IN",
-        localNameResId = R.string.lang_local_name_hi_in,
-        translatedNameResId = R.string.lang_translated_name_hi_in
     ),
     LanguageOptionItem(
         languageTag = "nb-NO",
@@ -67,7 +67,6 @@ private val languageOptions = listOf(
         translatedNameResId = R.string.lang_translated_name_zh_hant_tw
     )
 )
-
 
 /**
  * Dropdown menu for changing app language.
