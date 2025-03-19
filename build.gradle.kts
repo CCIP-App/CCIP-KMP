@@ -18,4 +18,4 @@ plugins {
 
 // Extra properties
 val androidMinSdk by extra(21)
-val androidTargetSdk by extra(35)
+val androidTargetSdk by extra(36)
