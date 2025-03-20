@@ -26,4 +26,7 @@ data class Announcement(
 ) {
     val message: String
         get() = localized(_msg_en, _msg_zh)
+
+    val dateTimeInMills: Long
+        get() = datetime * 1000L
 }

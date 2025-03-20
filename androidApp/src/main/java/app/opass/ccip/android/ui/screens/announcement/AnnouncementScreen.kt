@@ -86,10 +86,9 @@ private fun ScreenContent(
                 AnnouncementComposable(
                     message = announcement.message,
                     isClickable = announcement.url.isNotBlank(),
-                    // TODO: Fix the wrong formatting of dateTime
                     dateTime = DateUtils.formatDateTime(
                         context,
-                        announcement.datetime,
+                        announcement.dateTimeInMills,
                         DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_SHOW_TIME or DateUtils.FORMAT_ABBREV_ALL
                     )
                 ) {
