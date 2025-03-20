@@ -32,7 +32,8 @@ fun NavGraph(navHostController: NavHostController, startDestination: Screen) {
             PreviewScreen(
                 onNavigateToEvent = { eventId ->
                     navHostController.popBackToScreen(
-                        Screen.Event(eventId)
+                        screen = Screen.Event(eventId),
+                        popBackToStart = true
                     )
                 },
                 onNavigateUp = if (navHostController.previousBackStackEntry != null) {
