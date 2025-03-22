@@ -31,6 +31,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -53,13 +54,18 @@ fun ShowTicketScreen(
 ) {
     val activity = LocalActivity.current
     val context = LocalContext.current
+    val view = LocalView.current
     var isOverridingBrightness by rememberSaveable {
         mutableStateOf(context.sharedPreferences.autoBrighten)
     }
 
     DisposableEffect(Unit) {
         activity?.overrideBrightness(context.sharedPreferences.autoBrighten)
-        onDispose { activity?.overrideBrightness(false) }
+        view.keepScreenOn = true
+        onDispose {
+            activity?.overrideBrightness(false)
+            view.keepScreenOn = false
+        }
     }
 
     ScreenContent(
