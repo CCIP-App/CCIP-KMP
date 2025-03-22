@@ -24,37 +24,43 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.unit.IntSize
 
-fun Modifier.shimmer(toShow: Boolean): Modifier = composed {
-    if (toShow) {
-        val shimmerColors = listOf(
-            Color.LightGray.copy(alpha = 0.6f),
-            Color.LightGray.copy(alpha = 0.2f),
-            Color.LightGray.copy(alpha = 0.6f)
-        )
-
-        var size by remember { mutableStateOf(IntSize.Zero) }
-
-        val transition = rememberInfiniteTransition(label = "")
-        val transitionAnimation = transition.animateFloat(
-            initialValue = 0f,
-            targetValue = 1000f,
-            animationSpec = infiniteRepeatable(
-                animation = tween(
-                    durationMillis = 1000,
-                    easing = FastOutSlowInEasing
-                ),
-                repeatMode = RepeatMode.Reverse
-            ),
-            label = ""
-        )
-        background(
-            brush = Brush.linearGradient(
-                colors = shimmerColors,
-                start = Offset.Zero,
-                end = Offset(x = transitionAnimation.value, y = transitionAnimation.value)
+/**
+ * Modifier for composable to play shimmer animation
+ * @param toShow Whether to play shimmer animation
+ */
+fun Modifier.shimmer(toShow: Boolean): Modifier {
+    return composed {
+        if (toShow) {
+            val shimmerColors = listOf(
+                Color.LightGray.copy(alpha = 0.6f),
+                Color.LightGray.copy(alpha = 0.2f),
+                Color.LightGray.copy(alpha = 0.6f)
             )
-        ).onGloballyPositioned { size = it.size }
-    } else {
-        Modifier
+
+            var size by remember { mutableStateOf(IntSize.Zero) }
+
+            val transition = rememberInfiniteTransition(label = "")
+            val transitionAnimation = transition.animateFloat(
+                initialValue = 0f,
+                targetValue = 1000f,
+                animationSpec = infiniteRepeatable(
+                    animation = tween(
+                        durationMillis = 1000,
+                        easing = FastOutSlowInEasing
+                    ),
+                    repeatMode = RepeatMode.Reverse
+                ),
+                label = ""
+            )
+            background(
+                brush = Brush.linearGradient(
+                    colors = shimmerColors,
+                    start = Offset.Zero,
+                    end = Offset(x = transitionAnimation.value, y = transitionAnimation.value)
+                )
+            ).onGloballyPositioned { size = it.size }
+        } else {
+            Modifier
+        }
     }
 }

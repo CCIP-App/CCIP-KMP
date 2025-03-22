@@ -9,6 +9,12 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import app.opass.ccip.android.ui.navigation.Screen
 
+/**
+ * Overloaded navigate method that allows popping
+ * @param screen Destination [Screen]
+ * @param popUpToRoute Route of the screen to popUpTo, defaults to startDestination
+ * @param isInclusive Whether the popUpToRoute should also be popped up, defaults to false
+ */
 fun NavHostController.navigate(
     screen: Screen,
     popUpToRoute: String = graph.findStartDestination().route!!,

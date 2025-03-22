@@ -5,4 +5,7 @@
 
 package app.opass.ccip.android.ui.extensions
 
+/**
+ * Wraps given string in quotes
+ */
 fun String.wrapInQuotes(): String = "\"$this\""
