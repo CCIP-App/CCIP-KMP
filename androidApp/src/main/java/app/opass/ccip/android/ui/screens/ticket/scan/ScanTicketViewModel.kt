@@ -70,10 +70,14 @@ class ScanTicketViewModel @AssistedInject constructor(
         .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
         .build().apply {
             setAnalyzer(executorService) { imageProxy ->
-                barcodeReader.read(imageProxy).firstOrNull()?.let { result ->
-                    result.text?.let { token -> getAttendee(eventId, token) }
+                imageProxy.use { input ->
+                    barcodeReader.read(input).firstOrNull()?.text?.let { token ->
+                        runBlocking { getAttendee(eventId, token) }
+
+                        // Avoid scanning the QR multiple times
+                        Thread.sleep(2000)
+                    }
                 }
-                imageProxy.close()
             }
         }
 
@@ -88,24 +92,22 @@ class ScanTicketViewModel @AssistedInject constructor(
         }
     }
 
-    private fun getAttendee(eventId: String, token: String) {
-        viewModelScope.launch {
-            try {
-                _isVerifying.value = true
-                if (portalHelper.getAttendee(eventId, token, true) != null) {
-                    Log.i(TAG, "Token is valid")
-                    context.sharedPreferences.saveToken(eventId, token)
-                    _token.emit(token)
-                } else {
-                    Log.i(TAG, "Token is not valid!")
-                    _token.emit(token)
-                }
-            } catch (exception: Exception) {
-                Log.e(TAG, "Failed to fetch attendee", exception)
-                _token.emit(null)
-            } finally {
-                _isVerifying.value = false
+    private suspend fun getAttendee(eventId: String, token: String) {
+        return try {
+            _isVerifying.value = true
+            if (portalHelper.getAttendee(eventId, token, true) != null) {
+                Log.i(TAG, "Token is valid")
+                context.sharedPreferences.saveToken(eventId, token)
+                _token.emit(token)
+            } else {
+                Log.i(TAG, "Token is not valid!")
+                _token.emit(token)
             }
+        } catch (exception: Exception) {
+            Log.e(TAG, "Failed to fetch attendee", exception)
+            _token.emit(null)
+        } finally {
+            _isVerifying.value = false
         }
     }
 }
