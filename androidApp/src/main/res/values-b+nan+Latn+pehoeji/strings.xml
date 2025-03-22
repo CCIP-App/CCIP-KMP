@@ -5,15 +5,28 @@
 --><resources>
     <string name="select_event">Soán-te̍k oa̍h-tāng</string>
     <string name="event">Oa̍h-tāng</string>
-    <string name="fast_pass">Khoài-sok Thong-koan</string>
+    <string name="fast_pass">Khoài-sok thong-koan</string>
     <string name="announcement">Tāi-hōe kong-kò</string>
     <string name="puzzle">Tàⁿ-á chióng-le oa̍h-tāng</string>
     <string name="telegram">Telegram</string>
     <string name="venue">Hōe-tiûⁿ tē-tô͘</string>
     <string name="sponsors">Chàn-chō͘</string>
-    <string name="staffs">Kang-chok Jîn-oân</string>
+    <string name="staffs">Kang-chok jîn-oân</string>
     <string name="schedule">Gī-têng</string>
     <string name="ticket">Phiò-kǹg</string>
     <string name="scan_qr_code">Sàu-biâu QR bé</string>
     <string name="select_from_gallery">Tùi tô͘-khò͘ soán-te̍k</string>
+    <string name="search_event">Chhoē oa̍h-tāng</string>
+    <string name="switch_language">Chhiat-ōaⁿ gí-giân</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="session">Gī-têng</string>
+    <string name="lang_translated_name_x_default">Hē-thóng ū-siat</string>
+    <string name="lang_translated_name_nan_hant_tw">Bân-lâm-gí - Thoân-thóng Hàn-jī</string>
+    <string name="lang_translated_name_en_us">Eng-gí</string>
+    <string name="lang_translated_name_nan_latn_tw_pehoeji">Bân-lâm-gí - Pe̍h-ōe-jī</string>
+    <string name="lang_translated_name_ta_in">Tamil-gí</string>
+    <string name="enter_token_manually_title">Phiò-kǹg</string>
+    <string name="search_session">Chhoē gī-têng</string>
+    <string name="lang_translated_name_hi_in">Hindi-gí</string>
+    <string name="lang_translated_name_nan_latn_tw_tailo">Bân-lâm-gí - Tâi-lô</string>
 </resources>
