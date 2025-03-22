@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
-package app.opass.ccip.android.ui.screens.ticket
+package app.opass.ccip.android.ui.screens.ticket.show
 
 import androidx.activity.compose.LocalActivity
 import androidx.compose.foundation.Image
@@ -49,7 +49,7 @@ fun ShowTicketScreen(
     token: String,
     onNavigateUp: () -> Unit,
     onNavigateToRequestTicket: () -> Unit,
-    viewModel: TicketViewModel = hiltViewModel()
+    viewModel: ShowTicketViewModel = hiltViewModel()
 ) {
     val activity = LocalActivity.current
     val context = LocalContext.current

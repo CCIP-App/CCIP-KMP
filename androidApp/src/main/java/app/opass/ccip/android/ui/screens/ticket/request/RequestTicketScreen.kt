@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
-package app.opass.ccip.android.ui.screens.ticket
+package app.opass.ccip.android.ui.screens.ticket.request
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -11,7 +11,6 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts.PickVisualMedia
 import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
-import androidx.camera.compose.CameraXViewfinder
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -46,9 +45,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.Popup
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.opass.ccip.android.R
 import app.opass.ccip.android.ui.composable.TopAppBarComposable
@@ -63,16 +60,13 @@ fun RequestTicketScreen(
     eventId: String,
     onNavigateUp: () -> Unit,
     onNavigateToShowTicket: (token: String) -> Unit,
-    viewModel: TicketViewModel = hiltViewModel()
+    onNavigateToScanTicket: () -> Unit,
+    viewModel: RequestTicketViewModel = hiltViewModel()
 ) {
-    val lifecycle = LocalLifecycleOwner.current
-
-    val token by viewModel.token.collectAsStateWithLifecycle(null)
+    val token by viewModel.token.collectAsStateWithLifecycle()
     val eventConfig by viewModel.eventConfig.collectAsStateWithLifecycle()
     val isVerifying by viewModel.isVerifying.collectAsStateWithLifecycle()
-    val surfaceRequest by viewModel.surfaceRequest.collectAsStateWithLifecycle()
 
-    var shouldShowCameraView by rememberSaveable { mutableStateOf(false) }
     var shouldShowProgressDialog by rememberSaveable { mutableStateOf(false) }
     var shouldShowManualEntryDialog by rememberSaveable { mutableStateOf(false) }
 
@@ -85,15 +79,12 @@ fun RequestTicketScreen(
 
     val cameraPermissionLauncher = rememberLauncherForActivityResult(
         contract = RequestPermission(),
-        onResult = { isGranted -> shouldShowCameraView = isGranted }
+        onResult = { isGranted -> if (isGranted) onNavigateToScanTicket() }
     )
 
     LaunchedEffect(key1 = Unit) { viewModel.getEventConfig(eventId) }
     LaunchedEffect(key1 = isVerifying) { shouldShowProgressDialog = isVerifying }
     LaunchedEffect(key1 = token) { token?.let(onNavigateToShowTicket) }
-    LaunchedEffect(key1 = shouldShowCameraView) {
-        if (shouldShowCameraView) viewModel.bindToCamera(lifecycle)
-    }
 
     if (isVerifying) {
         ProgressDialog(onDismiss = { shouldShowProgressDialog = false })
@@ -107,11 +98,6 @@ fun RequestTicketScreen(
             },
             onDismiss = { shouldShowManualEntryDialog = false }
         )
-    }
-
-    // TODO: Improve camera back and system bar handling
-    surfaceRequest?.let { request ->
-        Popup { CameraXViewfinder(surfaceRequest = request) }
     }
 
     ScreenContent(

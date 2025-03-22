@@ -10,15 +10,16 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
-import app.opass.ccip.android.ui.extensions.popBackToScreen
+import app.opass.ccip.android.ui.extensions.navigate
 import app.opass.ccip.android.ui.extensions.sharedViewModel
 import app.opass.ccip.android.ui.screens.announcement.AnnouncementScreen
 import app.opass.ccip.android.ui.screens.event.EventScreen
 import app.opass.ccip.android.ui.screens.preview.PreviewScreen
 import app.opass.ccip.android.ui.screens.schedule.ScheduleScreen
 import app.opass.ccip.android.ui.screens.session.SessionScreen
-import app.opass.ccip.android.ui.screens.ticket.RequestTicketScreen
-import app.opass.ccip.android.ui.screens.ticket.ShowTicketScreen
+import app.opass.ccip.android.ui.screens.ticket.request.RequestTicketScreen
+import app.opass.ccip.android.ui.screens.ticket.scan.ScanTicketScreen
+import app.opass.ccip.android.ui.screens.ticket.show.ShowTicketScreen
 
 /**
  * Navigation graph for compose screens
@@ -31,9 +32,9 @@ fun NavGraph(navHostController: NavHostController, startDestination: Screen) {
         composable<Screen.Preview> {
             PreviewScreen(
                 onNavigateToEvent = { eventId ->
-                    navHostController.popBackToScreen(
+                    navHostController.navigate(
                         screen = Screen.Event(eventId),
-                        popBackToStart = true
+                        isInclusive = true
                     )
                 },
                 onNavigateUp = if (navHostController.previousBackStackEntry != null) {
@@ -56,9 +57,15 @@ fun NavGraph(navHostController: NavHostController, startDestination: Screen) {
                     )
                 },
                 onNavigateToTicket = { token ->
-                    navHostController.navigate(
-                        Screen.Ticket(event.eventId, token)
-                    )
+                    if (token != null) {
+                        navHostController.navigate(
+                            Screen.ShowTicket(event.eventId, token)
+                        )
+                    } else {
+                        navHostController.navigate(
+                            Screen.RequestTicket(event.eventId)
+                        )
+                    }
                 },
                 onNavigateToAnnouncement = { token ->
                     navHostController.navigate(
@@ -91,32 +98,48 @@ fun NavGraph(navHostController: NavHostController, startDestination: Screen) {
             )
         }
 
-        composable<Screen.Ticket> { backStackEntry ->
-            val ticket = backStackEntry.toRoute<Screen.Ticket>()
-            if (ticket.token.isNullOrBlank()) {
-                RequestTicketScreen(
-                    eventId = ticket.eventId,
-                    onNavigateUp = { navHostController.navigateUp() },
-                    viewModel = backStackEntry.sharedViewModel(navHostController),
-                    onNavigateToShowTicket = { token ->
-                        navHostController.popBackToScreen(
-                            Screen.Ticket(ticket.eventId, token)
-                        )
-                    }
-                )
-            } else {
-                ShowTicketScreen(
-                    eventId = ticket.eventId,
-                    token = ticket.token,
-                    onNavigateUp = { navHostController.navigateUp() },
-                    viewModel = backStackEntry.sharedViewModel(navHostController),
-                    onNavigateToRequestTicket = {
-                        navHostController.popBackToScreen(
-                            Screen.Ticket(ticket.eventId)
-                        )
-                    }
-                )
-            }
+        composable<Screen.RequestTicket> { backStackEntry ->
+            val ticket = backStackEntry.toRoute<Screen.RequestTicket>()
+            RequestTicketScreen(
+                eventId = ticket.eventId,
+                onNavigateUp = { navHostController.navigateUp() },
+                onNavigateToShowTicket = { token ->
+                    navHostController.navigate(
+                        screen = Screen.ShowTicket(ticket.eventId, token)
+                    )
+                },
+                onNavigateToScanTicket = {
+                    navHostController.navigate(
+                        Screen.ScanTicket(ticket.eventId)
+                    )
+                }
+            )
+        }
+
+        composable<Screen.ScanTicket> { backStackEntry ->
+            val scan = backStackEntry.toRoute<Screen.ScanTicket>()
+            ScanTicketScreen(
+                eventId = scan.eventId,
+                onNavigateToShowTicket = { token ->
+                    navHostController.navigate(
+                        screen = Screen.ShowTicket(scan.eventId, token)
+                    )
+                }
+            )
+        }
+
+        composable<Screen.ShowTicket> { backStackEntry ->
+            val ticket = backStackEntry.toRoute<Screen.ShowTicket>()
+            ShowTicketScreen(
+                eventId = ticket.eventId,
+                token = ticket.token,
+                onNavigateUp = { navHostController.navigateUp() },
+                onNavigateToRequestTicket = {
+                    navHostController.navigate(
+                        screen = Screen.RequestTicket(ticket.eventId)
+                    )
+                }
+            )
         }
 
         composable<Screen.Announcement> { backStackEntry ->
