@@ -5,12 +5,13 @@
 
 package app.opass.ccip.android.ui.extensions
 
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import app.opass.ccip.android.ui.navigation.Screen
 
 fun NavHostController.navigate(
     screen: Screen,
-    popUpToRoute: String = graph.startDestinationRoute!!,
+    popUpToRoute: String = graph.findStartDestination().route!!,
     isInclusive: Boolean = false
 ) {
     navigate(screen) {
