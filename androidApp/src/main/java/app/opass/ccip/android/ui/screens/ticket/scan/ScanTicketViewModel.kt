@@ -6,6 +6,10 @@
 package app.opass.ccip.android.ui.screens.ticket.scan
 
 import android.content.Context
+import android.os.Build
+import android.os.VibrationEffect
+import android.os.Vibrator
+import android.os.VibratorManager
 import android.util.Log
 import androidx.camera.core.CameraSelector.DEFAULT_BACK_CAMERA
 import androidx.camera.core.ImageAnalysis
@@ -13,6 +17,7 @@ import androidx.camera.core.Preview
 import androidx.camera.core.SurfaceRequest
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.lifecycle.awaitInstance
+import androidx.core.content.getSystemService
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -72,6 +77,7 @@ class ScanTicketViewModel @AssistedInject constructor(
             setAnalyzer(executorService) { imageProxy ->
                 imageProxy.use { input ->
                     barcodeReader.read(input).firstOrNull()?.text?.let { token ->
+                        makeOneShotVibration()
                         runBlocking { getAttendee(eventId, token) }
 
                         // Avoid scanning the QR multiple times
@@ -108,6 +114,23 @@ class ScanTicketViewModel @AssistedInject constructor(
             _token.emit(null)
         } finally {
             _isVerifying.value = false
+        }
+    }
+
+    private fun makeOneShotVibration() {
+        val vibrator = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            context.getSystemService<VibratorManager>()?.defaultVibrator
+        } else {
+            context.getSystemService<Vibrator>()
+        } ?: return
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            vibrator.vibrate(
+                VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE)
+            )
+        } else {
+            @Suppress("DEPRECATION")
+            vibrator.vibrate(500)
         }
     }
 }
