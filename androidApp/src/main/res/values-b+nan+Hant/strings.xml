@@ -16,4 +16,17 @@
     <string name="ticket">票券</string>
     <string name="scan_qr_code">掃描 QR 碼</string>
     <string name="select_from_gallery">對圖庫選擇</string>
+    <string name="search_event">揣活動</string>
+    <string name="lang_translated_name_hi_in">Hindi語</string>
+    <string name="switch_language">切換語言</string>
+    <string name="lang_translated_name_en_us">英語</string>
+    <string name="lang_translated_name_x_default">系統預設</string>
+    <string name="lang_translated_name_nan_latn_tw_pehoeji">閩南語 - 白話字</string>
+    <string name="lang_translated_name_ta_in">Tamil語</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="session">議程</string>
+    <string name="enter_token_manually_title">票券</string>
+    <string name="search_session">揣議程</string>
+    <string name="lang_translated_name_nan_hant_tw">閩南語 - 傳統漢字</string>
+    <string name="lang_translated_name_nan_latn_tw_tailo">閩南語 - 臺羅</string>
 </resources>
