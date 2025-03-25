@@ -72,6 +72,7 @@ fun ShowTicketScreen(
     ScreenContent(
         token = token,
         onNavigateUp = onNavigateUp,
+        isOverridingBrightness = isOverridingBrightness,
         onLogout = {
             viewModel.logout(eventId, token)
             onNavigateToRequestTicket()
@@ -166,7 +167,7 @@ fun BrightnessControlSwitch(
         }
         Switch(
             checked = isOverridingBrightness,
-            onCheckedChange = { onSwitched(it) }
+            onCheckedChange = onSwitched
         )
     }
 }
