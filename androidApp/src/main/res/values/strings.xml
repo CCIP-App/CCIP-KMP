@@ -62,4 +62,6 @@
     <string name="ticket_verification_help_title">Please verify your ticket</string>
     <string name="ticket_verification_help_desc">The ticket is usually in your email\'s inbox or spam folder. In case you haven\'t received it, please contact the event organisers.</string>
     <string name="ticket_verification_failed">Failed to verify ticket!</string>
+    <string name="ticket_privacy_help_title">Please keep your ticket private</string>
+    <string name="ticket_privacy_help_desc">This ticket is used to verify your identity. Do not share it with anyone else but the staff or event booths.</string>
 </resources>

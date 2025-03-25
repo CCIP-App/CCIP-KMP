@@ -21,8 +21,6 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -48,6 +46,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.opass.ccip.android.R
+import app.opass.ccip.android.ui.composable.TipComposable
 import app.opass.ccip.android.ui.composable.TopAppBarComposable
 import app.opass.ccip.android.ui.dialog.ManualEntryDialog
 import app.opass.ccip.android.ui.dialog.ProgressDialog
@@ -164,7 +163,11 @@ private fun ScreenContent(
                 colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary)
             )
 
-            HelpSection()
+            TipComposable(
+                title = R.string.ticket_verification_help_title,
+                description = R.string.ticket_verification_help_desc,
+                icon = R.drawable.ic_qr_code
+            )
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -184,41 +187,6 @@ private fun ScreenContent(
                     )
                     Text(text = stringResource(R.string.select_from_gallery))
                 }
-            }
-        }
-    }
-}
-
-@Composable
-private fun HelpSection() {
-    Card(
-        modifier = Modifier
-            .padding(20.dp)
-            .fillMaxWidth(),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceContainer
-        )
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(10.dp),
-            horizontalArrangement = Arrangement.spacedBy(10.dp)
-        ) {
-            Icon(
-                painter = painterResource(R.drawable.ic_qr_code),
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.primary
-            )
-            Column(verticalArrangement = Arrangement.spacedBy(5.dp)) {
-                Text(
-                    text = stringResource(R.string.ticket_verification_help_title),
-                    style = MaterialTheme.typography.titleMedium
-                )
-                Text(
-                    text = stringResource(R.string.ticket_verification_help_desc),
-                    style = MaterialTheme.typography.bodyMedium
-                )
             }
         }
     }

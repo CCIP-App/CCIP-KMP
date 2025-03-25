@@ -38,6 +38,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import app.opass.ccip.android.R
+import app.opass.ccip.android.ui.composable.TipComposable
 import app.opass.ccip.android.ui.composable.TopAppBarComposable
 import app.opass.ccip.android.ui.extensions.autoBrighten
 import app.opass.ccip.android.ui.extensions.overrideBrightness
@@ -126,6 +127,12 @@ fun ScreenContent(
                     contentDescription = null
                 )
             }
+
+            TipComposable(
+                title = R.string.ticket_privacy_help_title,
+                description = R.string.ticket_privacy_help_desc,
+                icon = R.drawable.ic_qr_code
+            )
 
             BrightnessControlSwitch(
                 isOverridingBrightness = isOverridingBrightness,
