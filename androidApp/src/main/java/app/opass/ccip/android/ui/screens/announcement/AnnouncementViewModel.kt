@@ -5,6 +5,7 @@
 
 package app.opass.ccip.android.ui.screens.announcement
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.opass.ccip.helpers.PortalHelper
@@ -20,12 +21,25 @@ class AnnouncementViewModel @Inject constructor(
     private val portalHelper: PortalHelper
 ): ViewModel() {
 
-    private val _announcements: MutableStateFlow<List<Announcement>> = MutableStateFlow(emptyList())
+    private val TAG = AnnouncementViewModel::class.java.simpleName
+
+    private val _announcements: MutableStateFlow<List<Announcement>?> = MutableStateFlow(emptyList())
     val announcements = _announcements.asStateFlow()
+
+    private val _isRefreshing = MutableStateFlow(false)
+    val isRefreshing = _isRefreshing.asStateFlow()
 
     fun getAnnouncements(eventId: String, token: String? = null, forceReload: Boolean = false) {
         viewModelScope.launch {
-            _announcements.value = portalHelper.getAnnouncements(eventId, token, forceReload)
+            try {
+                _isRefreshing.value = true
+                _announcements.value = portalHelper.getAnnouncements(eventId, token, forceReload)
+            } catch (exception: Exception) {
+                Log.e(TAG, "Failed to fetch announcements", exception)
+                _announcements.value = null
+            } finally {
+                _isRefreshing.value = false
+            }
         }
     }
 }
