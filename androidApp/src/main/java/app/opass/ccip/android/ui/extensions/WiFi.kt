@@ -12,7 +12,6 @@ import android.os.Build
 import android.provider.Settings
 import androidx.annotation.RequiresApi
 import app.opass.ccip.network.models.eventconfig.WiFi
-import java.util.ArrayList
 
 @RequiresApi(Build.VERSION_CODES.R)
 fun List<WiFi>.createIntent(): Intent {

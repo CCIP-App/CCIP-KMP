@@ -23,8 +23,8 @@ import app.opass.ccip.network.models.schedule.Speaker
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.withContext
-import kotlinx.serialization.json.Json
 import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 
 internal class OPassDatabaseHelper {
 

@@ -7,9 +7,9 @@ package app.opass.ccip.android.utils
 
 import android.graphics.Bitmap
 import android.graphics.Color
+import androidx.core.graphics.createBitmap
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
-import androidx.core.graphics.createBitmap
 
 object ZXingUtil {
 

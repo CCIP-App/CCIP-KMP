@@ -11,10 +11,10 @@ import androidx.lifecycle.viewModelScope
 import app.opass.ccip.helpers.PortalHelper
 import app.opass.ccip.network.models.event.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
 class PreviewViewModel @Inject constructor(

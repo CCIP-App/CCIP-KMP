@@ -9,7 +9,6 @@ import app.opass.ccip.extensions.localized
 import app.opass.ccip.network.models.common.CommonVars.tintedLogos
 import app.opass.ccip.network.models.common.DateTime
 import app.opass.ccip.network.models.common.LocalizedString
-import app.opass.ccip.network.models.schedule.Schedule
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
