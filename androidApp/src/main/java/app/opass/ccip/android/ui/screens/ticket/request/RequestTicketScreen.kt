@@ -50,6 +50,7 @@ import app.opass.ccip.android.ui.composable.TipComposable
 import app.opass.ccip.android.ui.composable.TopAppBarComposable
 import app.opass.ccip.android.ui.dialog.ManualEntryDialog
 import app.opass.ccip.android.ui.dialog.ProgressDialog
+import app.opass.ccip.android.ui.extensions.toast
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
@@ -62,7 +63,8 @@ fun RequestTicketScreen(
     onNavigateToScanTicket: () -> Unit,
     viewModel: RequestTicketViewModel = hiltViewModel()
 ) {
-    val token by viewModel.token.collectAsStateWithLifecycle()
+    val context = LocalContext.current
+
     val eventConfig by viewModel.eventConfig.collectAsStateWithLifecycle()
     val isVerifying by viewModel.isVerifying.collectAsStateWithLifecycle()
 
@@ -71,9 +73,7 @@ fun RequestTicketScreen(
 
     val startActivityForResult = rememberLauncherForActivityResult(
         contract = PickVisualMedia(),
-        onResult = { uri ->
-            // TODO: Process the image
-        }
+        onResult = { uri -> if (uri != null) viewModel.getAttendee(eventId, uri) }
     )
 
     val cameraPermissionLauncher = rememberLauncherForActivityResult(
@@ -83,7 +83,15 @@ fun RequestTicketScreen(
 
     LaunchedEffect(key1 = Unit) { viewModel.getEventConfig(eventId) }
     LaunchedEffect(key1 = isVerifying) { shouldShowProgressDialog = isVerifying }
-    LaunchedEffect(key1 = token) { token?.let(onNavigateToShowTicket) }
+    LaunchedEffect(key1 = Unit) {
+        viewModel.token.collect { token ->
+            if (token.isNullOrBlank()) {
+                context.toast(R.string.ticket_verification_failed)
+            } else {
+                onNavigateToShowTicket(token)
+            }
+        }
+    }
 
     if (isVerifying) {
         ProgressDialog(onDismiss = { shouldShowProgressDialog = false })

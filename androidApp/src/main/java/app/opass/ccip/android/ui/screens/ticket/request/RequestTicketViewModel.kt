@@ -6,6 +6,8 @@
 package app.opass.ccip.android.ui.screens.ticket.request
 
 import android.content.Context
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -15,15 +17,20 @@ import app.opass.ccip.helpers.PortalHelper
 import app.opass.ccip.network.models.eventconfig.EventConfig
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import zxingcpp.BarcodeReader
 import javax.inject.Inject
 
 @HiltViewModel
 class RequestTicketViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
-    private val portalHelper: PortalHelper
+    private val portalHelper: PortalHelper,
+    private val barcodeReader: BarcodeReader
 ) : ViewModel() {
 
     private val TAG = RequestTicketViewModel::class.java.simpleName
@@ -31,8 +38,8 @@ class RequestTicketViewModel @Inject constructor(
     private val _eventConfig: MutableStateFlow<EventConfig?> = MutableStateFlow(null)
     val eventConfig = _eventConfig.asStateFlow()
 
-    private val _token: MutableStateFlow<String?> = MutableStateFlow(null)
-    val token = _token.asStateFlow()
+    private val _token: MutableSharedFlow<String?> = MutableSharedFlow()
+    val token = _token.asSharedFlow()
 
     private val _isVerifying = MutableStateFlow(false)
     val isVerifying = _isVerifying.asStateFlow()
@@ -62,6 +69,20 @@ class RequestTicketViewModel @Inject constructor(
                 _token.emit(null)
             } finally {
                 _isVerifying.value = false
+            }
+        }
+    }
+
+    fun getAttendee(eventId: String, uri: Uri) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val bitmap = BitmapFactory.decodeStream(
+                    context.contentResolver.openInputStream(uri)
+                )
+                getAttendee(eventId, barcodeReader.read(bitmap).firstOrNull()!!.text!!)
+            } catch (exception: Exception) {
+                Log.e(TAG, "Failed to find ticket in given image", exception)
+                _token.emit(null)
             }
         }
     }
