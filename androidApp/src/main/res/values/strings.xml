@@ -64,4 +64,8 @@
     <string name="ticket_verification_failed">Failed to verify ticket!</string>
     <string name="ticket_privacy_help_title">Please keep your ticket private</string>
     <string name="ticket_privacy_help_desc">This ticket is used to verify your identity. Do not share it with anyone else but the staff or event booths.</string>
+
+    <!-- LogoutDialog -->
+    <string name="action_logout_confirmation_title">Log out?</string>
+    <string name="action_logout_confirmation_message">Are you sure you want to log out?</string>
 </resources>

@@ -40,6 +40,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import app.opass.ccip.android.R
 import app.opass.ccip.android.ui.composable.TipComposable
 import app.opass.ccip.android.ui.composable.TopAppBarComposable
+import app.opass.ccip.android.ui.dialog.LogoutDialog
 import app.opass.ccip.android.ui.extensions.autoBrighten
 import app.opass.ccip.android.ui.extensions.overrideBrightness
 import app.opass.ccip.android.ui.extensions.sharedPreferences
@@ -60,6 +61,8 @@ fun ShowTicketScreen(
         mutableStateOf(context.sharedPreferences.autoBrighten)
     }
 
+    var shouldShowLogoutDialog by rememberSaveable { mutableStateOf(false) }
+
     DisposableEffect(Unit) {
         activity?.overrideBrightness(context.sharedPreferences.autoBrighten)
         view.keepScreenOn = true
@@ -69,14 +72,22 @@ fun ShowTicketScreen(
         }
     }
 
+    if (shouldShowLogoutDialog) {
+        LogoutDialog(
+            onConfirm = {
+                shouldShowLogoutDialog = false
+                viewModel.logout(eventId, token)
+                onNavigateToRequestTicket()
+            },
+            onDismiss = { shouldShowLogoutDialog = false }
+        )
+    }
+
     ScreenContent(
         token = token,
         onNavigateUp = onNavigateUp,
         isOverridingBrightness = isOverridingBrightness,
-        onLogout = {
-            viewModel.logout(eventId, token)
-            onNavigateToRequestTicket()
-        },
+        onLogout = { shouldShowLogoutDialog = true },
         onBrightnessOverridden = { isChecked ->
             isOverridingBrightness = isChecked
             context.sharedPreferences.autoBrighten(isChecked)
