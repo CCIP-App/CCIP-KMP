@@ -20,8 +20,8 @@
     <string name="ticket">टिकट</string>
     <string name="scan_qr_code">क्यूआर कोड स्कैन करें</string>
     <string name="select_from_gallery">गैलरी से चयन करें</string>
-    <string name="enter_token_manually_title">टोकन</string>
-    <string name="enter_token_manually_desc">मैन्युअल रूप से टोकन दर्ज करें जो आपको ईमेल या आयोजकों के माध्यम से प्राप्त हुआ हो।</string>
+    <string name="enter_token_manually_title">टिकट</string>
+    <string name="enter_token_manually_desc">मैन्युअल रूप से टिकट दर्ज करें जो आपको ईमेल या आयोजकों के माध्यम से प्राप्त हुआ हो।</string>
     <string name="verifying">टिकट सत्यापित किया जा रहा है</string>
     <string name="ticket_verification_help_title">कृपया अपना टिकट सत्यापित करें</string>
     <string name="ticket_verification_help_desc">टिकट आमतौर पर आपके ईमेल के इनबॉक्स या स्पैम फ़ोल्डर में होता है। यदि आपको यह प्राप्त नहीं हुआ है, तो कृपया कार्यक्रम आयोजकों से संपर्क करें।</string>
@@ -35,4 +35,13 @@
     <string name="lang_translated_name_nb_no">नॉर्वेजियन बोकमाल</string>
     <string name="lang_translated_name_ta_in">तमिल</string>
     <string name="lang_translated_name_zh_hant_tw">मैंडारिन - पारंपरिक हान लिपि</string>
+    <string name="ticket_privacy_help_title">कृपया अपना टिकट निजी रखें</string>
+    <string name="ticket_privacy_help_desc">इस टिकट का उपयोग आपकी पहचान सत्यापित करने के लिए किया जाता है। इसे स्टाफ़ या इवेंट बूथ के अलावा किसी और के साथ साझा न करें।</string>
+    <string name="action_logout_confirmation_title">लॉग आउट करें?</string>
+    <string name="action_logout_confirmation_message">क्या आप लॉग आउट करना चाहते हैं?</string>
+    <string name="search_session">सत्र खोजें</string>
+    <string name="add_to_calendar">कैलेंडर में जोड़ें</string>
+    <string name="add_to_calendar_failed">कैलेंडर में सत्र जोड़ने में विफल!</string>
+    <string name="share">शेयर</string>
+    <string name="ticket_verification_failed">टिकट सत्यापित करने में विफल!</string>
 </resources>
