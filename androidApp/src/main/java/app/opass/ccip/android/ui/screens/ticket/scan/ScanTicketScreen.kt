@@ -5,12 +5,14 @@
 
 package app.opass.ccip.android.ui.screens.ticket.scan
 
+import android.content.pm.PackageManager
 import androidx.camera.compose.CameraXViewfinder
 import androidx.camera.core.SurfaceRequest
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -29,6 +31,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -74,12 +77,21 @@ fun ScanTicketScreen(
 
     ScreenContent(
         surfaceRequest = surfaceRequest,
-        onNavigateUp = onNavigateUp
+        onNavigateUp = onNavigateUp,
+        onToggleFlash = { on -> viewModel.toggleFlash(on) }
     )
 }
 
 @Composable
-private fun ScreenContent(surfaceRequest: SurfaceRequest? = null, onNavigateUp: () -> Unit = {}) {
+private fun ScreenContent(
+    surfaceRequest: SurfaceRequest? = null,
+    onNavigateUp: () -> Unit = {},
+    onToggleFlash: (on: Boolean) -> Unit = {}
+) {
+    val context = LocalContext.current
+    val hasFlash = context.packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)
+    var flash by rememberSaveable { mutableStateOf(false) }
+
     Scaffold(modifier = Modifier.fillMaxSize()) { paddingValues ->
         Box(
             modifier = Modifier
@@ -89,7 +101,9 @@ private fun ScreenContent(surfaceRequest: SurfaceRequest? = null, onNavigateUp: 
         ) {
             surfaceRequest?.let { CameraXViewfinder(surfaceRequest = it) }
             Row(
-                modifier = Modifier.padding(10.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(10.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
@@ -99,6 +113,23 @@ private fun ScreenContent(surfaceRequest: SurfaceRequest? = null, onNavigateUp: 
                         contentDescription = stringResource(R.string.close),
                         tint = Color.White
                     )
+                }
+
+                if (hasFlash) {
+                    IconButton(
+                        onClick = {
+                            flash = !flash
+                            onToggleFlash(flash)
+                        }
+                    ) {
+                        Icon(
+                            painter = painterResource(
+                                if (flash) R.drawable.ic_flash_off else R.drawable.ic_flash_on
+                            ),
+                            contentDescription = stringResource(R.string.flash),
+                            tint = Color.White
+                        )
+                    }
                 }
             }
         }

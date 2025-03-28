@@ -11,6 +11,7 @@ import android.os.VibrationEffect
 import android.os.Vibrator
 import android.os.VibratorManager
 import android.util.Log
+import androidx.camera.core.CameraControl
 import androidx.camera.core.CameraSelector.DEFAULT_BACK_CAMERA
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.Preview
@@ -65,6 +66,7 @@ class ScanTicketViewModel @AssistedInject constructor(
     private val _surfaceRequest = MutableStateFlow<SurfaceRequest?>(null)
     val surfaceRequest = _surfaceRequest.asStateFlow()
 
+    private lateinit var cameraControl: CameraControl
     private val cameraPreview = Preview.Builder().build().apply {
         setSurfaceProvider { newSurfaceRequest ->
             _surfaceRequest.update { newSurfaceRequest }
@@ -92,10 +94,16 @@ class ScanTicketViewModel @AssistedInject constructor(
             val processCameraProvider = ProcessCameraProvider.awaitInstance(context)
             processCameraProvider.bindToLifecycle(
                 lifecycleOwner, DEFAULT_BACK_CAMERA, imageAnalysis, cameraPreview
-            )
+            ).also {
+                cameraControl = it.cameraControl
+            }
 
             try { awaitCancellation() } finally { processCameraProvider.unbindAll() }
         }
+    }
+
+    fun toggleFlash(on: Boolean) {
+        cameraControl.enableTorch(on)
     }
 
     private suspend fun getAttendee(eventId: String, token: String) {
