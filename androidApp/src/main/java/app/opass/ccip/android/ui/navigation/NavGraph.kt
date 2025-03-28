@@ -120,6 +120,7 @@ fun NavGraph(navHostController: NavHostController, startDestination: Screen) {
             val scan = backStackEntry.toRoute<Screen.ScanTicket>()
             ScanTicketScreen(
                 eventId = scan.eventId,
+                onNavigateUp = { navHostController.navigateUp() },
                 onNavigateToShowTicket = { token ->
                     navHostController.navigate(
                         screen = Screen.ShowTicket(scan.eventId, token)

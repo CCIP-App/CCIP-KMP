@@ -52,6 +52,7 @@
     <string name="session">Session</string>
 
     <!-- TicketScreen -->
+    <string name="close">Close</string>
     <string name="auto_brighten">Auto-brighten</string>
     <string name="ticket">Ticket</string>
     <string name="scan_qr_code">Scan QR code</string>
