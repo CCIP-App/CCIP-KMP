@@ -1,5 +1,7 @@
 # CCIP-KMP (OPass)
 
+[![REUSE Compliance](https://api.reuse.software/badge/github.com/CCIP-App/CCIP-KMP)](https://api.reuse.software/info/github.com/CCIP-App/CCIP-KMP)
+
 CCIP (Community Checkin with Interactivity Project) a.k.a OPass, is Taiwan's FLOSS conference check-in
 solution and provides newest event information for audience. This repository hosts the source code for
 its Android and iOS apps.
