@@ -2,14 +2,11 @@
 <!--
     SPDX-FileCopyrightText: 2024 OPass
     SPDX-License-Identifier: GPL-3.0-only
--->
-<resources>
+--><resources>
     <string name="app_name" translatable="false">OPass</string>
-
     <!-- EventPreviewScreen -->
     <string name="select_event">Select event</string>
     <string name="search_event">Search for events</string>
-
     <!-- EventScreen -->
     <string name="switch_language">Switch language</string>
     <string name="lang_translated_name_x_default">System default</string>
@@ -39,7 +36,6 @@
     <string name="staffs">Staffs</string>
     <string name="wifi">Wi-Fi</string>
     <string name="irc" translatable="false">IRC</string>
-
     <!-- ScheduleScreen -->
     <string name="schedule">Schedule</string>
     <string name="na" translatable="false">N/A</string>
@@ -47,17 +43,15 @@
     <string name="add_to_calendar">Add to calendar</string>
     <string name="add_to_calendar_failed">Failed to add session to calendar!</string>
     <string name="share">Share</string>
-
     <!-- SessionScreen -->
     <string name="session">Session</string>
-
     <!-- TicketScreen -->
     <string name="close">Close</string>
     <string name="flash">Flash</string>
     <string name="auto_brighten">Auto-brighten</string>
     <string name="ticket">Ticket</string>
     <string name="scan_qr_code">Scan QR code</string>
-    <string name="select_from_gallery">Select from Gallery</string>
+    <string name="select_from_gallery">Select from gallery</string>
     <string name="enter_token_manually_title">Ticket</string>
     <string name="enter_token_manually_desc">Enter the ticket manually that you may have received via email or organizers.</string>
     <string name="verifying">Verifying ticket</string>
@@ -66,7 +60,6 @@
     <string name="ticket_verification_failed">Failed to verify ticket!</string>
     <string name="ticket_privacy_help_title">Please keep your ticket private</string>
     <string name="ticket_privacy_help_desc">This ticket is used to verify your identity. Do not share it with anyone else but the staff or event booths.</string>
-
     <!-- LogoutDialog -->
     <string name="action_logout_confirmation_title">Log out?</string>
     <string name="action_logout_confirmation_message">Are you sure you want to log out?</string>
