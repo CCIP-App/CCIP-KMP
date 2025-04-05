@@ -16,4 +16,5 @@
     <string name="ticket">டிக்கெட்</string>
     <string name="scan_qr_code">QR குறியீட்டை ச்கேன் செய்யுங்கள்</string>
     <string name="select_from_gallery">கேலரியில் இருந்து தேர்ந்தெடுக்கவும்</string>
+    <string name="share">பங்கு</string>
 </resources>
