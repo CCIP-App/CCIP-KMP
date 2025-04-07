@@ -11,4 +11,16 @@
     <string name="sponsors">Tsàn-tsōo</string>
     <string name="schedule">Gī-tîng</string>
     <string name="ticket">Phiò-kǹg</string>
+    <string name="puzzle">Tànn-á tsióng-le ua̍h-tāng</string>
+    <string name="staffs">Kang-tsok jîn-uân</string>
+    <string name="switch_language">Tshiat-uānn gí-giân</string>
+    <string name="fast_pass">Khuài-sok thong-kuan</string>
+    <string name="lang_translated_name_hi_in">Hindi-gí</string>
+    <string name="lang_translated_name_ta_in">Tamil-gí</string>
+    <string name="lang_translated_name_x_default">Hē-thóng ū-siat</string>
+    <string name="lang_translated_name_en_us">Ing-gí</string>
+    <string name="lang_translated_name_nan_hant_tw">Bân-lâm-gí - Thuân-thóng Hàn-jī</string>
+    <string name="share">Hun-hióng</string>
+    <string name="lang_translated_name_nan_latn_tw_pehoeji">Bân-lâm-gí - Pe̍h-uē-jī</string>
+    <string name="lang_translated_name_nan_latn_tw_tailo">Bân-lâm-gí - Tâi-lô</string>
 </resources>

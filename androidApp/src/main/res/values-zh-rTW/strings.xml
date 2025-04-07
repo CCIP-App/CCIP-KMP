@@ -33,4 +33,5 @@
     <string name="enter_token_manually_title">token</string>
     <string name="verifying">正在驗證票券</string>
     <string name="ticket_verification_help_title">請驗證票券</string>
+    <string name="share">分享</string>
 </resources>
