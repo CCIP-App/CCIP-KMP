@@ -160,7 +160,7 @@ private fun getShareIntent(url: String): Intent {
 
 private fun getCalendarIntent(session: Session, startTime: Long, endTime: Long): Intent {
     return Intent(Intent.ACTION_INSERT).apply {
-        setData(CalendarContract.Events.CONTENT_URI)
+        data = CalendarContract.Events.CONTENT_URI
         putExtra(CalendarContract.Events.TITLE, session.title)
         putExtra(CalendarContract.Events.DESCRIPTION, session.description)
         putExtra(CalendarContract.Events.EVENT_LOCATION, session.room)
