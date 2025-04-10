@@ -5,10 +5,14 @@
 
 package app.opass.ccip.android.ui.screens.session
 
+import android.Manifest
 import android.content.Intent
+import android.os.Build
 import android.provider.CalendarContract
 import android.text.format.DateUtils
 import android.util.Log
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -50,6 +54,11 @@ fun SessionScreen(
     val context = LocalContext.current
     val session by viewModel.session.collectAsStateWithLifecycle()
 
+    val notificationPermissionLauncher = rememberLauncherForActivityResult(
+        contract = RequestPermission(),
+        onResult = { isGranted -> if (isGranted) viewModel.notifySession(true) }
+    )
+
     if (session != null) {
         val startTime = viewModel.sdf.parse(session!!.start)!!.time
         val endTime = viewModel.sdf.parse(session!!.end)!!.time
@@ -67,6 +76,8 @@ fun SessionScreen(
             room = session!!.room,
             tags = session!!.tags,
             speakers = session!!.speakers,
+            bookmarked = session!!.bookmarked,
+            notify = session!!.notify,
             onNavigateUp = onNavigateUp,
             onAddToCalendar = {
                 try {
@@ -85,6 +96,14 @@ fun SessionScreen(
                     Log.e(TAG, "Failed to share session", exception)
                     context.toast(R.string.share_failed)
                 }
+            },
+            onSessionBookmark = { bookmarked -> viewModel.bookmarkSession(bookmarked) },
+            onSessionNotify = { notify ->
+                if (notify && Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    notificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+                } else {
+                    viewModel.notifySession(notify)
+                }
             }
         )
     }
@@ -97,11 +116,15 @@ private fun ScreenContent(
     dateTime: String,
     sessionType: String? = null,
     room: String? = null,
+    bookmarked: Boolean = false,
+    notify: Boolean = false,
     tags: List<String>? = emptyList(),
     speakers: List<String> = emptyList(),
     onNavigateUp: () -> Unit = {},
     onAddToCalendar: () -> Unit = {},
-    onShareSession: () -> Unit = {}
+    onShareSession: () -> Unit = {},
+    onSessionBookmark: (bookmarked: Boolean) -> Unit = {},
+    onSessionNotify: (notify: Boolean) -> Unit = {}
 ) {
     val context = LocalContext.current
     val uriHandler = object : UriHandler {
@@ -112,8 +135,10 @@ private fun ScreenContent(
 
     @Composable
     fun SetupMenu() {
-        SessionMenu { sessionMenuItem ->
+        SessionMenu(isBookmarked = bookmarked, hasNotificationActive = notify) { sessionMenuItem ->
             when (sessionMenuItem) {
+                SessionMenuItem.BOOKMARK -> onSessionBookmark(!bookmarked)
+                SessionMenuItem.NOTIFY -> onSessionNotify(!notify)
                 SessionMenuItem.SHARE -> onShareSession()
                 SessionMenuItem.ADD_TO_CALENDAR -> onAddToCalendar()
             }

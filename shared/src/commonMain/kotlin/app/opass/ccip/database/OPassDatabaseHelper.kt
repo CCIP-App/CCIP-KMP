@@ -210,6 +210,18 @@ internal class OPassDatabaseHelper {
         }
     }
 
+    suspend fun bookmarkSession(eventId: String, sessionId: String, bookmarked: Boolean) {
+        withContext(Dispatchers.IO) {
+            dbQuery.bookmarkSession(bookmarked, eventId, sessionId)
+        }
+    }
+
+    suspend fun notifySession(eventId: String, sessionId: String, notify: Boolean) {
+        withContext(Dispatchers.IO) {
+            dbQuery.notifySession(notify, eventId, sessionId)
+        }
+    }
+
     private suspend fun getSessions(eventId: String): List<Session> {
         return withContext(Dispatchers.IO) {
             dbQuery.selectAllSessions(eventId).executeAsList().map { it.toSession() }

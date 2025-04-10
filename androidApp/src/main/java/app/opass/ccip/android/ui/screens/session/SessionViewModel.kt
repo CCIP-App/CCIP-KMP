@@ -41,6 +41,21 @@ class SessionViewModel @AssistedInject constructor(
         getSession()
     }
 
+    fun bookmarkSession(bookmark: Boolean) {
+        viewModelScope.launch {
+            _session.value = _session.value!!.copy(bookmarked = bookmark)
+            portalHelper.bookmarkSession(eventId, sessionId, bookmark)
+        }
+    }
+
+    // TODO: Implement AlarmManager functionality
+    fun notifySession(notify: Boolean) {
+        viewModelScope.launch {
+            _session.value = _session.value!!.copy(notify = notify)
+            portalHelper.notifySession(eventId, sessionId, notify)
+        }
+    }
+
     private fun getSession() {
         viewModelScope.launch {
             val session = portalHelper.getSession(eventId, sessionId) ?: return@launch

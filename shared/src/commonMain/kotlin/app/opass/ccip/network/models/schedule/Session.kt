@@ -41,7 +41,10 @@ data class Session(
     val _en: Localized,
 
     @SerialName("zh")
-    val _zh: Localized
+    val _zh: Localized,
+
+    val bookmarked: Boolean = false,
+    val notify: Boolean = false
 ) {
     val id: String
         get() = _id.toString()

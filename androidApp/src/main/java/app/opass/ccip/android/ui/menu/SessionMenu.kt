@@ -26,20 +26,54 @@ import app.opass.ccip.android.ui.menu.item.SessionMenuItem
 
 /**
  * Menu for the session screen
+ * @param isBookmarked Whether the session has been bookmarked
  * @param onMenuItemClicked Callback when a menu item has been clicked
  * @see SessionMenuItem
  */
 @Composable
-fun SessionMenu(onMenuItemClicked: (sessionMenuItem: SessionMenuItem) -> Unit = {}) {
+fun SessionMenu(
+    isBookmarked: Boolean = false,
+    hasNotificationActive: Boolean = false,
+    onMenuItemClicked: (sessionMenuItem: SessionMenuItem) -> Unit = {}
+) {
     var expanded by remember { mutableStateOf(false) }
     fun onClick(sessionMenuItem: SessionMenuItem) {
         onMenuItemClicked(sessionMenuItem)
         expanded = false
     }
 
+    IconButton(onClick = { onClick(SessionMenuItem.BOOKMARK) }) {
+        Icon(
+            painter = painterResource(
+                if (isBookmarked) {
+                    R.drawable.ic_bookmark_filled
+                } else {
+                    R.drawable.ic_bookmark
+                }
+            ),
+            contentDescription = stringResource(R.string.session_bookmark)
+        )
+    }
+
+    IconButton(onClick = { onClick(SessionMenuItem.NOTIFY) }) {
+        Icon(
+            painter = painterResource(
+                if (hasNotificationActive) {
+                    R.drawable.ic_notifications_active_filled
+                } else {
+                    R.drawable.ic_notifications_active
+                }
+            ),
+            contentDescription = stringResource(R.string.session_notify)
+        )
+    }
+
     Box {
         IconButton(onClick = { expanded = true }) {
-            Icon(Icons.Default.MoreVert, contentDescription = stringResource(R.string.menu))
+            Icon(
+                imageVector = Icons.Default.MoreVert,
+                contentDescription = stringResource(R.string.menu)
+            )
         }
         DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
             DropdownMenuItem(

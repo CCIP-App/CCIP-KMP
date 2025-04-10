@@ -210,4 +210,24 @@ class PortalHelper {
     suspend fun getSession(eventId: String, sessionId: String): Session? {
         return dbHelper.getSession(eventId, sessionId)
     }
+
+    /**
+     * Bookmarks a given session for the event
+     * @param eventId ID of the event
+     * @param sessionId ID of the session
+     * @param bookmarked Whether the session has been bookmarked
+     */
+    suspend fun bookmarkSession(eventId: String, sessionId: String, bookmarked: Boolean) {
+        return dbHelper.bookmarkSession(eventId, sessionId, bookmarked)
+    }
+
+    /**
+     * Bookmarks a given session for the event
+     * @param eventId ID of the event
+     * @param sessionId ID of the session
+     * @param notify Whether the user enabled notification for the session
+     */
+    suspend fun notifySession(eventId: String, sessionId: String, notify: Boolean) {
+        return dbHelper.notifySession(eventId, sessionId, notify)
+    }
 }
