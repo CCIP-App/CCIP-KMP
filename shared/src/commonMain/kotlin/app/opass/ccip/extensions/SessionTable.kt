@@ -29,6 +29,8 @@ internal fun SessionTable.toSession(): Session {
             ?: emptyList(),
         liveUrl = this.liveUrl,
         url = this.url,
-        coWriteUrl = this.coWriteUrl
+        coWriteUrl = this.coWriteUrl,
+        bookmarked = this.bookmarked,
+        notify = this.notify
     )
 }

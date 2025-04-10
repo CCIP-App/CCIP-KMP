@@ -1,6 +1,8 @@
 -- SPDX-FileCopyrightText: 2024 OPass
 -- SPDX-License-Identifier: GPL-3.0-only
 
+import kotlin.Boolean;
+
 -- Schmea definations
 -- ------------------
 
@@ -104,6 +106,8 @@ CREATE TABLE SessionTable (
     qa TEXT,
     record TEXT,
     eventId TEXT NOT NULL,
+    bookmarked INTEGER AS Boolean DEFAULT 0 NOT NULL,
+    notify INTEGER AS Boolean DEFAULT 0 NOT NULL,
     FOREIGN KEY (eventId) REFERENCES EventConfigTable(id) ON DELETE CASCADE
 );
 
@@ -230,6 +234,12 @@ DELETE FROM SessionTable WHERE eventId = :eventId;
 insertSession:
 INSERT INTO SessionTable (id, titleEn, titleZh, descriptionEn, descriptionZh, start, end, room, speakers, tags, type, broadcast, liveUrl, url, coWriteUrl, slide, language, qa, record, eventId)
 VALUES (:id, :titleEn, :titleZh, :descriptionEn, :descriptionZh, :start, :end, :room, :speakers, :tags, :type, :broadcast, :liveUrl, :url, :coWriteUrl, :slide, :language, :qa, :record, :eventId);
+
+bookmarkSession:
+UPDATE SessionTable SET bookmarked = :bookmarked WHERE eventId = :eventId AND id = :id;
+
+notifySession:
+UPDATE SessionTable SET notify = :notify WHERE eventId = :eventId AND id = :id;
 
 -- Named queries for attendee table
 
