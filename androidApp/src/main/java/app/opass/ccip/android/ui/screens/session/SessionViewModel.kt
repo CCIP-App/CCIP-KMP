@@ -9,23 +9,39 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.opass.ccip.helpers.PortalHelper
 import app.opass.ccip.network.models.schedule.Session
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
-import javax.inject.Inject
 
-@HiltViewModel
-class SessionViewModel @Inject constructor(
+@HiltViewModel(assistedFactory = SessionViewModel.Factory::class)
+class SessionViewModel @AssistedInject constructor(
     val sdf: SimpleDateFormat,
+    @Assisted("eventId") private val eventId: String,
+    @Assisted("sessionId") private val sessionId: String,
     private val portalHelper: PortalHelper
 ): ViewModel() {
+
+    @AssistedFactory
+    interface Factory {
+        fun create(
+            @Assisted("eventId") eventId: String,
+            @Assisted("sessionId") sessionId: String
+        ): SessionViewModel
+    }
 
     private val _session: MutableStateFlow<Session?> = MutableStateFlow(null)
     val session = _session.asStateFlow()
 
-    fun getSession(eventId: String, sessionId: String) {
+    init {
+        getSession()
+    }
+
+    private fun getSession() {
         viewModelScope.launch {
             val session = portalHelper.getSession(eventId, sessionId) ?: return@launch
 
