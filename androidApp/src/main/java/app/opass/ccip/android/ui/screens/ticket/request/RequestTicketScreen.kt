@@ -61,7 +61,9 @@ fun RequestTicketScreen(
     onNavigateUp: () -> Unit,
     onNavigateToShowTicket: (token: String) -> Unit,
     onNavigateToScanTicket: () -> Unit,
-    viewModel: RequestTicketViewModel = hiltViewModel()
+    viewModel: RequestTicketViewModel = hiltViewModel { factory: RequestTicketViewModel.Factory ->
+        factory.create(eventId)
+    }
 ) {
     val context = LocalContext.current
 
@@ -73,7 +75,7 @@ fun RequestTicketScreen(
 
     val startActivityForResult = rememberLauncherForActivityResult(
         contract = PickVisualMedia(),
-        onResult = { uri -> if (uri != null) viewModel.getAttendee(eventId, uri) }
+        onResult = { uri -> if (uri != null) viewModel.getAttendee(uri) }
     )
 
     val cameraPermissionLauncher = rememberLauncherForActivityResult(
@@ -81,7 +83,6 @@ fun RequestTicketScreen(
         onResult = { isGranted -> if (isGranted) onNavigateToScanTicket() }
     )
 
-    LaunchedEffect(key1 = Unit) { viewModel.getEventConfig(eventId) }
     LaunchedEffect(key1 = isVerifying) { shouldShowProgressDialog = isVerifying }
     LaunchedEffect(key1 = Unit) {
         viewModel.token.collect { token ->
@@ -101,7 +102,7 @@ fun RequestTicketScreen(
         ManualEntryDialog(
             onConfirm = { manualToken ->
                 shouldShowManualEntryDialog = false
-                if (!manualToken.isNullOrBlank()) viewModel.getAttendee(eventId, manualToken)
+                if (!manualToken.isNullOrBlank()) viewModel.getAttendee(manualToken)
             },
             onDismiss = { shouldShowManualEntryDialog = false }
         )

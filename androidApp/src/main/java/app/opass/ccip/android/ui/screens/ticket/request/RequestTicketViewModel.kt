@@ -15,6 +15,9 @@ import app.opass.ccip.android.ui.extensions.saveToken
 import app.opass.ccip.android.ui.extensions.sharedPreferences
 import app.opass.ccip.helpers.PortalHelper
 import app.opass.ccip.network.models.eventconfig.EventConfig
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
@@ -24,14 +27,19 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import zxingcpp.BarcodeReader
-import javax.inject.Inject
 
-@HiltViewModel
-class RequestTicketViewModel @Inject constructor(
+@HiltViewModel(assistedFactory = RequestTicketViewModel.Factory::class)
+class RequestTicketViewModel @AssistedInject constructor(
     @ApplicationContext private val context: Context,
+    @Assisted private val eventId: String,
     private val portalHelper: PortalHelper,
     private val barcodeReader: BarcodeReader
 ) : ViewModel() {
+
+    @AssistedFactory
+    interface Factory {
+        fun create(eventId: String): RequestTicketViewModel
+    }
 
     private val TAG = RequestTicketViewModel::class.java.simpleName
 
@@ -44,7 +52,11 @@ class RequestTicketViewModel @Inject constructor(
     private val _isVerifying = MutableStateFlow(false)
     val isVerifying = _isVerifying.asStateFlow()
 
-    fun getEventConfig(eventId: String) {
+    init {
+        getEventConfig()
+    }
+
+    private fun getEventConfig() {
         viewModelScope.launch {
             try {
                 _eventConfig.value = portalHelper.getEventConfig(eventId)
@@ -55,7 +67,7 @@ class RequestTicketViewModel @Inject constructor(
         }
     }
 
-    fun getAttendee(eventId: String, token: String) {
+    fun getAttendee(token: String) {
         viewModelScope.launch {
             try {
                 _isVerifying.value = true
@@ -73,13 +85,13 @@ class RequestTicketViewModel @Inject constructor(
         }
     }
 
-    fun getAttendee(eventId: String, uri: Uri) {
+    fun getAttendee(uri: Uri) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val bitmap = BitmapFactory.decodeStream(
                     context.contentResolver.openInputStream(uri)
                 )
-                getAttendee(eventId, barcodeReader.read(bitmap).firstOrNull()!!.text!!)
+                getAttendee(barcodeReader.read(bitmap).firstOrNull()!!.text!!)
             } catch (exception: Exception) {
                 Log.e(TAG, "Failed to find ticket in given image", exception)
                 _token.emit(null)

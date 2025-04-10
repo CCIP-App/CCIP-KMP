@@ -52,7 +52,9 @@ fun ShowTicketScreen(
     token: String,
     onNavigateUp: () -> Unit,
     onNavigateToRequestTicket: () -> Unit,
-    viewModel: ShowTicketViewModel = hiltViewModel()
+    viewModel: ShowTicketViewModel = hiltViewModel { factory: ShowTicketViewModel.Factory ->
+        factory.create(eventId, token)
+    }
 ) {
     val activity = LocalActivity.current
     val context = LocalContext.current
@@ -76,7 +78,7 @@ fun ShowTicketScreen(
         LogoutDialog(
             onConfirm = {
                 shouldShowLogoutDialog = false
-                viewModel.logout(eventId, token)
+                viewModel.logout()
                 onNavigateToRequestTicket()
             },
             onDismiss = { shouldShowLogoutDialog = false }

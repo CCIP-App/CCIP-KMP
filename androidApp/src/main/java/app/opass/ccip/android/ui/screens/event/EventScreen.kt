@@ -23,7 +23,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -64,12 +63,12 @@ fun EventScreen(
     onNavigateToSchedule: () -> Unit,
     onNavigateToAnnouncement: (token: String?) -> Unit,
     onNavigateUp: () -> Unit,
-    viewModel: EventViewModel = hiltViewModel()
+    viewModel: EventViewModel = hiltViewModel { factory: EventViewModel.Factory ->
+        factory.create(eventId)
+    }
 ) {
     val eventConfig by viewModel.eventConfig.collectAsStateWithLifecycle()
     val attendee by viewModel.attendee.collectAsStateWithLifecycle()
-
-    LaunchedEffect(key1 = Unit) { viewModel.getEventConfig(eventId) }
 
     ScreenContent(
         attendee = attendee,

@@ -18,7 +18,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -44,12 +43,12 @@ fun SessionScreen(
     eventId: String,
     sessionId: String,
     onNavigateUp: () -> Unit,
-    viewModel: SessionViewModel = hiltViewModel()
+    viewModel: SessionViewModel = hiltViewModel { factory: SessionViewModel.Factory ->
+        factory.create(eventId, sessionId)
+    }
 ) {
     val context = LocalContext.current
     val session by viewModel.session.collectAsStateWithLifecycle()
-
-    LaunchedEffect(key1 = Unit) { viewModel.getSession(eventId, sessionId) }
 
     if (session != null) {
         val startTime = viewModel.sdf.parse(session!!.start)!!.time

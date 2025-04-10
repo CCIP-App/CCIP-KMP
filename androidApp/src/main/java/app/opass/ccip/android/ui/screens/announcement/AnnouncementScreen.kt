@@ -16,7 +16,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -36,18 +35,18 @@ fun AnnouncementScreen(
     eventId: String,
     token: String? = null,
     onNavigateUp: () -> Unit = {},
-    viewModel: AnnouncementViewModel = hiltViewModel()
+    viewModel: AnnouncementViewModel = hiltViewModel { factory: AnnouncementViewModel.Factory ->
+        factory.create(eventId, token)
+    }
 ) {
     val isRefreshing by viewModel.isRefreshing.collectAsStateWithLifecycle()
     val announcements by viewModel.announcements.collectAsStateWithLifecycle()
-
-    LaunchedEffect(key1 = Unit) { viewModel.getAnnouncements(eventId, token) }
 
     ScreenContent(
         announcements = announcements ?: emptyList(),
         isRefreshing = isRefreshing,
         onNavigateUp = onNavigateUp,
-        onRefresh = { viewModel.getAnnouncements(eventId, token, true) }
+        onRefresh = { viewModel.getAnnouncements(true) }
     )
 }
 

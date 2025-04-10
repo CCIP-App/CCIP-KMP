@@ -10,16 +10,28 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.opass.ccip.helpers.PortalHelper
 import app.opass.ccip.network.models.fastpass.Announcement
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class AnnouncementViewModel @Inject constructor(
+@HiltViewModel(assistedFactory = AnnouncementViewModel.Factory::class)
+class AnnouncementViewModel @AssistedInject constructor(
+    @Assisted("eventId") private val eventId: String,
+    @Assisted("token") private val token: String?,
     private val portalHelper: PortalHelper
 ): ViewModel() {
+
+    @AssistedFactory
+    interface Factory {
+        fun create(
+            @Assisted("eventId") eventId: String,
+            @Assisted("token") token: String?
+        ): AnnouncementViewModel
+    }
 
     private val TAG = AnnouncementViewModel::class.java.simpleName
 
@@ -29,7 +41,11 @@ class AnnouncementViewModel @Inject constructor(
     private val _isRefreshing = MutableStateFlow(false)
     val isRefreshing = _isRefreshing.asStateFlow()
 
-    fun getAnnouncements(eventId: String, token: String? = null, forceReload: Boolean = false) {
+    init {
+        getAnnouncements()
+    }
+
+    fun getAnnouncements(forceReload: Boolean = false) {
         viewModelScope.launch {
             try {
                 _isRefreshing.value = true

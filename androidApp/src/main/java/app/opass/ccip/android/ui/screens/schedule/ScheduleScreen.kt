@@ -18,7 +18,6 @@ import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
@@ -30,7 +29,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.opass.ccip.android.R
 import app.opass.ccip.android.ui.composable.SearchAppBarComposable
 import app.opass.ccip.android.ui.composable.SessionComposable
-import app.opass.ccip.android.ui.screens.event.EventViewModel
 import app.opass.ccip.network.models.schedule.Session
 import kotlinx.coroutines.launch
 
@@ -39,13 +37,13 @@ fun ScheduleScreen(
     eventId: String,
     onNavigateUp: () -> Unit,
     onNavigateToSession: (sessionId: String) -> Unit,
-    viewModel: EventViewModel = hiltViewModel()
+    viewModel: ScheduleViewModel = hiltViewModel { factory: ScheduleViewModel.Factory ->
+        factory.create(eventId)
+    }
 ) {
     val context = LocalContext.current
     val schedule by viewModel.schedule.collectAsStateWithLifecycle()
     val searchResult by viewModel.searchResult.collectAsStateWithLifecycle()
-
-    LaunchedEffect(key1 = Unit) { viewModel.getSchedule(eventId) }
 
     ScreenContent(
         sessions = schedule?.sessions?.groupBy {

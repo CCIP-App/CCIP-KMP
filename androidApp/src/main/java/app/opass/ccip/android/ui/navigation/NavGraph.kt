@@ -11,7 +11,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import app.opass.ccip.android.ui.extensions.navigate
-import app.opass.ccip.android.ui.extensions.sharedViewModel
 import app.opass.ccip.android.ui.screens.announcement.AnnouncementScreen
 import app.opass.ccip.android.ui.screens.event.EventScreen
 import app.opass.ccip.android.ui.screens.preview.PreviewScreen
@@ -49,7 +48,6 @@ fun NavGraph(navHostController: NavHostController, startDestination: Screen) {
             val event = backStackEntry.toRoute<Screen.Event>()
             EventScreen(
                 eventId = event.eventId,
-                viewModel = backStackEntry.sharedViewModel(navHostController),
                 onNavigateUp = { navHostController.navigate(Screen.Preview) },
                 onNavigateToSchedule = {
                     navHostController.navigate(
@@ -79,7 +77,6 @@ fun NavGraph(navHostController: NavHostController, startDestination: Screen) {
             val schedule = backStackEntry.toRoute<Screen.Schedule>()
             ScheduleScreen(
                 eventId = schedule.eventId,
-                viewModel = backStackEntry.sharedViewModel(navHostController),
                 onNavigateUp = { navHostController.navigateUp() },
                 onNavigateToSession = { sessionId ->
                     navHostController.navigate(
