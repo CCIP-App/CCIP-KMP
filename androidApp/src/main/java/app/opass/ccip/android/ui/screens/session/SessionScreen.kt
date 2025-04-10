@@ -15,8 +15,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -26,8 +24,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.platform.UriHandler
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -37,6 +33,8 @@ import app.opass.ccip.android.ui.composable.SessionInfoComposable
 import app.opass.ccip.android.ui.composable.TopAppBarComposable
 import app.opass.ccip.android.ui.extensions.browse
 import app.opass.ccip.android.ui.extensions.toast
+import app.opass.ccip.android.ui.menu.SessionMenu
+import app.opass.ccip.android.ui.menu.item.SessionMenuItem
 import app.opass.ccip.network.models.schedule.Session
 
 private const val TAG = "SessionScreen"
@@ -70,7 +68,6 @@ fun SessionScreen(
             room = session!!.room,
             tags = session!!.tags,
             speakers = session!!.speakers,
-            url = session!!.url,
             onNavigateUp = onNavigateUp,
             onAddToCalendar = {
                 try {
@@ -87,6 +84,7 @@ fun SessionScreen(
                     )
                 } catch (exception: Exception) {
                     Log.e(TAG, "Failed to share session", exception)
+                    context.toast(R.string.share_failed)
                 }
             }
         )
@@ -100,7 +98,6 @@ private fun ScreenContent(
     dateTime: String,
     sessionType: String? = null,
     room: String? = null,
-    url: String? = null,
     tags: List<String>? = emptyList(),
     speakers: List<String> = emptyList(),
     onNavigateUp: () -> Unit = {},
@@ -114,25 +111,22 @@ private fun ScreenContent(
         }
     }
 
+    @Composable
+    fun SetupMenu() {
+        SessionMenu { sessionMenuItem ->
+            when (sessionMenuItem) {
+                SessionMenuItem.SHARE -> onShareSession()
+                SessionMenuItem.ADD_TO_CALENDAR -> onAddToCalendar()
+            }
+        }
+    }
+
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
             TopAppBarComposable(
                 onNavigate = onNavigateUp,
-                actions = {
-                    IconButton(onClick = onAddToCalendar) {
-                        Icon(
-                            painter = painterResource(R.drawable.ic_calendar_add),
-                            contentDescription = stringResource(R.string.add_to_calendar)
-                        )
-                    }
-                    IconButton(onClick = onShareSession, enabled = !url.isNullOrBlank()) {
-                        Icon(
-                            painter = painterResource(R.drawable.ic_share),
-                            contentDescription = stringResource(R.string.share)
-                        )
-                    }
-                }
+                actions = { SetupMenu() }
             )
         }
     ) { paddingValues ->
