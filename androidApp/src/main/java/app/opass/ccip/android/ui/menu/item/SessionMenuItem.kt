@@ -5,6 +5,9 @@
 
 package app.opass.ccip.android.ui.menu.item
 
+/**
+ * Valid menu items for session screen menu
+ */
 enum class SessionMenuItem {
     ADD_TO_CALENDAR,
     SHARE
