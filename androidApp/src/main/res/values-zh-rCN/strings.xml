@@ -1,2 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="telegram">Telegram</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="switch_language">切换语言</string>
+    <string name="lang_translated_name_x_default">系统默认</string>
+    <string name="lang_translated_name_en_us">英语</string>
+    <string name="lang_translated_name_hi_in">印地语</string>
+    <string name="lang_translated_name_nan_hant_tw">闽南语 - 传统汉字</string>
+    <string name="lang_translated_name_nan_latn_tw_pehoeji">闽南语 - 白话字</string>
+    <string name="lang_translated_name_nan_latn_tw_tailo">闽南语 - 台罗拼音</string>
+    <string name="lang_translated_name_nb_no">书面挪威语</string>
+    <string name="lang_translated_name_ta_in">泰米尔语</string>
+    <string name="lang_translated_name_zh_hant_tw">繁体中文</string>
+    <string name="share">分享</string>
+    <string name="close">关闭</string>
+    <string name="auto_brighten">自动调整亮度</string>
+</resources>
