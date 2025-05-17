@@ -23,4 +23,8 @@
     <string name="share">Hun-hióng</string>
     <string name="lang_translated_name_nan_latn_tw_pehoeji">Bân-lâm-gí - Pe̍h-uē-jī</string>
     <string name="lang_translated_name_nan_latn_tw_tailo">Bân-lâm-gí - Tâi-lô</string>
+    <string name="action_logout_confirmation_title">Ting-tshut?</string>
+    <string name="search_session">Tshuē gī-tîng</string>
+    <string name="select_from_gallery">Tuì tôo-khòo suán-ti̍k</string>
+    <string name="enter_token_manually_title">Phiò-kǹg</string>
 </resources>
