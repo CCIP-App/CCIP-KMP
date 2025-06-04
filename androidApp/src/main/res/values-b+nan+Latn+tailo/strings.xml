@@ -27,4 +27,6 @@
     <string name="search_session">Tshuē gī-tîng</string>
     <string name="select_from_gallery">Tuì tôo-khòo suán-ti̍k</string>
     <string name="enter_token_manually_title">Phiò-kǹg</string>
+    <string name="lang_translated_name_nb_no">Su-bīn Norwegian</string>
+    <string name="lang_translated_name_zh_hant_tw">Huân-thé Tiong-bûn</string>
 </resources>
