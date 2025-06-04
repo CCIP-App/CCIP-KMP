@@ -32,4 +32,6 @@
     <string name="add_to_calendar">加入行事曆</string>
     <string name="action_logout_confirmation_title">登出？</string>
     <string name="share">分享</string>
+    <string name="lang_translated_name_nb_no">書面挪威語</string>
+    <string name="lang_translated_name_zh_hant_tw">繁體中文</string>
 </resources>
