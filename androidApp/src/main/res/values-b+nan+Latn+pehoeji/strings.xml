@@ -32,4 +32,6 @@
     <string name="add_to_calendar">Ka-ji̍p hêng-sū-le̍k</string>
     <string name="action_logout_confirmation_title">Teng-chhut?</string>
     <string name="share">Hun-hióng</string>
+    <string name="lang_translated_name_nb_no">Su-bīn Norwegian</string>
+    <string name="lang_translated_name_zh_hant_tw">Hoân-thé Tiong-bûn</string>
 </resources>
