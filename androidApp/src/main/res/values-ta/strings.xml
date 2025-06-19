@@ -17,4 +17,14 @@
     <string name="scan_qr_code">QR குறியீட்டை ச்கேன் செய்யுங்கள்</string>
     <string name="select_from_gallery">கேலரியில் இருந்து தேர்ந்தெடுக்கவும்</string>
     <string name="share">பங்கு</string>
+    <string name="lang_translated_name_hi_in">இந்தி</string>
+    <string name="lang_translated_name_x_default">கணினி இயல்புநிலை</string>
+    <string name="lang_translated_name_en_us">ஆங்கிலம்</string>
+    <string name="lang_translated_name_nan_hant_tw">ஒக்கியன் - பாரம்பரிய ஆன் ச்கிரிப்ட்</string>
+    <string name="lang_translated_name_zh_hant_tw">மாண்டரின் - பாரம்பரிய ஆன் ச்கிரிப்ட்</string>
+    <string name="switch_language">மொழியை மாற்றவும்</string>
+    <string name="lang_translated_name_nan_latn_tw_tailo">ஒக்கியன் - டிலோ</string>
+    <string name="lang_translated_name_nb_no">நார்வேசியன் பொக்மால்</string>
+    <string name="lang_translated_name_ta_in">தமிழ்</string>
+    <string name="lang_translated_name_nan_latn_tw_pehoeji">ஒக்கியன்-பெஅ்-கே-சான்</string>
 </resources>
