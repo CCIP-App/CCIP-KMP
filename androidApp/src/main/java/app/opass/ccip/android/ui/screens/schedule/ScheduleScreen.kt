@@ -14,8 +14,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SecondaryTabRow
 import androidx.compose.material3.Tab
-import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -106,7 +106,7 @@ private fun ScreenContent(
 
         Column(modifier = Modifier.padding(paddingValues)) {
             if (tabData.size > 1) {
-                TabRow(selectedTabIndex = tabIndex) {
+                SecondaryTabRow(selectedTabIndex = tabIndex) {
                     tabData.fastForEachIndexed { index, date ->
                         Tab(
                             selected = tabIndex == index,
