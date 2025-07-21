@@ -29,10 +29,13 @@ sealed class Screen {
     data class RequestTicket(val eventId: String) : Screen()
 
     @Serializable
-    data class ScanTicket(val eventId: String) : Screen()
+    data class ScanTicket(val eventId: String, val token: String? = null) : Screen()
 
     @Serializable
     data class ShowTicket(val eventId: String, val token: String) : Screen()
+
+    @Serializable
+    data class Verification(val eventId: String, val token: String) : Screen()
 
     @Serializable
     data class Announcement(val eventId: String, val token: String? = null) : Screen()

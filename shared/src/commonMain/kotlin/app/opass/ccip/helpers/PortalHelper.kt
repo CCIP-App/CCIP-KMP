@@ -124,7 +124,7 @@ class PortalHelper {
         return if (cachedAttendee != null && !forceReload) {
             cachedAttendee
         } else {
-            client.getFastPassStatus(feat.url!!, token).also {
+            client.getFastPassStatus(feat.url!!, token)?.also {
                 dbHelper.addAttendee(eventId, it)
             }
         }

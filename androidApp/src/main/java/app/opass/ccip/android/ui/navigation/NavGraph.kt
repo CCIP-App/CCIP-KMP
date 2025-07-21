@@ -19,6 +19,7 @@ import app.opass.ccip.android.ui.screens.session.SessionScreen
 import app.opass.ccip.android.ui.screens.ticket.request.RequestTicketScreen
 import app.opass.ccip.android.ui.screens.ticket.scan.ScanTicketScreen
 import app.opass.ccip.android.ui.screens.ticket.show.ShowTicketScreen
+import app.opass.ccip.android.ui.screens.ticket.verification.VerificationScreen
 
 /**
  * Navigation graph for compose screens
@@ -100,9 +101,9 @@ fun NavGraph(navHostController: NavHostController, startDestination: Screen) {
             RequestTicketScreen(
                 eventId = ticket.eventId,
                 onNavigateUp = { navHostController.navigateUp() },
-                onNavigateToShowTicket = { token ->
+                onNavigateToVerification = { token ->
                     navHostController.navigate(
-                        screen = Screen.ShowTicket(ticket.eventId, token)
+                        screen = Screen.Verification(ticket.eventId, token)
                     )
                 },
                 onNavigateToScanTicket = {
@@ -117,10 +118,11 @@ fun NavGraph(navHostController: NavHostController, startDestination: Screen) {
             val scan = backStackEntry.toRoute<Screen.ScanTicket>()
             ScanTicketScreen(
                 eventId = scan.eventId,
+                token = scan.token,
                 onNavigateUp = { navHostController.navigateUp() },
-                onNavigateToShowTicket = { token ->
+                onNavigateToVerification = { token ->
                     navHostController.navigate(
-                        screen = Screen.ShowTicket(scan.eventId, token)
+                        screen = Screen.Verification(scan.eventId, token)
                     )
                 }
             )
@@ -135,6 +137,26 @@ fun NavGraph(navHostController: NavHostController, startDestination: Screen) {
                 onNavigateToRequestTicket = {
                     navHostController.navigate(
                         screen = Screen.RequestTicket(ticket.eventId)
+                    )
+                }
+            )
+        }
+
+        composable<Screen.Verification> { backStackEntry ->
+            val verification = backStackEntry.toRoute<Screen.Verification>()
+            VerificationScreen(
+                eventId = verification.eventId,
+                token = verification.token,
+                onVerificationSuccess = { verifiedToken ->
+                    navHostController.navigate(
+                        screen = Screen.ShowTicket(verification.eventId, verifiedToken),
+                        isInclusive = true
+                    )
+                },
+                onVerificationFailed = {
+                    navHostController.navigate(
+                        screen = Screen.RequestTicket(verification.eventId),
+                        isInclusive = true
                     )
                 }
             )
