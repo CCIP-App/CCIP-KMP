@@ -80,7 +80,7 @@ class ScanTicketViewModel @AssistedInject constructor(
                 imageProxy.use { input ->
                     barcodeReader.read(input).firstOrNull()?.text?.let { token ->
                         makeOneShotVibration()
-                        runBlocking { getAttendee(eventId, token) }
+                        runBlocking { _token.emit(token) }
 
                         // Avoid scanning the QR multiple times
                         Thread.sleep(2000)
@@ -104,25 +104,6 @@ class ScanTicketViewModel @AssistedInject constructor(
 
     fun toggleFlash(on: Boolean) {
         cameraControl.enableTorch(on)
-    }
-
-    private suspend fun getAttendee(eventId: String, token: String) {
-        return try {
-            _isVerifying.value = true
-            if (portalHelper.getAttendee(eventId, token, true) != null) {
-                Log.i(TAG, "Token is valid")
-                context.sharedPreferences.saveToken(eventId, token)
-                _token.emit(token)
-            } else {
-                Log.i(TAG, "Token is not valid!")
-                _token.emit(token)
-            }
-        } catch (exception: Exception) {
-            Log.e(TAG, "Failed to fetch attendee", exception)
-            _token.emit(null)
-        } finally {
-            _isVerifying.value = false
-        }
     }
 
     private fun makeOneShotVibration() {

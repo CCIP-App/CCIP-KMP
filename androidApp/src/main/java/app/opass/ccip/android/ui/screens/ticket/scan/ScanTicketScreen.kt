@@ -43,8 +43,9 @@ import app.opass.ccip.android.ui.extensions.toast
 @Composable
 fun ScanTicketScreen(
     eventId: String,
+    token: String? = null,
     onNavigateUp: () -> Unit,
-    onNavigateToShowTicket: (token: String) -> Unit,
+    onNavigateToVerification: (token: String) -> Unit,
     viewModel: ScanTicketViewModel = hiltViewModel { factory: ScanTicketViewModel.Factory ->
         factory.create(eventId)
     }
@@ -61,11 +62,15 @@ fun ScanTicketScreen(
     LaunchedEffect(key1 = isVerifying) { shouldShowProgressDialog = isVerifying }
     LaunchedEffect(key1 = Unit) {
         viewModel.token.collect { token ->
-            if (token.isNullOrBlank()) {
-                context.toast(R.string.ticket_verification_failed)
-            } else {
-                onNavigateToShowTicket(token)
+            if (token != null) {
+                onNavigateToVerification(token)
             }
+        }
+    }
+
+    LaunchedEffect(key1 = token) {
+        if (token != null) {
+            onNavigateToVerification(token)
         }
     }
 

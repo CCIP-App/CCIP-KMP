@@ -59,7 +59,7 @@ import coil3.request.crossfade
 fun RequestTicketScreen(
     eventId: String,
     onNavigateUp: () -> Unit,
-    onNavigateToShowTicket: (token: String) -> Unit,
+    onNavigateToVerification: (token: String) -> Unit,
     onNavigateToScanTicket: () -> Unit,
     viewModel: RequestTicketViewModel = hiltViewModel { factory: RequestTicketViewModel.Factory ->
         factory.create(eventId)
@@ -89,7 +89,7 @@ fun RequestTicketScreen(
             if (token.isNullOrBlank()) {
                 context.toast(R.string.ticket_verification_failed)
             } else {
-                onNavigateToShowTicket(token)
+                onNavigateToVerification(token)
             }
         }
     }
