@@ -5,6 +5,8 @@
 
 package app.opass.ccip.android
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -25,6 +27,27 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         val currentEventId = sharedPreferences.currentEventId
+
+        val action: String? = intent?.action
+        val data: Uri? = intent?.data
+
+        if (action == Intent.ACTION_VIEW && data != null) {
+            val eventId = data.getQueryParameter("event_id")
+            val token = data.getQueryParameter("token")
+
+            if (eventId != null && token != null) {
+                setContent {
+                    OPassTheme {
+                        val navController = rememberNavController()
+                        NavGraph(
+                            navHostController = navController,
+                            startDestination = Screen.Verification(eventId, token)
+                        )
+                    }
+                }
+                return
+            }
+        }
 
         setContent {
             OPassTheme {
