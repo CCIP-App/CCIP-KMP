@@ -57,7 +57,8 @@ class SessionViewModel @AssistedInject constructor(
             _session.value = session.copy(
                 type = queriedSessionType,
                 tags = queriedTags,
-                speakers = queriedSpeakers
+                speakers = queriedSpeakers,
+                room = portalHelper.getRoom(eventId, session.room)!!.name
             )
         }
     }
