@@ -47,7 +47,12 @@ class ScheduleViewModel @AssistedInject constructor(
     private fun getSchedule(forceReload: Boolean = false) {
         viewModelScope.launch {
             try {
-                _schedule.value = portalHelper.getSchedule(eventId, forceReload)
+                val rawSchedule = portalHelper.getSchedule(eventId, forceReload)
+                _schedule.value = rawSchedule?.copy(
+                    sessions = rawSchedule.sessions.map {
+                        it.copy(room = portalHelper.getRoom(eventId, it.room)!!.name)
+                    }
+                )
                 _searchResult.value = _schedule.value?.sessions ?: emptyList()
             } catch (exception: Exception) {
                 Log.e(TAG, "Failed to fetch schedules", exception)
