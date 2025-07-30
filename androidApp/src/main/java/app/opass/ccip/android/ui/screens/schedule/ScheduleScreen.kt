@@ -29,6 +29,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.opass.ccip.android.R
 import app.opass.ccip.android.ui.composable.SearchAppBarComposable
 import app.opass.ccip.android.ui.composable.SessionComposable
+import app.opass.ccip.android.utils.DateTimeUtil
 import app.opass.ccip.network.models.schedule.Session
 import kotlinx.coroutines.launch
 
@@ -47,10 +48,9 @@ fun ScheduleScreen(
 
     ScreenContent(
         sessions = schedule?.sessions?.groupBy {
-            DateUtils.formatDateTime(
+            DateTimeUtil.formatShowDate(
                 context,
-                viewModel.sdf.parse(it.start)!!.time,
-                DateUtils.FORMAT_SHOW_DATE
+                viewModel.sdf.parse(it.start)!!.time
             )
         } ?: emptyMap(),
         searchResult = searchResult,
