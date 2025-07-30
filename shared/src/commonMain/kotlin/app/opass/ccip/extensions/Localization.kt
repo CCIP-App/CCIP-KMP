@@ -19,6 +19,7 @@ internal fun LocalizedString.localized() = localized(this.en, this.zh)
  */
 internal fun localized(en: String, zh: String): String {
     return when (languageCode) {
+        "nan" -> zh
         "zh" -> zh
         else -> en
     }
