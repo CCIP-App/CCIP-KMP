@@ -34,4 +34,14 @@
     <string name="share">分享</string>
     <string name="lang_translated_name_nb_no">書面挪威語</string>
     <string name="lang_translated_name_zh_hant_tw">繁體中文</string>
+    <string name="lang_translated_name_zh_hans_cn">華語 - 簡化漢字</string>
+    <string name="add_to_calendar_failed">欲加添議程失敗矣！</string>
+    <string name="share_failed">無議程連結會當分享！</string>
+    <string name="menu">選單</string>
+    <string name="close">關</string>
+    <string name="flash">熾爁</string>
+    <string name="auto_brighten">自動調整光度</string>
+    <string name="enter_token_manually_desc">手動輸入你對電子批抑是主辦方收著的票券。</string>
+    <string name="verifying">驗證票券</string>
+    <string name="ticket_verification_help_title">請驗證你的票券</string>
 </resources>
