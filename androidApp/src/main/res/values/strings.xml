@@ -2,7 +2,8 @@
 <!--
     SPDX-FileCopyrightText: 2024 OPass
     SPDX-License-Identifier: GPL-3.0-only
---><resources>
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name" translatable="false">OPass</string>
 
     <!-- EventPreviewScreen -->
@@ -53,6 +54,10 @@
 
     <!-- SessionScreen -->
     <string name="session">Session</string>
+    <string name="session_bookmark">Bookmark session</string>
+    <string name="session_alarm">Remind about the session</string>
+    <string name="notification_session_start_message"><xliff:g id="session_title">%1$s</xliff:g> will start in 10 minutes at <xliff:g id="room">%2$s</xliff:g></string>
+    <string name="notification_session_start_title">Upcoming session!</string>
 
     <!-- TicketScreen -->
     <string name="close">Close</string>
