@@ -5,10 +5,14 @@
 
 package app.opass.ccip.android.ui.screens.session
 
+import android.Manifest
 import android.content.Intent
+import android.os.Build
 import android.provider.CalendarContract
 import android.text.format.DateUtils
 import android.util.Log
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -49,20 +53,26 @@ fun SessionScreen(
 ) {
     val context = LocalContext.current
     val session by viewModel.session.collectAsStateWithLifecycle()
+    val bookmark by viewModel.bookmark.collectAsStateWithLifecycle()
+    val alarm by viewModel.alarm.collectAsStateWithLifecycle()
+
+    val notificationPermissionLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestPermission(),
+        onResult = { isGranted -> viewModel.setAlarm(isGranted) }
+    )
 
     if (session != null) {
-        val startTime = viewModel.sdf.parse(session!!.start)!!.time
-        val endTime = viewModel.sdf.parse(session!!.end)!!.time
-
         ScreenContent(
             title = session!!.title,
             description = session!!.description,
             dateTime = DateUtils.formatDateRange(
                 context,
-                startTime,
-                endTime,
+                viewModel.startTime,
+                viewModel.endTime,
                 DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_SHOW_TIME or DateUtils.FORMAT_ABBREV_ALL
             ),
+            hasAlarm = alarm,
+            hasBookmark = bookmark,
             sessionType = session!!.type,
             room = session!!.room,
             tags = session!!.tags,
@@ -70,7 +80,13 @@ fun SessionScreen(
             onNavigateUp = onNavigateUp,
             onAddToCalendar = {
                 try {
-                    context.startActivity(getCalendarIntent(session!!, startTime, endTime))
+                    context.startActivity(
+                        getCalendarIntent(
+                            session!!,
+                            viewModel.startTime,
+                            viewModel.endTime
+                        )
+                    )
                 } catch (exception: Exception) {
                     Log.e(TAG, "Failed to add event to the calendar app", exception)
                     context.toast(R.string.add_to_calendar_failed)
@@ -85,6 +101,16 @@ fun SessionScreen(
                     Log.e(TAG, "Failed to share session", exception)
                     context.toast(R.string.share_failed)
                 }
+            },
+            onSetSessionAlarm = { setAlarm ->
+                if (setAlarm && Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    notificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+                } else {
+                    viewModel.setAlarm(setAlarm)
+                }
+            },
+            onSessionBookmark = { bookmark ->
+                viewModel.setBookmark(bookmark)
             }
         )
     }
@@ -95,13 +121,17 @@ private fun ScreenContent(
     title: String,
     description: String,
     dateTime: String,
+    hasBookmark: Boolean = false,
+    hasAlarm: Boolean = false,
     sessionType: String? = null,
     room: String? = null,
     tags: List<String>? = emptyList(),
     speakers: List<String> = emptyList(),
     onNavigateUp: () -> Unit = {},
     onAddToCalendar: () -> Unit = {},
-    onShareSession: () -> Unit = {}
+    onShareSession: () -> Unit = {},
+    onSessionBookmark: (bookmark: Boolean) -> Unit = {},
+    onSetSessionAlarm: (setAlarm: Boolean) -> Unit = {}
 ) {
     val context = LocalContext.current
     val uriHandler = object : UriHandler {
@@ -112,8 +142,10 @@ private fun ScreenContent(
 
     @Composable
     fun SetupMenu() {
-        SessionMenu { sessionMenuItem ->
+        SessionMenu(hasBookmark = hasBookmark, hasAlarm = hasAlarm) { sessionMenuItem ->
             when (sessionMenuItem) {
+                SessionMenuItem.BOOKMARK -> onSessionBookmark(!hasBookmark)
+                SessionMenuItem.SET_ALARM -> onSetSessionAlarm(!hasAlarm)
                 SessionMenuItem.SHARE -> onShareSession()
                 SessionMenuItem.ADD_TO_CALENDAR -> onAddToCalendar()
             }

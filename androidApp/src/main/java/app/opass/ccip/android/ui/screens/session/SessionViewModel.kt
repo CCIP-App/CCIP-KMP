@@ -5,14 +5,22 @@
 
 package app.opass.ccip.android.ui.screens.session
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import app.opass.ccip.android.ui.extensions.getAlarms
+import app.opass.ccip.android.ui.extensions.getBookmarks
+import app.opass.ccip.android.ui.extensions.saveAlarms
+import app.opass.ccip.android.ui.extensions.saveBookmarks
+import app.opass.ccip.android.ui.extensions.sharedPreferences
+import app.opass.ccip.android.utils.AlarmUtil
 import app.opass.ccip.helpers.PortalHelper
 import app.opass.ccip.network.models.schedule.Session
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -20,11 +28,12 @@ import java.text.SimpleDateFormat
 
 @HiltViewModel(assistedFactory = SessionViewModel.Factory::class)
 class SessionViewModel @AssistedInject constructor(
-    val sdf: SimpleDateFormat,
+    private val sdf: SimpleDateFormat,
     @Assisted("eventId") private val eventId: String,
     @Assisted("sessionId") private val sessionId: String,
-    private val portalHelper: PortalHelper
-): ViewModel() {
+    private val portalHelper: PortalHelper,
+    @ApplicationContext private val context: Context
+) : ViewModel() {
 
     @AssistedFactory
     interface Factory {
@@ -37,8 +46,48 @@ class SessionViewModel @AssistedInject constructor(
     private val _session: MutableStateFlow<Session?> = MutableStateFlow(null)
     val session = _session.asStateFlow()
 
+    val startTime: Long
+        get() = sdf.parse(session.value!!.start)!!.time
+
+    val endTime: Long
+        get() = sdf.parse(session.value!!.end)!!.time
+
+    private val _bookmark: MutableStateFlow<Boolean> = MutableStateFlow(
+        sessionId in context.sharedPreferences.getBookmarks(eventId)
+    )
+    val bookmark = _bookmark.asStateFlow()
+
+    private val _alarm: MutableStateFlow<Boolean> = MutableStateFlow(
+        sessionId in context.sharedPreferences.getAlarms(eventId)
+    )
+    val alarm = _alarm.asStateFlow()
+
     init {
         getSession()
+    }
+
+    fun setBookmark(value: Boolean) {
+        _bookmark.value = value
+        with(context.sharedPreferences) {
+            val newSet = getBookmarks(eventId).toMutableSet()
+            if (value) newSet.add(sessionId) else newSet.remove(sessionId)
+            saveBookmarks(eventId, newSet)
+        }
+    }
+
+    fun setAlarm(value: Boolean) {
+        _alarm.value = value
+        with(context.sharedPreferences) {
+            val newSet = getAlarms(eventId).toMutableSet()
+            if (value) {
+                newSet.add(sessionId)
+                AlarmUtil.setSessionAlarm(context, startTime, eventId, session.value!!)
+            } else {
+                newSet.remove(sessionId)
+                AlarmUtil.cancelSessionAlarm(context, eventId, sessionId)
+            }
+            saveAlarms(eventId, newSet)
+        }
     }
 
     private fun getSession() {

@@ -24,15 +24,47 @@ import app.opass.ccip.android.ui.menu.item.SessionMenuItem
 
 /**
  * Menu for the session screen
+ * @param hasBookmark Whether the session has been bookmarked
+ * @param hasAlarm Whether the session has an active alarm for notifying the user
  * @param onMenuItemClicked Callback when a menu item has been clicked
  * @see SessionMenuItem
  */
 @Composable
-fun SessionMenu(onMenuItemClicked: (sessionMenuItem: SessionMenuItem) -> Unit = {}) {
+fun SessionMenu(
+    hasBookmark: Boolean = false,
+    hasAlarm: Boolean = false,
+    onMenuItemClicked: (sessionMenuItem: SessionMenuItem) -> Unit = {}
+) {
     var expanded by remember { mutableStateOf(false) }
     fun onClick(sessionMenuItem: SessionMenuItem) {
         onMenuItemClicked(sessionMenuItem)
         expanded = false
+    }
+
+    IconButton(onClick = { onClick(SessionMenuItem.BOOKMARK) }) {
+        Icon(
+            painter = painterResource(
+                if (hasBookmark) {
+                    R.drawable.ic_bookmark_filled
+                } else {
+                    R.drawable.ic_bookmark
+                }
+            ),
+            contentDescription = stringResource(R.string.session_bookmark)
+        )
+    }
+
+    IconButton(onClick = { onClick(SessionMenuItem.SET_ALARM) }) {
+        Icon(
+            painter = painterResource(
+                if (hasAlarm) {
+                    R.drawable.ic_notifications_active_filled
+                } else {
+                    R.drawable.ic_notifications_active
+                }
+            ),
+            contentDescription = stringResource(R.string.session_alarm)
+        )
     }
 
     Box {
