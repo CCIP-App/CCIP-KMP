@@ -34,4 +34,19 @@
     <string name="verifying">正在驗證票券</string>
     <string name="ticket_verification_help_title">請驗證票券</string>
     <string name="share">分享</string>
+    <string name="lang_translated_name_zh_hans_cn">簡體中文</string>
+    <string name="menu">選單</string>
+    <string name="search_session">搜尋議程</string>
+    <string name="add_to_calendar">加入行事曆</string>
+    <string name="add_to_calendar_failed">無法將議程加入行事曆！</string>
+    <string name="close">關閉</string>
+    <string name="flash">手電筒</string>
+    <string name="ticket_verification_failed">無法驗證票券！</string>
+    <string name="action_logout_confirmation_title">登出？</string>
+    <string name="action_logout_confirmation_message">您確定要登出嗎？</string>
+    <string name="share_failed">沒有議程連結能夠分享！</string>
+    <string name="enter_token_manually_desc">手動輸入你從電子郵件或是主辦方接收的票券。</string>
+    <string name="ticket_verification_help_desc">票券可能跑到電子郵件收件夾或是垃圾郵件夾，如果你還沒有收，請聯繫活動主辦方。</string>
+    <string name="ticket_privacy_help_title">請保護好你的票券</string>
+    <string name="ticket_privacy_help_desc">這張票券是用來識別你㑸人，所以不要與活動報到台之外的人分享。</string>
 </resources>
