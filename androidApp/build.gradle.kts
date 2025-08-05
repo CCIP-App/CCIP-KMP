@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
@@ -14,6 +16,9 @@ plugins {
 
 kotlin {
     jvmToolchain(21)
+    compilerOptions {
+        jvmTarget = JvmTarget.JVM_21
+    }
 }
 
 android {
@@ -48,9 +53,6 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
-    }
-    kotlinOptions {
-        jvmTarget = "21"
     }
     lint {
         lintConfig = file("lint.xml")
