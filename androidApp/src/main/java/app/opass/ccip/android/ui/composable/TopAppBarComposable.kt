@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material3.CenterAlignedTopAppBar
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -34,7 +33,6 @@ import app.opass.ccip.android.R
  * @see SearchAppBarComposable
  */
 @Composable
-@OptIn(ExperimentalMaterial3Api::class)
 fun TopAppBarComposable(
     title: String? = null,
     subtitle: String? = null,
