@@ -24,8 +24,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.opass.ccip.android.R
 import app.opass.ccip.android.ui.composable.EventComposable
 import app.opass.ccip.android.ui.composable.SearchAppBarComposable
-import app.opass.ccip.android.ui.extensions.saveCurrentEventId
-import app.opass.ccip.android.ui.extensions.sharedPreferences
+import app.opass.ccip.android.extensions.saveCurrentEventId
+import app.opass.ccip.android.extensions.sharedPreferences
 import app.opass.ccip.network.models.event.Event
 
 @Composable

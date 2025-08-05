@@ -34,8 +34,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.opass.ccip.android.R
 import app.opass.ccip.android.ui.composable.SessionInfoComposable
 import app.opass.ccip.android.ui.composable.TopAppBarComposable
-import app.opass.ccip.android.ui.extensions.browse
-import app.opass.ccip.android.ui.extensions.toast
+import app.opass.ccip.android.extensions.browse
+import app.opass.ccip.android.extensions.toast
 import app.opass.ccip.android.ui.menu.SessionMenu
 import app.opass.ccip.android.ui.menu.item.SessionMenuItem
 import app.opass.ccip.network.models.schedule.Session

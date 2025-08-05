@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
-package app.opass.ccip.android.ui.extensions
+package app.opass.ccip.android.extensions
 
 import android.content.SharedPreferences
 import androidx.core.content.edit

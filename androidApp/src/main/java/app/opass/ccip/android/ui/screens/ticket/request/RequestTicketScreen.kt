@@ -50,7 +50,7 @@ import app.opass.ccip.android.ui.composable.TipComposable
 import app.opass.ccip.android.ui.composable.TopAppBarComposable
 import app.opass.ccip.android.ui.dialog.ManualEntryDialog
 import app.opass.ccip.android.ui.dialog.ProgressDialog
-import app.opass.ccip.android.ui.extensions.toast
+import app.opass.ccip.android.extensions.toast
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade

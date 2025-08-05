@@ -8,8 +8,8 @@ package app.opass.ccip.android.ui.screens.ticket.show
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import app.opass.ccip.android.ui.extensions.removeToken
-import app.opass.ccip.android.ui.extensions.sharedPreferences
+import app.opass.ccip.android.extensions.removeToken
+import app.opass.ccip.android.extensions.sharedPreferences
 import app.opass.ccip.helpers.PortalHelper
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory

@@ -9,8 +9,8 @@ import android.content.Context
 import android.net.wifi.WifiManager
 import android.os.Build
 import androidx.core.content.getSystemService
-import app.opass.ccip.android.ui.extensions.createIntent
-import app.opass.ccip.android.ui.extensions.createNetworkConfigurations
+import app.opass.ccip.android.extensions.createIntent
+import app.opass.ccip.android.extensions.createNetworkConfigurations
 import app.opass.ccip.network.models.eventconfig.WiFi
 
 object WifiUtil {

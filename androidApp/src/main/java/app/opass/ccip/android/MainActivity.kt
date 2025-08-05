@@ -10,8 +10,8 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.compose.rememberNavController
-import app.opass.ccip.android.ui.extensions.currentEventId
-import app.opass.ccip.android.ui.extensions.sharedPreferences
+import app.opass.ccip.android.extensions.currentEventId
+import app.opass.ccip.android.extensions.sharedPreferences
 import app.opass.ccip.android.ui.navigation.NavGraph
 import app.opass.ccip.android.ui.navigation.Screen
 import app.opass.ccip.android.ui.theme.OPassTheme
