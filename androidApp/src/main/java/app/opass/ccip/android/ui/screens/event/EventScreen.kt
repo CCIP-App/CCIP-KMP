@@ -8,7 +8,6 @@ package app.opass.ccip.android.ui.screens.event
 import android.content.pm.PackageManager
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
@@ -81,7 +80,6 @@ fun EventScreen(
 }
 
 @Composable
-@OptIn(ExperimentalLayoutApi::class)
 private fun ScreenContent(
     attendee: Attendee? = null,
     eventConfig: EventConfig? = null,
