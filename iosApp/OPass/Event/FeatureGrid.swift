@@ -3,6 +3,8 @@
 //  OPass
 //
 //  Created by Brian Chang on 2024/11/6.
+//  SPDX-FileCopyrightText: 2024 OPass
+//  SPDX-License-Identifier: GPL-3.0-only
 //
 
 import Shared

@@ -14,8 +14,18 @@ path = [
     "README.md",
     "gradle/wrapper/*",
     "androidApp/src/main/**/*.png",
-    "androidApp/src/main/res/resources.properties"
+    "androidApp/src/main/res/resources.properties",
+    "iosApp/OPass.xcodeproj/**/*",
+    "iosApp/Supporting Files/**/*",
 ]
 precedence = "closest"
-SPDX-FileCopyrightText = "2024 OPass"
+SPDX-FileCopyrightText = "2024-2025 OPass"
 SPDX-License-Identifier = "GPL-3.0-only"
+
+[[annotations]]
+path = [
+    "iosApp/OPass/Common/CachedAsyncImage.swift"
+]
+precedence = "closest"
+SPDX-FileCopyrightText = "2021 Lorenzo Fiamingo"
+SPDX-License-Identifier = "MIT"
