@@ -27,7 +27,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.opass.ccip.android.R
 import app.opass.ccip.android.ui.composable.AnnouncementComposable
 import app.opass.ccip.android.ui.composable.TopAppBarComposable
-import app.opass.ccip.android.ui.extensions.browse
+import app.opass.ccip.android.extensions.browse
 import app.opass.ccip.network.models.fastpass.Announcement
 
 @Composable

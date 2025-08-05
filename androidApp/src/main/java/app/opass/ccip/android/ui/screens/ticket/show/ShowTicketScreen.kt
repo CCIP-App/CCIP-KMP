@@ -41,9 +41,9 @@ import app.opass.ccip.android.R
 import app.opass.ccip.android.ui.composable.TipComposable
 import app.opass.ccip.android.ui.composable.TopAppBarComposable
 import app.opass.ccip.android.ui.dialog.LogoutDialog
-import app.opass.ccip.android.ui.extensions.autoBrighten
-import app.opass.ccip.android.ui.extensions.overrideBrightness
-import app.opass.ccip.android.ui.extensions.sharedPreferences
+import app.opass.ccip.android.extensions.autoBrighten
+import app.opass.ccip.android.extensions.overrideBrightness
+import app.opass.ccip.android.extensions.sharedPreferences
 import app.opass.ccip.android.utils.ZXingUtil
 
 @Composable

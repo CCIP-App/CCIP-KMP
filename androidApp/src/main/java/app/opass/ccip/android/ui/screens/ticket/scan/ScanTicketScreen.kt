@@ -38,7 +38,7 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.opass.ccip.android.R
 import app.opass.ccip.android.ui.dialog.ProgressDialog
-import app.opass.ccip.android.ui.extensions.toast
+import app.opass.ccip.android.extensions.toast
 
 @Composable
 fun ScanTicketScreen(

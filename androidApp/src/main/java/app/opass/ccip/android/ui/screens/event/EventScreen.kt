@@ -44,8 +44,8 @@ import androidx.window.core.layout.WindowWidthSizeClass
 import app.opass.ccip.android.R
 import app.opass.ccip.android.ui.composable.FeatureComposable
 import app.opass.ccip.android.ui.composable.TopAppBarComposable
-import app.opass.ccip.android.ui.extensions.browse
-import app.opass.ccip.android.ui.extensions.shimmer
+import app.opass.ccip.android.extensions.browse
+import app.opass.ccip.android.extensions.shimmer
 import app.opass.ccip.android.ui.menu.LanguageDropdownMenu
 import app.opass.ccip.android.utils.WifiUtil
 import app.opass.ccip.network.models.eventconfig.EventConfig

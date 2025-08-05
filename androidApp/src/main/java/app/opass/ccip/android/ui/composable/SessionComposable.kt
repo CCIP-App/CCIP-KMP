@@ -25,7 +25,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import app.opass.ccip.android.R
-import app.opass.ccip.android.ui.extensions.shimmer
+import app.opass.ccip.android.extensions.shimmer
 
 /**
  * Composable to show session details in a schedule

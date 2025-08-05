@@ -10,7 +10,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
-import app.opass.ccip.android.ui.extensions.navigate
+import app.opass.ccip.android.extensions.navigate
 import app.opass.ccip.android.ui.screens.announcement.AnnouncementScreen
 import app.opass.ccip.android.ui.screens.event.EventScreen
 import app.opass.ccip.android.ui.screens.preview.PreviewScreen

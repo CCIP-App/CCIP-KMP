@@ -9,8 +9,8 @@ import android.content.Context
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import app.opass.ccip.android.ui.extensions.getToken
-import app.opass.ccip.android.ui.extensions.sharedPreferences
+import app.opass.ccip.android.extensions.getToken
+import app.opass.ccip.android.extensions.sharedPreferences
 import app.opass.ccip.helpers.PortalHelper
 import app.opass.ccip.network.models.eventconfig.EventConfig
 import app.opass.ccip.network.models.fastpass.Attendee

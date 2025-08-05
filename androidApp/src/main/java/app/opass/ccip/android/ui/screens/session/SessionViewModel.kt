@@ -8,11 +8,11 @@ package app.opass.ccip.android.ui.screens.session
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import app.opass.ccip.android.ui.extensions.getAlarms
-import app.opass.ccip.android.ui.extensions.getBookmarks
-import app.opass.ccip.android.ui.extensions.saveAlarms
-import app.opass.ccip.android.ui.extensions.saveBookmarks
-import app.opass.ccip.android.ui.extensions.sharedPreferences
+import app.opass.ccip.android.extensions.getAlarms
+import app.opass.ccip.android.extensions.getBookmarks
+import app.opass.ccip.android.extensions.saveAlarms
+import app.opass.ccip.android.extensions.saveBookmarks
+import app.opass.ccip.android.extensions.sharedPreferences
 import app.opass.ccip.android.utils.AlarmUtil
 import app.opass.ccip.helpers.PortalHelper
 import app.opass.ccip.network.models.schedule.Session

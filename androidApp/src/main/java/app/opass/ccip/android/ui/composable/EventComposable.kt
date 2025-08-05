@@ -26,7 +26,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import app.opass.ccip.android.R
-import app.opass.ccip.android.ui.extensions.shimmer
+import app.opass.ccip.android.extensions.shimmer
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
