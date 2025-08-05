@@ -18,6 +18,9 @@ kotlin {
     jvmToolchain(21)
     compilerOptions {
         jvmTarget = JvmTarget.JVM_21
+        freeCompilerArgs.addAll(
+            "-Xannotation-default-target=param-property"
+        )
         optIn.addAll(
             "androidx.compose.material3.ExperimentalMaterial3Api",
             "androidx.compose.material3.ExperimentalMaterial3ExpressiveApi",
