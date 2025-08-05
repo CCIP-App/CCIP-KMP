@@ -2,7 +2,7 @@
 <!--
     SPDX-FileCopyrightText: 2024 OPass
     SPDX-License-Identifier: GPL-3.0-only
---><resources>
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="select_event">आयोजन चुनें</string>
     <string name="search_event">आयोजन खोजें</string>
     <string name="event">आयोजन</string>
@@ -46,4 +46,11 @@
     <string name="ticket_verification_failed">टिकट सत्यापित करने में विफल!</string>
     <string name="close">बंद करें</string>
     <string name="flash">फ्लैश</string>
+    <string name="share_failed">सत्र साझा करने के लिए कोई URL उपलब्ध नहीं!</string>
+    <string name="menu">मेन्यू</string>
+    <string name="session_bookmark">सत्र सहेजे</string>
+    <string name="session_alarm">सत्र के बारे में याद दिलाए</string>
+    <string name="notification_session_start_message"><xliff:g id="session_title">%1$s</xliff:g>१० मिनट में <xliff:g id="room">%2$s</xliff:g> में शुरू होगा</string>
+    <string name="notification_session_start_title">आगामी सत्र!</string>
+    <string name="lang_translated_name_zh_hans_cn">मैंडारिन - सरलीकृत हान लिपि</string>
 </resources>
