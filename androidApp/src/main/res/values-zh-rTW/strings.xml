@@ -2,7 +2,7 @@
 <!--
     SPDX-FileCopyrightText: 2024 OPass
     SPDX-License-Identifier: GPL-3.0-only
---><resources>
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="select_event">選擇活動</string>
     <string name="search_event">搜尋活動</string>
     <string name="switch_language">切換語言</string>
@@ -34,7 +34,7 @@
     <string name="verifying">正在驗證票券</string>
     <string name="ticket_verification_help_title">請驗證票券</string>
     <string name="share">分享</string>
-    <string name="lang_translated_name_zh_hans_cn">簡體中文</string>
+    <string name="lang_translated_name_zh_hans_cn">華語 - 簡化漢字</string>
     <string name="menu">選單</string>
     <string name="search_session">搜尋議程</string>
     <string name="add_to_calendar">加入行事曆</string>
@@ -49,4 +49,8 @@
     <string name="ticket_verification_help_desc">票券可能跑到電子郵件收件夾或是垃圾郵件夾，如果你還沒有收，請聯繫活動主辦方。</string>
     <string name="ticket_privacy_help_title">請保護好你的票券</string>
     <string name="ticket_privacy_help_desc">這張票券是用來識別你㑸人，所以不要與活動報到台之外的人分享。</string>
+    <string name="session_bookmark">將議程加入書籤</string>
+    <string name="session_alarm">設定議程提醒</string>
+    <string name="notification_session_start_message"><xliff:g id="session_title">%1$s</xliff:g> 在 10 分鐘之後在 <xliff:g id="room">%2$s</xliff:g> 開始</string>
+    <string name="notification_session_start_title">接下來的議程！</string>
 </resources>
