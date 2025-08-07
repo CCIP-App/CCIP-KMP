@@ -2,7 +2,7 @@
 <!--
     SPDX-FileCopyrightText: 2024 OPass
     SPDX-License-Identifier: GPL-3.0-only
---><resources>
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="select_event">Soán-te̍k oa̍h-tāng</string>
     <string name="event">Oa̍h-tāng</string>
     <string name="fast_pass">Khoài-sok thong-koan</string>
@@ -34,4 +34,23 @@
     <string name="share">Hun-hióng</string>
     <string name="lang_translated_name_nb_no">Su-bīn Norwegian</string>
     <string name="lang_translated_name_zh_hant_tw">Hoân-thé Tiong-bûn</string>
+    <string name="lang_translated_name_zh_hans_cn">Hôa-gú - Kán-hòa Hàn-jī</string>
+    <string name="add_to_calendar_failed">Boeh ka-thiam gī-têng sit-pāi--ah!</string>
+    <string name="share_failed">Bô gī-têng liân-kiat ē-tàng hun-hióng!</string>
+    <string name="menu">Soán-toaⁿ</string>
+    <string name="session_bookmark">Kā gī-têng ka-ji̍p su-chhiam</string>
+    <string name="session_alarm">Kā gī-têng siat-tēng thê-chhíⁿ</string>
+    <string name="notification_session_start_message"><xliff:g id="session_title">%1$s</xliff:g> tī 10 hun-cheng liáu-āu tī<xliff:g id="room">%2$s</xliff:g> khai-sí</string>
+    <string name="notification_session_start_title">Sòa-lo̍h-lâi ê gī-têng!</string>
+    <string name="close">kuiⁿ</string>
+    <string name="flash">Sih-nah</string>
+    <string name="auto_brighten">Chū-tōng tiâu-chéng kng-tō͘</string>
+    <string name="enter_token_manually_desc">Chhiú-tōng su-ji̍p lí tùi tiān-chú-phoe ia̍h-sī chú-pān-hong siu-tio̍h ê phiò-kǹg.</string>
+    <string name="verifying">Giām-chèng phiò-kǹg</string>
+    <string name="ticket_verification_help_title">Chhiáⁿ giām-chèng lí-ê phiò-kǹg</string>
+    <string name="ticket_verification_help_desc">Thong-siông phiò-kǹg tī lí-ê tiān-chú-phoe lâi-sìn ia̍h-sī lap-sap hiah. Nā-sī lí iáu-bē siu-tio̍h, chhiáⁿ liân-lo̍k oa̍h-tōng chú-pān-hong.</string>
+    <string name="ticket_verification_failed">Giām-chèng phiò-kǹg sit-pāi--ah!</string>
+    <string name="ticket_privacy_help_title">Chhiáⁿ kā lí ê phiò-kǹg pó-hō͘ hó</string>
+    <string name="ticket_privacy_help_desc">Chit-tiuⁿ phiò-kǹg sī hō͘-lâng giām-chèng lí ê sin-hūn. Chhiáⁿ lí m̄-thang kah oa̍h-tōng kang-chok jîn-goân í-gōa ê lâng hun-hióng.</string>
+    <string name="action_logout_confirmation_message">Lí kám khak-tēng boeh teng-chhut?</string>
 </resources>
