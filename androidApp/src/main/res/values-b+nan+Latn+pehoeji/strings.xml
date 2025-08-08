@@ -33,8 +33,8 @@
     <string name="action_logout_confirmation_title">Teng-chhut?</string>
     <string name="share">Hun-hióng</string>
     <string name="lang_translated_name_nb_no">Su-bīn Norwegian</string>
-    <string name="lang_translated_name_zh_hant_tw">Hoân-thé Tiong-bûn</string>
-    <string name="lang_translated_name_zh_hans_cn">Hôa-gú - Kán-hòa Hàn-jī</string>
+    <string name="lang_translated_name_zh_hant_tw">Hôa-gí - Thoân-thóng Hàn-jī</string>
+    <string name="lang_translated_name_zh_hans_cn">Hôa-gí - Kán-hòa Hàn-jī</string>
     <string name="add_to_calendar_failed">Boeh ka-thiam gī-têng sit-pāi--ah!</string>
     <string name="share_failed">Bô gī-têng liân-kiat ē-tàng hun-hióng!</string>
     <string name="menu">Soán-toaⁿ</string>
