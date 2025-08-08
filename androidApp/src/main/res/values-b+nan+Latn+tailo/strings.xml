@@ -2,7 +2,7 @@
 <!--
     SPDX-FileCopyrightText: 2024 OPass
     SPDX-License-Identifier: GPL-3.0-only
---><resources>
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="select_event">Suán-ti̍k ua̍h-tāng</string>
     <string name="event">Ua̍h-tāng</string>
     <string name="announcement">Tāi-huē kong-kò</string>
@@ -28,5 +28,29 @@
     <string name="select_from_gallery">Tuì tôo-khòo suán-ti̍k</string>
     <string name="enter_token_manually_title">Phiò-kǹg</string>
     <string name="lang_translated_name_nb_no">Su-bīn Norwegian</string>
-    <string name="lang_translated_name_zh_hant_tw">Huân-thé Tiong-bûn</string>
+    <string name="lang_translated_name_zh_hant_tw">Huâ-gí - Thuân-thóng Hàn-jī</string>
+    <string name="search_event">Tshuē ua̍h-tāng</string>
+    <string name="lang_translated_name_zh_hans_cn">Huâ-gí - Kán-huà Hàn-jī</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="add_to_calendar">Ka-ji̍p hîng-sū-li̍k</string>
+    <string name="add_to_calendar_failed">Bueh ka-thiam gī-tîng sit-pāi--ah!</string>
+    <string name="share_failed">Bô gī-tîng liân-kiat ē-tàng hun-hióng!</string>
+    <string name="menu">Suán-tuann</string>
+    <string name="session">Gī-tîng</string>
+    <string name="session_bookmark">Kā gī-tîng ka-ji̍p su-tshiam</string>
+    <string name="session_alarm">Kā gī-tîng siat-tīng thê-tshínn</string>
+    <string name="notification_session_start_message"><xliff:g id="session_title">%1$s</xliff:g> tī 10 hun-tsing liáu-āu tī<xliff:g id="room">%2$s</xliff:g> khai-sí</string>
+    <string name="notification_session_start_title">Suà-lo̍h-lâi ê gī-tîng!</string>
+    <string name="close">kuinn</string>
+    <string name="flash">Sih-nah</string>
+    <string name="auto_brighten">Tsū-tōng tiâu-tsíng kng-tōo</string>
+    <string name="scan_qr_code">Sàu-biâu QR bé</string>
+    <string name="enter_token_manually_desc">Tshiú-tōng su-ji̍p lí tuì tiān-tsú-phue ia̍h-sī tsú-pān-hong siu-tio̍h ê phiò-kǹg.</string>
+    <string name="verifying">Giām-tsìng phiò-kǹg</string>
+    <string name="ticket_verification_help_title">Tshiánn giām-tsìng lí-ê phiò-kǹg</string>
+    <string name="ticket_verification_help_desc">Thong-siong phiò-kǹg tī lí-ê tiān-tsú-phue lâi-sìn ia̍h-sī lap-sap hiah. Nā-sī lí iáu-bē siu-tio̍h, tshiánn liân-lo̍k ua̍h-tōng tsú-pān-hong.</string>
+    <string name="ticket_verification_failed">Giām-tsìng phiò-kǹg sit-pāi--ah!</string>
+    <string name="ticket_privacy_help_title">Tshiánn kā lí-ê phiò-kǹg pó-hōo hó</string>
+    <string name="ticket_privacy_help_desc">Tsit-tiunn phiò-kǹg sī hōo-lâng giām-tsìng lí ê sin-hūn. Tshiánn lí m̄-thang kah ua̍h-tōng kang-tsok jîn-guân í-guā ê lâng hun-hióng.</string>
+    <string name="action_logout_confirmation_message">Lí kám khak-tīng bueh ting-tshut?</string>
 </resources>
