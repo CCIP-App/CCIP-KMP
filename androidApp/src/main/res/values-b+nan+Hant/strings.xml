@@ -33,7 +33,7 @@
     <string name="action_logout_confirmation_title">登出？</string>
     <string name="share">分享</string>
     <string name="lang_translated_name_nb_no">書面挪威語</string>
-    <string name="lang_translated_name_zh_hant_tw">繁體中文</string>
+    <string name="lang_translated_name_zh_hant_tw">華語 - 傳統漢字</string>
     <string name="lang_translated_name_zh_hans_cn">華語 - 簡化漢字</string>
     <string name="add_to_calendar_failed">欲加添議程失敗矣！</string>
     <string name="share_failed">無議程連結會當分享！</string>
