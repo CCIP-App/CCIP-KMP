@@ -2,7 +2,7 @@
 <!--
     SPDX-FileCopyrightText: 2024 OPass
     SPDX-License-Identifier: GPL-3.0-only
---><resources>
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="select_event">選擇活動</string>
     <string name="event">活動</string>
     <string name="fast_pass">快速通關</string>
@@ -33,7 +33,7 @@
     <string name="action_logout_confirmation_title">登出？</string>
     <string name="share">分享</string>
     <string name="lang_translated_name_nb_no">書面挪威語</string>
-    <string name="lang_translated_name_zh_hant_tw">繁體中文</string>
+    <string name="lang_translated_name_zh_hant_tw">華語 - 傳統漢字</string>
     <string name="lang_translated_name_zh_hans_cn">華語 - 簡化漢字</string>
     <string name="add_to_calendar_failed">欲加添議程失敗矣！</string>
     <string name="share_failed">無議程連結會當分享！</string>
@@ -44,4 +44,13 @@
     <string name="enter_token_manually_desc">手動輸入你對電子批抑是主辦方收著的票券。</string>
     <string name="verifying">驗證票券</string>
     <string name="ticket_verification_help_title">請驗證你的票券</string>
+    <string name="session_bookmark">共議程加入書籤</string>
+    <string name="session_alarm">共議程設定提醒</string>
+    <string name="notification_session_start_message"><xliff:g id="session_title">%1$s</xliff:g> 佇 10 分鐘了後佇 <xliff:g id="room">%2$s</xliff:g> 開始</string>
+    <string name="notification_session_start_title">紲落來的議程！</string>
+    <string name="ticket_verification_help_desc">通常票券佇你的電子批來信抑是垃圾遐，若是你猶未收著，請連絡活動主辦方。</string>
+    <string name="ticket_verification_failed">驗證票券失敗矣！</string>
+    <string name="ticket_privacy_help_title">請共你的票券保護好</string>
+    <string name="ticket_privacy_help_desc">這張票券是予人驗證你的身份。請你毋通佮活動工作人員以外的人分享。</string>
+    <string name="action_logout_confirmation_message">你敢確定欲登出？</string>
 </resources>
