@@ -11,7 +11,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import app.opass.ccip.android.extensions.currentEventId
 import app.opass.ccip.android.extensions.sharedPreferences
-import app.opass.ccip.android.ui.navigation.NavGraph
+import app.opass.ccip.android.ui.navigation.NavDisplay
 import app.opass.ccip.android.ui.navigation.Screen
 import app.opass.ccip.android.ui.theme.OPassTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
 
         setContent {
             OPassTheme {
-                NavGraph(
+                NavDisplay(
                     startDestination = if (currentEventId.isNullOrBlank()) {
                         Screen.Preview
                     } else {

@@ -27,7 +27,7 @@ import app.opass.ccip.android.ui.screens.ticket.show.ShowTicketScreen
  * @param startDestination Starting destination for the activity/app
  */
 @Composable
-fun NavGraph(startDestination: NavKey) {
+fun NavDisplay(startDestination: NavKey) {
     val backstack = rememberNavBackStack(startDestination)
 
     NavDisplay(
@@ -43,7 +43,11 @@ fun NavGraph(startDestination: NavKey) {
                         backstack.clear()
                         backstack.add(Screen.Event(eventId))
                     },
-                    onNavigateUp = { backstack.removeLastOrNull() }
+                    onNavigateUp = if (backstack.size == 1 && backstack.first() == Screen.Preview) {
+                        null
+                    } else {
+                        { backstack.removeLastOrNull() }
+                    }
                 )
             }
 
