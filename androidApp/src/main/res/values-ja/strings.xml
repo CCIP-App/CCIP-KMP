@@ -2,8 +2,7 @@
 <!--
     SPDX-FileCopyrightText: 2024 OPass
     SPDX-License-Identifier: GPL-3.0-only
--->
-<resources>
+--><resources>
     <string name="select_event">イベントの選択</string>
     <string name="share">共有</string>
     <string name="fast_pass">ファストパス</string>
@@ -14,5 +13,16 @@
     <string name="sponsors">スポンサー</string>
     <string name="staffs">スタッフ</string>
     <string name="event">イベント</string>
-    <string name="switch_language">言語切り替え</string>
+    <string name="switch_language">言語を切り替え</string>
+    <string name="lang_translated_name_x_default">システムのデフォルト</string>
+    <string name="lang_translated_name_en_us">英語</string>
+    <string name="lang_translated_name_hi_in">ヒンディー語</string>
+    <string name="lang_translated_name_nan_hant_tw">閩南語 - 繁体字</string>
+    <string name="lang_translated_name_nan_latn_tw_pehoeji">閩南語 - 白話字</string>
+    <string name="lang_translated_name_nan_latn_tw_tailo">閩南語 - 台湾ローマ字</string>
+    <string name="lang_translated_name_nb_no">ノルウェー語（ブークモール）</string>
+    <string name="lang_translated_name_ta_in">タミル語</string>
+    <string name="lang_translated_name_zh_hans_cn">中国語 - 簡体字</string>
+    <string name="lang_translated_name_zh_hant_tw">中国語 - 繁体字</string>
+    <string name="select_from_gallery">ギャラリーから選択</string>
 </resources>
