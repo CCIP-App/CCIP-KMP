@@ -89,12 +89,14 @@ dependencies {
     implementation(libs.coil.okhttp)
 
     // Navigation
-    implementation(libs.androidx.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.androidx.navigation3.runtime)
+    implementation(libs.androidx.navigation3.ui)
 
     // Lifecycle
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.androidx.lifecycle.viewmodel)
+    implementation(libs.androidx.lifecycle.navigation3)
 
     // Material
     implementation(libs.google.material.components)

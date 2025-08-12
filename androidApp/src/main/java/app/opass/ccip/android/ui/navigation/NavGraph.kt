@@ -6,11 +6,13 @@
 package app.opass.ccip.android.ui.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.toRoute
-import app.opass.ccip.android.extensions.navigate
+import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
+import androidx.navigation3.runtime.NavKey
+import androidx.navigation3.runtime.entry
+import androidx.navigation3.runtime.entryProvider
+import androidx.navigation3.runtime.rememberNavBackStack
+import androidx.navigation3.runtime.rememberSavedStateNavEntryDecorator
+import androidx.navigation3.ui.NavDisplay
 import app.opass.ccip.android.ui.screens.announcement.AnnouncementScreen
 import app.opass.ccip.android.ui.screens.event.EventScreen
 import app.opass.ccip.android.ui.screens.preview.PreviewScreen
@@ -21,131 +23,115 @@ import app.opass.ccip.android.ui.screens.ticket.scan.ScanTicketScreen
 import app.opass.ccip.android.ui.screens.ticket.show.ShowTicketScreen
 
 /**
- * Navigation graph for compose screens
- * @param navHostController [NavHostController] to navigate with compose
+ * Navigation display for compose screens
  * @param startDestination Starting destination for the activity/app
  */
 @Composable
-fun NavGraph(navHostController: NavHostController, startDestination: Screen) {
-    NavHost(navController = navHostController, startDestination = startDestination) {
-        composable<Screen.Preview> {
-            PreviewScreen(
-                onNavigateToEvent = { eventId ->
-                    navHostController.navigate(
-                        screen = Screen.Event(eventId),
-                        isInclusive = true
-                    )
-                },
-                onNavigateUp = if (navHostController.previousBackStackEntry != null) {
-                    { navHostController.navigateUp() }
-                } else {
-                    null
-                }
-            )
-        }
+fun NavGraph(startDestination: NavKey) {
+    val backstack = rememberNavBackStack(startDestination)
 
-        composable<Screen.Event> { backStackEntry ->
-            val event = backStackEntry.toRoute<Screen.Event>()
-            EventScreen(
-                eventId = event.eventId,
-                onNavigateUp = { navHostController.navigate(Screen.Preview) },
-                onNavigateToSchedule = {
-                    navHostController.navigate(
-                        Screen.Schedule(event.eventId)
-                    )
-                },
-                onNavigateToTicket = { token ->
-                    if (token != null) {
-                        navHostController.navigate(
-                            Screen.ShowTicket(event.eventId, token)
-                        )
-                    } else {
-                        navHostController.navigate(
-                            Screen.RequestTicket(event.eventId)
-                        )
+    NavDisplay(
+        backStack = backstack,
+        entryDecorators = listOf(
+            rememberSavedStateNavEntryDecorator(),
+            rememberViewModelStoreNavEntryDecorator()
+        ),
+        entryProvider = entryProvider {
+            entry<Screen.Preview> {
+                PreviewScreen(
+                    onNavigateToEvent = { eventId ->
+                        backstack.clear()
+                        backstack.add(Screen.Event(eventId))
+                    },
+                    onNavigateUp = { backstack.removeLastOrNull() }
+                )
+            }
+
+            entry<Screen.Event> { screen ->
+                EventScreen(
+                    eventId = screen.eventId,
+                    onNavigateUp = { backstack.add(Screen.Preview) },
+                    onNavigateToSchedule = {
+                        backstack.add(Screen.Schedule(screen.eventId))
+                    },
+                    onNavigateToTicket = { token ->
+                        if (token != null) {
+                            backstack.add(
+                                Screen.ShowTicket(screen.eventId, token)
+                            )
+                        } else {
+                            backstack.add(
+                                Screen.RequestTicket(screen.eventId)
+                            )
+                        }
+                    },
+                    onNavigateToAnnouncement = { token ->
+                        backstack.add(Screen.Announcement(screen.eventId, token))
                     }
-                },
-                onNavigateToAnnouncement = { token ->
-                    navHostController.navigate(
-                        Screen.Announcement(event.eventId, token)
-                    )
-                }
-            )
-        }
+                )
+            }
 
-        composable<Screen.Schedule> { backStackEntry ->
-            val schedule = backStackEntry.toRoute<Screen.Schedule>()
-            ScheduleScreen(
-                eventId = schedule.eventId,
-                onNavigateUp = { navHostController.navigateUp() },
-                onNavigateToSession = { sessionId ->
-                    navHostController.navigate(
-                        Screen.Session(schedule.eventId, sessionId)
-                    )
-                }
-            )
-        }
+            entry<Screen.Schedule> { screen ->
+                ScheduleScreen(
+                    eventId = screen.eventId,
+                    onNavigateUp = { backstack.removeLastOrNull() },
+                    onNavigateToSession = { sessionId ->
+                        backstack.add(Screen.Session(screen.eventId, sessionId))
+                    }
+                )
+            }
 
-        composable<Screen.Session> { backStackEntry ->
-            val session = backStackEntry.toRoute<Screen.Session>()
-            SessionScreen(
-                eventId = session.eventId,
-                sessionId = session.sessionId,
-                onNavigateUp = { navHostController.navigateUp() }
-            )
-        }
+            entry<Screen.Session> { screen ->
+                SessionScreen(
+                    eventId = screen.eventId,
+                    sessionId = screen.sessionId,
+                    onNavigateUp = { backstack.removeLastOrNull() }
+                )
+            }
 
-        composable<Screen.RequestTicket> { backStackEntry ->
-            val ticket = backStackEntry.toRoute<Screen.RequestTicket>()
-            RequestTicketScreen(
-                eventId = ticket.eventId,
-                onNavigateUp = { navHostController.navigateUp() },
-                onNavigateToShowTicket = { token ->
-                    navHostController.navigate(
-                        screen = Screen.ShowTicket(ticket.eventId, token)
-                    )
-                },
-                onNavigateToScanTicket = {
-                    navHostController.navigate(
-                        Screen.ScanTicket(ticket.eventId)
-                    )
-                }
-            )
-        }
+            entry<Screen.RequestTicket> { screen ->
+                RequestTicketScreen(
+                    eventId = screen.eventId,
+                    onNavigateUp = { backstack.removeLastOrNull() },
+                    onNavigateToShowTicket = { token ->
+                        backstack.removeLastOrNull()
+                        backstack.add(Screen.ShowTicket(screen.eventId, token))
+                    },
+                    onNavigateToScanTicket = {
+                        backstack.add(Screen.ScanTicket(screen.eventId))
+                    }
+                )
+            }
 
-        composable<Screen.ScanTicket> { backStackEntry ->
-            val scan = backStackEntry.toRoute<Screen.ScanTicket>()
-            ScanTicketScreen(
-                eventId = scan.eventId,
-                onNavigateUp = { navHostController.navigateUp() },
-                onNavigateToShowTicket = { token ->
-                    navHostController.navigate(
-                        screen = Screen.ShowTicket(scan.eventId, token)
-                    )
-                }
-            )
-        }
+            entry<Screen.ScanTicket> { screen ->
+                ScanTicketScreen(
+                    eventId = screen.eventId,
+                    onNavigateUp = { backstack.removeLastOrNull() },
+                    onNavigateToShowTicket = { token ->
+                        repeat(2) { backstack.removeLastOrNull() }
+                        backstack.add(Screen.ShowTicket(screen.eventId, token))
+                    }
+                )
+            }
 
-        composable<Screen.ShowTicket> { backStackEntry ->
-            val ticket = backStackEntry.toRoute<Screen.ShowTicket>()
-            ShowTicketScreen(
-                eventId = ticket.eventId,
-                token = ticket.token,
-                onNavigateUp = { navHostController.navigateUp() },
-                onNavigateToRequestTicket = {
-                    navHostController.navigate(
-                        screen = Screen.RequestTicket(ticket.eventId)
-                    )
-                }
-            )
-        }
+            entry<Screen.ShowTicket> { screen ->
+                ShowTicketScreen(
+                    eventId = screen.eventId,
+                    token = screen.token,
+                    onNavigateUp = { backstack.removeLastOrNull() },
+                    onNavigateToRequestTicket = {
+                        backstack.removeLastOrNull()
+                        backstack.add(Screen.RequestTicket(screen.eventId))
+                    }
+                )
+            }
 
-        composable<Screen.Announcement> { backStackEntry ->
-            val announcement = backStackEntry.toRoute<Screen.Announcement>()
-            AnnouncementScreen(
-                eventId = announcement.eventId,
-                onNavigateUp = { navHostController.navigateUp() }
-            )
+            entry<Screen.Announcement> { screen ->
+                AnnouncementScreen(
+                    eventId = screen.eventId,
+                    onNavigateUp = { backstack.removeLastOrNull() }
+                )
+            }
         }
-    }
+    )
 }
