@@ -32,7 +32,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import app.opass.ccip.android.R
-import app.opass.ccip.android.extensions.shimmer
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
@@ -41,7 +40,6 @@ import coil3.request.crossfade
  * Composable to display feature details
  * @param label Name of the feature
  * @param icon Icon representing the feature, a URL or local drawable are expected
- * @param isLoading Whether to play the loading shimmer animation
  * @param isEnabled Whether to enable click callbacks
  * @param onClicked Callback when this composable is clicked
  */
@@ -49,7 +47,6 @@ import coil3.request.crossfade
 fun FeatureComposable(
     label: String,
     icon: Any? = null,
-    isLoading: Boolean = false,
     isEnabled: Boolean = true,
     onClicked: () -> Unit = {}
 ) {
@@ -81,8 +78,7 @@ fun FeatureComposable(
                 contentScale = ContentScale.Fit,
                 modifier = Modifier
                     .requiredSize(32.dp)
-                    .fillMaxSize()
-                    .shimmer(isLoading),
+                    .fillMaxSize(),
                 colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary)
             )
         }

@@ -26,7 +26,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import app.opass.ccip.android.R
-import app.opass.ccip.android.extensions.shimmer
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
@@ -35,7 +34,6 @@ import coil3.request.crossfade
  * Composable to show event details
  * @param name Name of the event
  * @param logoUrl URL of the event logo
- * @param isLoading Whether to play shimmer animation on the composable to indicate loading progress
  * @param isLogoTinted Whether the logo is colored or already tinted
  * @param onClicked Callback when this composable is clicked
  */
@@ -43,7 +41,6 @@ import coil3.request.crossfade
 fun EventComposable(
     name: String,
     logoUrl: String,
-    isLoading: Boolean = false,
     isLogoTinted: Boolean = false,
     onClicked: () -> Unit = {}
 ) {
@@ -72,20 +69,14 @@ fun EventComposable(
                 contentScale = ContentScale.Fit,
                 modifier = Modifier
                     .requiredSize(64.dp)
-                    .clip(RoundedCornerShape(10.dp))
-                    .shimmer(isLoading),
+                    .clip(RoundedCornerShape(10.dp)),
                 colorFilter = if (!isLogoTinted) {
                     ColorFilter.tint(MaterialTheme.colorScheme.primary)
                 } else {
                     null
                 }
             )
-            Text(
-                text = name,
-                fontSize = 18.sp,
-                modifier = Modifier.shimmer(isLoading),
-                maxLines = 1
-            )
+            Text(text = name, fontSize = 18.sp, maxLines = 1)
         }
     }
 }
