@@ -35,6 +35,7 @@ fun AnnouncementComposable(
     onClicked: () -> Unit = {}
 ) {
     Card(
+        modifier = Modifier.clickable(enabled = isClickable) { onClicked() },
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceContainer
         )
@@ -42,8 +43,7 @@ fun AnnouncementComposable(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 20.dp, vertical = 10.dp)
-                .clickable(enabled = isClickable) { onClicked() },
+                .padding(horizontal = 20.dp, vertical = 10.dp),
             verticalArrangement = Arrangement.spacedBy(5.dp)
         ) {
             Text(text = message, style = MaterialTheme.typography.bodyLarge)
