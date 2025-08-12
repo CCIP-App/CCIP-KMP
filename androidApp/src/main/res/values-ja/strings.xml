@@ -13,4 +13,6 @@
     <string name="venue">会場</string>
     <string name="sponsors">スポンサー</string>
     <string name="staffs">スタッフ</string>
+    <string name="event">イベント</string>
+    <string name="switch_language">言語切り替え</string>
 </resources>
