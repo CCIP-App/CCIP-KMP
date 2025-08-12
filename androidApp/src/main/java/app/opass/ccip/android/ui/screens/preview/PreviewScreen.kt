@@ -87,7 +87,9 @@ private fun ScreenContent(
         PullToRefreshBox(
             isRefreshing = isRefreshing,
             onRefresh = onRefresh,
-            modifier = Modifier.padding(paddingValues),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues),
             state = state,
             indicator = {
                 PullToRefreshDefaults.LoadingIndicator(
@@ -99,13 +101,7 @@ private fun ScreenContent(
         ) {
             LazyColumn(contentPadding = PaddingValues(horizontal = 20.dp)) {
                 if (events.isEmpty()) {
-                    items(20) {
-                        EventComposable(
-                            name = "                                   ",
-                            logoUrl = String(),
-                            isLoading = true
-                        )
-                    }
+                    // TODO: Show a loading screen or error
                 } else {
                     items(items = events, key = { e -> e.id }) { event: Event ->
                         EventComposable(

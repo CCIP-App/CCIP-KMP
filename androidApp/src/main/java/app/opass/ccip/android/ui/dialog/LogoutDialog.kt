@@ -14,7 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import app.opass.ccip.android.R
 
 /**
- * Dialog for confirming logg out
+ * Dialog for confirming log out
  * @param onConfirm Callback when the token has been entered
  * @param onDismiss Callback when the dialog has been dismissed
  */

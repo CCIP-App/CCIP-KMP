@@ -25,7 +25,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import app.opass.ccip.android.R
-import app.opass.ccip.android.extensions.shimmer
 
 /**
  * Composable to show session details in a schedule
@@ -33,7 +32,6 @@ import app.opass.ccip.android.extensions.shimmer
  * @param startTime Starting time of the session
  * @param endTime Ending time of the session
  * @param room Room where the session is being held, can be null for events such as lunch or breaks
- * @param isLoading Whether to play shimmer animation on the composable to indicate loading progress
  * @param onClicked Callback when the composable is clicked
  * @see SessionInfoComposable
  */
@@ -43,7 +41,6 @@ fun SessionComposable(
     startTime: String,
     endTime: String,
     room: String? = null,
-    isLoading: Boolean = false,
     onClicked: () -> Unit = {}
 ) {
     Column(
@@ -65,19 +62,13 @@ fun SessionComposable(
                 modifier = Modifier
                     .clip(RoundedCornerShape(8.dp))
                     .background(color = MaterialTheme.colorScheme.secondaryContainer)
-                    .padding(horizontal = 10.dp)
-                    .shimmer(isLoading),
+                    .padding(horizontal = 10.dp),
             )
-            Text(
-                text = "$startTime ~ $endTime",
-                fontSize = 12.sp,
-                modifier = Modifier.shimmer(isLoading),
-            )
+            Text(text = "$startTime ~ $endTime", fontSize = 12.sp)
         }
         Text(
             text = title,
             fontSize = 18.sp,
-            modifier = Modifier.shimmer(isLoading),
             maxLines = 2,
             overflow = TextOverflow.Ellipsis
         )

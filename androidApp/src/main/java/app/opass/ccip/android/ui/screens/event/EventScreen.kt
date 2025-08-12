@@ -44,7 +44,6 @@ import app.opass.ccip.android.R
 import app.opass.ccip.android.ui.composable.FeatureComposable
 import app.opass.ccip.android.ui.composable.TopAppBarComposable
 import app.opass.ccip.android.extensions.browse
-import app.opass.ccip.android.extensions.shimmer
 import app.opass.ccip.android.ui.menu.LanguageDropdownMenu
 import app.opass.ccip.android.utils.WifiUtil
 import app.opass.ccip.network.models.eventconfig.EventConfig
@@ -138,8 +137,7 @@ private fun ScreenContent(
                     .padding(horizontal = 60.dp)
                     .aspectRatio(2.0f)
                     .heightIn(max = 180.dp)
-                    .clip(RoundedCornerShape(10.dp))
-                    .shimmer(eventConfig?.logoUrl.isNullOrBlank()),
+                    .clip(RoundedCornerShape(10.dp)),
                 colorFilter = if (eventConfig?.isLogoTinted != true) {
                     ColorFilter.tint(MaterialTheme.colorScheme.primary)
                 } else {
