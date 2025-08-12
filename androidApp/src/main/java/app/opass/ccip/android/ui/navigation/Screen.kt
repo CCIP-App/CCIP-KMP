@@ -5,13 +5,14 @@
 
 package app.opass.ccip.android.ui.navigation
 
+import androidx.navigation3.runtime.NavKey
 import kotlinx.serialization.Serializable
 
 /**
  * Destination (Screen) for navigation in compose
  */
 @Serializable
-sealed class Screen {
+sealed class Screen: NavKey {
 
     @Serializable
     data object Preview : Screen()
