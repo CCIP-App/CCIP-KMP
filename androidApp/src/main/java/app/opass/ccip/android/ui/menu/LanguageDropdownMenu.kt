@@ -37,6 +37,11 @@ private val languageOptions = listOf(
         translatedNameResId = R.string.lang_translated_name_hi_in
     ),
     LanguageOptionItem(
+        languageTag = "ja-JP",
+        localNameResId = R.string.lang_local_name_ja_jp,
+        translatedNameResId = R.string.lang_translated_name_ja_jp
+    ),
+    LanguageOptionItem(
         languageTag = "nan-Hant-TW",
         localNameResId = R.string.lang_local_name_nan_hant_tw,
         translatedNameResId = R.string.lang_translated_name_nan_hant_tw
