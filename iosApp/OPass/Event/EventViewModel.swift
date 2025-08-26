@@ -3,7 +3,8 @@
 //  OPass
 //
 //  Created by Brian Chang on 2024/9/1.
-//  SPDX-FileCopyrightText: 2024 OPass
+//
+//  SPDX-FileCopyrightText: 2024-2025 OPass
 //  SPDX-License-Identifier: GPL-3.0-only
 //
 
@@ -15,8 +16,7 @@ private let logger = Logger(subsystem: "OPassApp", category: "EventViewModel")
 
 @MainActor @Observable
 class EventViewModel {
-    @ObservationIgnored
-    @AppStorage("EventID") private var eventID = ""
+    @ObservationIgnored @AppStorage("EventID") private var eventID = ""
 
     private(set) var config: EventConfig?
 

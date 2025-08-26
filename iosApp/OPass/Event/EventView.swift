@@ -3,7 +3,8 @@
 //  OPass
 //
 //  Created by Brian Chang on 2024/9/1.
-//  SPDX-FileCopyrightText: 2024 OPass
+//
+//  SPDX-FileCopyrightText: 2024-2025 OPass
 //  SPDX-License-Identifier: GPL-3.0-only
 //
 
@@ -24,7 +25,7 @@ struct EventView: View {
             if let config = viewModel.config {
                 eventView(config)
             } else {
-                loadingView()
+                loadingView
             }
         }
         .analyticsScreen(name: "EventView")
@@ -64,7 +65,7 @@ struct EventView: View {
             .frame(width: UIScreen.main.bounds.width * 0.78, height: UIScreen.main.bounds.width * 0.4)
             .frame(maxWidth: .infinity, alignment: .center)
             .padding(10)
-            .background(BlurView(style: colorScheme == .dark ? .dark : .light))//
+            .background(BlurView(style: colorScheme == .dark ? .dark : .light))
         }
         .onChange(of: eventID) { Task { await viewModel.loadEvent(reload: true) } }
         .toolbarBackground(.section, for: .navigationBar)
@@ -111,7 +112,7 @@ struct EventView: View {
     }
 
     @ViewBuilder
-    private func loadingView() -> some View {
+    private var loadingView: some View {
         ProgressView("Loading")
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .task { await viewModel.loadEvent() }

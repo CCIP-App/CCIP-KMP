@@ -3,7 +3,8 @@
 //  OPass
 //
 //  Created by Brian Chang on 2024/8/20.
-//  SPDX-FileCopyrightText: 2024 OPass
+//
+//  SPDX-FileCopyrightText: 2024-2025 OPass
 //  SPDX-License-Identifier: GPL-3.0-only
 //
 
