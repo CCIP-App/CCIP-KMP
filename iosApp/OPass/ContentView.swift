@@ -3,7 +3,8 @@
 //  OPass
 //
 //  Created by Brian Chang on 2024/8/18.
-//  SPDX-FileCopyrightText: 2024 OPass
+//
+//  SPDX-FileCopyrightText: 2024-2025 OPass
 //  SPDX-License-Identifier: GPL-3.0-only
 //
 
@@ -22,7 +23,7 @@ struct ContentView: View {
         NavigationStack {
             Group {
                 if eventID.isEmpty {
-                    loadingView()
+                    loadingView
                 } else {
                     EventView()
                 }
@@ -35,7 +36,7 @@ struct ContentView: View {
     }
 
     @ViewBuilder
-    private func loadingView() -> some View {
+    private var loadingView: some View {
         ProgressView("Loading")
             .onAppear { selectEventSheetPresented.toggle() }
     }

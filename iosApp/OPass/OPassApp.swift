@@ -3,7 +3,8 @@
 //  OPass
 //
 //  Created by Brian Chang on 2024/8/18.
-//  SPDX-FileCopyrightText: 2024 OPass
+//
+//  SPDX-FileCopyrightText: 2024-2025 OPass
 //  SPDX-License-Identifier: GPL-3.0-only
 //
 
@@ -34,16 +35,18 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     private let logger = Logger(subsystem: "OPassApp", category: "AppDelegate")
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-        // MARK: Firebase
+        // Firebase
         let providerFactory = OPassAppCheckProviderFactory()
         AppCheck.setAppCheckProviderFactory(providerFactory)
         FirebaseApp.configure()
         Analytics.setAnalyticsCollectionEnabled(true)
-        // MARK: OneSignal
+      
+        // OneSignal
         OneSignal.initialize("b6213f49-e356-4b48-aa9d-7cf10ce1904d", withLaunchOptions: launchOptions)
         OneSignal.Notifications.requestPermission({ accepted in
             self.logger.info("User accepted notifications: \(accepted)")
         }, fallbackToSettings: false)
+      
        return true
     }
 }
