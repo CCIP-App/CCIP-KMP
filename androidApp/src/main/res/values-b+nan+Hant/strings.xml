@@ -53,4 +53,5 @@
     <string name="ticket_privacy_help_title">請共你的票券保護好</string>
     <string name="ticket_privacy_help_desc">這張票券是予人驗證你的身份。請你毋通佮活動工作人員以外的人分享。</string>
     <string name="action_logout_confirmation_message">你敢確定欲登出？</string>
+    <string name="lang_translated_name_ja_jp">日本語</string>
 </resources>

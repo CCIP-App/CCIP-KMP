@@ -53,4 +53,5 @@
     <string name="session_alarm">設定議程提醒</string>
     <string name="notification_session_start_message"><xliff:g id="session_title">%1$s</xliff:g> 在 10 分鐘之後在 <xliff:g id="room">%2$s</xliff:g> 開始</string>
     <string name="notification_session_start_title">接下來的議程！</string>
+    <string name="lang_translated_name_ja_jp">日語</string>
 </resources>
