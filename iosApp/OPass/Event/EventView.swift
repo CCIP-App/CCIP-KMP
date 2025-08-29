@@ -81,9 +81,9 @@ struct EventView: View {
     @ViewBuilder
     private func featureButton(_ feature: Feature) -> some View {
         VStack {
-            Button {
-
-            } label: {
+            NavigationLink(destination: {
+                ScheduleView()
+            }, label: {
                 CachedAsyncImage(url: URL(string: feature.iconUrl ?? "")) { phase in
                     switch phase {
                     case .success(let image):
@@ -99,7 +99,12 @@ struct EventView: View {
                             .padding(3)
                     }
                 }
-            }
+            })
+//            Button {
+//
+//            } label: {
+//
+//            }
             .buttonStyle(.bordered)
             .tint(feature.color)
             .frame(width: 50, height: 50)

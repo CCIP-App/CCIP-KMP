@@ -16,7 +16,21 @@ struct ScheduleView: View {
     
     var body: some View {
         VStack {
-            
+            switch viewModel.viewState {
+            case .ready(let schedule):
+                VStack {
+                    Text("Loaded")
+                }
+            case .failed(let error):
+                ContentUnavailableView(
+                    "Something Went Wrong",
+                    systemImage: "",
+                    description: .init("\(error.localizedDescription) (\(error)")
+                )
+            case .loading:
+                ProgressView("Loading Schedule")
+                    .task { await viewModel.loadSchedule() }
+            }
         }
         .analyticsScreen(name: "ScheduleView")
         .environment(viewModel)

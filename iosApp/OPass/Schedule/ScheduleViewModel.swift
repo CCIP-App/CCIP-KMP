@@ -10,22 +10,20 @@
 
 import Shared
 import SwiftUI
+import SwiftDate
+import Algorithms
+import OrderedCollections
 
-@MainActor @Observable
+@MainActor
+@Observable
 class ScheduleViewModel {
-    @ObservationIgnored @AppStorage("EventID") private var eventID = ""
+    @ObservationIgnored 
+    @AppStorage("EventID") private var eventID = ""
     
-    private(set) var schedule: Schedule?
-    var sessions: [Session]?
-    var error: Error?
+    private(set) var schedule: ScheduleData?
+    private(set) var error: Error?
     
-    enum ViewState {
-        case loading
-        case ready(Schedule)
-        case failed(Error)
-    }
-    
-    var viewState: ViewState {
+    var viewState: ScheduleViewState {
         if let schedule { return .ready(schedule) }
         if let error { return .failed(error) }
         return .loading
@@ -53,7 +51,9 @@ class ScheduleViewModel {
             while let (source, result) = await group.next() {
                 switch result {
                 case .success(let schedule):
-                    self.schedule = schedule
+                    if let schedule {
+                        await processSchedule(schedule)
+                    }
                     
                     if source == .remote {
                         group.cancelAll()
@@ -66,7 +66,23 @@ class ScheduleViewModel {
         }
     }
     
-    func processSchedule(_ schedule: Schedule) {
-        self.sessions = schedule.sessions
+    func processSchedule(_ schedule: Schedule) async  {
+        let sessions = schedule.sessions
+            .chunked(on: { $0.startDate.dateTruncated(from: .hour)! })
+            .sorted(by: { $0.0 < $1.0 })
+            .map {($0.0, $0.1.chunked(on: { $0.startDate.dateTruncated(from: .second)! }))}
+        
+        let speakers = OrderedDictionary(schedule.speakers.map({ ($0.id, $0) }), uniquingKeysWith: { $1 })
+        let types = OrderedDictionary(schedule.sessionTypes.map({ ($0.id, $0) }), uniquingKeysWith: { $1 })
+        let rooms = OrderedDictionary(schedule.rooms.map({ ($0.id, $0) }), uniquingKeysWith: { $1 })
+        let tags = OrderedDictionary(schedule.tags.map({ ($0.id, $0) }), uniquingKeysWith: { $1 })
+        
+        return self.schedule = .init(
+            sessions: sessions,
+            speakers: speakers,
+            types: types,
+            rooms: rooms,
+            tags: tags
+        )
     }
 }

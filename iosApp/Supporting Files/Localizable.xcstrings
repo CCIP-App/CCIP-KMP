@@ -89,6 +89,9 @@
     "Hello, World!" : {
 
     },
+    "Loaded" : {
+
+    },
     "Loading" : {
       "localizations" : {
         "zh-Hant" : {
@@ -98,6 +101,9 @@
           }
         }
       }
+    },
+    "Loading Schedule" : {
+
     },
     "Made with Love" : {
       "localizations" : {
@@ -198,6 +204,9 @@
           }
         }
       }
+    },
+    "Something Went Wrong" : {
+
     },
     "Source Code" : {
       "localizations" : {

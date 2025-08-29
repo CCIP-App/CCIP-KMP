@@ -11,6 +11,8 @@
 		D30235DB2CDC7AA80033D599 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30235DA2CDC7AA80033D599 /* BlurView.swift */; };
 		D307A8812C76039D00BB00FB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D307A8802C76039D00BB00FB /* GoogleService-Info.plist */; };
 		D307A8932C760F8E00BB00FB /* AppearanceSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D307A8922C760F8E00BB00FB /* AppearanceSettingsView.swift */; };
+		D334ABD22E5F3ECB00E2B1E8 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = D334ABD12E5F3ECB00E2B1E8 /* OrderedCollections */; };
+		D334ABD52E5F443B00E2B1E8 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = D334ABD42E5F443B00E2B1E8 /* Algorithms */; };
 		D34BEECB2C723BC6008F9A4C /* OPassApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34BEECA2C723BC6008F9A4C /* OPassApp.swift */; };
 		D34BEECD2C723BC6008F9A4C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34BEECC2C723BC6008F9A4C /* ContentView.swift */; };
 		D34BEECF2C723BC7008F9A4C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D34BEECE2C723BC7008F9A4C /* Assets.xcassets */; };
@@ -22,6 +24,7 @@
 		D35A64FF2CDB0C9F0085D41F /* RobotoCondensed-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D35A64F32CDB0C9F0085D41F /* RobotoCondensed-Bold.ttf */; };
 		D35A65002CDB0C9F0085D41F /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = D35A64F22CDB0C9F0085D41F /* LICENSE.txt */; };
 		D35A65012CDB0C9F0085D41F /* RobotoCondensed-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D35A64F42CDB0C9F0085D41F /* RobotoCondensed-BoldItalic.ttf */; };
+		D3883CD22E61BC540085DA75 /* ScheduleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3883CD12E61BC500085DA75 /* ScheduleModel.swift */; };
 		D39AC9DC2C7B395D00084689 /* SelectEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39AC9DB2C7B395D00084689 /* SelectEventView.swift */; };
 		D39AC9DE2C7B398E00084689 /* SelectEventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39AC9DD2C7B398E00084689 /* SelectEventViewModel.swift */; };
 		D3B1E7802C774623002DBA07 /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B1E77F2C774623002DBA07 /* SafariView.swift */; };
@@ -92,6 +95,7 @@
 		D35A64F62CDB0C9F0085D41F /* RobotoCondensed-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoCondensed-Light.ttf"; sourceTree = "<group>"; };
 		D35A64F72CDB0C9F0085D41F /* RobotoCondensed-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoCondensed-LightItalic.ttf"; sourceTree = "<group>"; };
 		D35A64F82CDB0C9F0085D41F /* RobotoCondensed-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoCondensed-Regular.ttf"; sourceTree = "<group>"; };
+		D3883CD12E61BC500085DA75 /* ScheduleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleModel.swift; sourceTree = "<group>"; };
 		D39AC9DB2C7B395D00084689 /* SelectEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectEventView.swift; sourceTree = "<group>"; };
 		D39AC9DD2C7B398E00084689 /* SelectEventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectEventViewModel.swift; sourceTree = "<group>"; };
 		D3B1E77F2C774623002DBA07 /* SafariView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariView.swift; sourceTree = "<group>"; };
@@ -119,6 +123,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D334ABD52E5F443B00E2B1E8 /* Algorithms in Frameworks */,
+				D334ABD22E5F3ECB00E2B1E8 /* OrderedCollections in Frameworks */,
 				D3BE9CFA2E5F20AF0003666A /* FirebasePerformance in Frameworks */,
 				D3C398182C73A327002FFD42 /* OneSignalInAppMessages in Frameworks */,
 				D3BE9CF02E5F20AF0003666A /* FirebaseAnalytics in Frameworks */,
@@ -243,6 +249,7 @@
 			isa = PBXGroup;
 			children = (
 				D3BE9CE42E5DAA2B0003666A /* View */,
+				D3883CD12E61BC500085DA75 /* ScheduleModel.swift */,
 				D3BE9CE22E5CB1B60003666A /* ScheduleViewModel.swift */,
 			);
 			path = Schedule;
@@ -320,6 +327,8 @@
 				D3BE9CF52E5F20AF0003666A /* FirebaseCrashlytics */,
 				D3BE9CF72E5F20AF0003666A /* FirebaseFirestore */,
 				D3BE9CF92E5F20AF0003666A /* FirebasePerformance */,
+				D334ABD12E5F3ECB00E2B1E8 /* OrderedCollections */,
+				D334ABD42E5F443B00E2B1E8 /* Algorithms */,
 			);
 			productName = OPass;
 			productReference = D34BEEC72C723BC6008F9A4C /* OPass.app */;
@@ -371,12 +380,16 @@
 				en,
 				Base,
 				"zh-Hant",
+				ja,
+				nan,
 			);
 			mainGroup = D34BEEBE2C723BC6008F9A4C;
 			packageReferences = (
 				D3C398122C73A327002FFD42 /* XCRemoteSwiftPackageReference "OneSignal-XCFramework" */,
 				D3BE9CE92E5DFBA20003666A /* XCRemoteSwiftPackageReference "SwiftDate" */,
 				D3BE9CEC2E5F20AF0003666A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				D334ABD02E5F3ECB00E2B1E8 /* XCRemoteSwiftPackageReference "swift-collections" */,
+				D334ABD32E5F443B00E2B1E8 /* XCRemoteSwiftPackageReference "swift-algorithms" */,
 			);
 			productRefGroup = D34BEEC82C723BC6008F9A4C /* Products */;
 			projectDirPath = "";
@@ -476,6 +489,7 @@
 				D39AC9DE2C7B398E00084689 /* SelectEventViewModel.swift in Sources */,
 				D3BE9CE62E5DAAC70003666A /* SessionDetailView.swift in Sources */,
 				D3BE9CE82E5DFA780003666A /* Session.swift in Sources */,
+				D3883CD22E61BC540085DA75 /* ScheduleModel.swift in Sources */,
 				D34BEECB2C723BC6008F9A4C /* OPassApp.swift in Sources */,
 				D307A8932C760F8E00BB00FB /* AppearanceSettingsView.swift in Sources */,
 				D39AC9DC2C7B395D00084689 /* SelectEventView.swift in Sources */,
@@ -789,6 +803,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		D334ABD02E5F3ECB00E2B1E8 /* XCRemoteSwiftPackageReference "swift-collections" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-collections.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.1;
+			};
+		};
+		D334ABD32E5F443B00E2B1E8 /* XCRemoteSwiftPackageReference "swift-algorithms" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-algorithms.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.1;
+			};
+		};
 		D3BE9CE92E5DFBA20003666A /* XCRemoteSwiftPackageReference "SwiftDate" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/malcommac/SwiftDate";
@@ -816,6 +846,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		D334ABD12E5F3ECB00E2B1E8 /* OrderedCollections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D334ABD02E5F3ECB00E2B1E8 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = OrderedCollections;
+		};
+		D334ABD42E5F443B00E2B1E8 /* Algorithms */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D334ABD32E5F443B00E2B1E8 /* XCRemoteSwiftPackageReference "swift-algorithms" */;
+			productName = Algorithms;
+		};
 		D3BE9CEA2E5DFBA20003666A /* SwiftDate */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D3BE9CE92E5DFBA20003666A /* XCRemoteSwiftPackageReference "SwiftDate" */;
