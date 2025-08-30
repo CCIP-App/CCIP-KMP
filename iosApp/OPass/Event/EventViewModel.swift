@@ -14,7 +14,7 @@ import SwiftUI
 
 private let logger = Logger(subsystem: "OPassApp", category: "EventViewModel")
 
-@MainActor @Observable
+@Observable
 class EventViewModel {
     @ObservationIgnored @AppStorage("EventID") private var eventID = ""
 

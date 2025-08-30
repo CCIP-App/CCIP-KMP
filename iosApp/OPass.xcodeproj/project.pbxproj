@@ -25,6 +25,8 @@
 		D35A65002CDB0C9F0085D41F /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = D35A64F22CDB0C9F0085D41F /* LICENSE.txt */; };
 		D35A65012CDB0C9F0085D41F /* RobotoCondensed-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D35A64F42CDB0C9F0085D41F /* RobotoCondensed-BoldItalic.ttf */; };
 		D3883CD22E61BC540085DA75 /* ScheduleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3883CD12E61BC500085DA75 /* ScheduleModel.swift */; };
+		D3883CD72E63452D0085DA75 /* EventDestinations.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3883CD62E6345240085DA75 /* EventDestinations.swift */; };
+		D3883CD92E634A810085DA75 /* NEHotspot.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3883CD82E634A670085DA75 /* NEHotspot.swift */; };
 		D39AC9DC2C7B395D00084689 /* SelectEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39AC9DB2C7B395D00084689 /* SelectEventView.swift */; };
 		D39AC9DE2C7B398E00084689 /* SelectEventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39AC9DD2C7B398E00084689 /* SelectEventViewModel.swift */; };
 		D3B1E7802C774623002DBA07 /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B1E77F2C774623002DBA07 /* SafariView.swift */; };
@@ -96,6 +98,8 @@
 		D35A64F72CDB0C9F0085D41F /* RobotoCondensed-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoCondensed-LightItalic.ttf"; sourceTree = "<group>"; };
 		D35A64F82CDB0C9F0085D41F /* RobotoCondensed-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoCondensed-Regular.ttf"; sourceTree = "<group>"; };
 		D3883CD12E61BC500085DA75 /* ScheduleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleModel.swift; sourceTree = "<group>"; };
+		D3883CD62E6345240085DA75 /* EventDestinations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDestinations.swift; sourceTree = "<group>"; };
+		D3883CD82E634A670085DA75 /* NEHotspot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NEHotspot.swift; sourceTree = "<group>"; };
 		D39AC9DB2C7B395D00084689 /* SelectEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectEventView.swift; sourceTree = "<group>"; };
 		D39AC9DD2C7B398E00084689 /* SelectEventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectEventViewModel.swift; sourceTree = "<group>"; };
 		D3B1E77F2C774623002DBA07 /* SafariView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariView.swift; sourceTree = "<group>"; };
@@ -196,6 +200,9 @@
 				D39AC9DA2C7B394600084689 /* SelectEvent */,
 				D3EBBF652C8454D700A49285 /* Event */,
 				D3BE9CDF2E5CA35A0003666A /* Schedule */,
+				D3883CD32E61D9990085DA75 /* FassPass */,
+				D3883CD42E61D9AB0085DA75 /* Ticket */,
+				D3883CD52E61D9B60085DA75 /* Announcement */,
 				D307A8912C760F5100BB00FB /* Settings */,
 				D3B1E77E2C774609002DBA07 /* Common */,
 				D300355A2C85E3010049B7B3 /* Shared+Extension */,
@@ -225,6 +232,27 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		D3883CD32E61D9990085DA75 /* FassPass */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = FassPass;
+			sourceTree = "<group>";
+		};
+		D3883CD42E61D9AB0085DA75 /* Ticket */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Ticket;
+			sourceTree = "<group>";
+		};
+		D3883CD52E61D9B60085DA75 /* Announcement */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Announcement;
+			sourceTree = "<group>";
+		};
 		D39AC9DA2C7B394600084689 /* SelectEvent */ = {
 			isa = PBXGroup;
 			children = (
@@ -237,6 +265,7 @@
 		D3B1E77E2C774609002DBA07 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				D3883CD82E634A670085DA75 /* NEHotspot.swift */,
 				D30235DA2CDC7AA80033D599 /* BlurView.swift */,
 				D3B1E77F2C774623002DBA07 /* SafariView.swift */,
 				D3B1E7812C775E7C002DBA07 /* CenterLabelStyle.swift */,
@@ -292,6 +321,7 @@
 			children = (
 				D3EBBF662C8454E400A49285 /* EventView.swift */,
 				D3EBBF682C8454EF00A49285 /* EventViewModel.swift */,
+				D3883CD62E6345240085DA75 /* EventDestinations.swift */,
 			);
 			path = Event;
 			sourceTree = "<group>";
@@ -477,6 +507,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3883CD92E634A810085DA75 /* NEHotspot.swift in Sources */,
 				D3D1B8A02C7475A00075A747 /* SettingsView.swift in Sources */,
 				D30235DB2CDC7AA80033D599 /* BlurView.swift in Sources */,
 				D35A64EF2CDB00CD0085D41F /* CachedAsyncImage.swift in Sources */,
@@ -496,6 +527,7 @@
 				D300355C2C85E31A0049B7B3 /* PortalHelper.swift in Sources */,
 				D3B1E7802C774623002DBA07 /* SafariView.swift in Sources */,
 				D3B1E7822C775E7C002DBA07 /* CenterLabelStyle.swift in Sources */,
+				D3883CD72E63452D0085DA75 /* EventDestinations.swift in Sources */,
 				D3EBBF672C8454E400A49285 /* EventView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

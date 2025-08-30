@@ -11,13 +11,11 @@
 import SwiftUI
 
 struct GeneralSettingsView: View {
-    // MARK: - Variable
     @AppStorage("HapticFeedback") private var hapticFeedback = true
     @Environment(\.colorScheme) private var colorScheme
 
     @State private var cleaningCache = false
 
-    // MARK: - View
     var body: some View {
         Form {
             Section {

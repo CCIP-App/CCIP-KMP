@@ -12,15 +12,14 @@ import Shared
 import SwiftUI
 
 struct ContentView: View {
-    // MARK: - Variable
-    @AppStorage("EventID") private var eventID = ""
     @AppStorage("HapticFeedback") private var hapticFeedback = true
+    @AppStorage("EventID") private var eventID = ""
 
+    @State private var router = Router()
     @State private var selectEventSheetPresented = false
 
-    // MARK: - View
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $router.path) {
             Group {
                 if eventID.isEmpty {
                     loadingView
@@ -33,6 +32,7 @@ struct ContentView: View {
             .toolbar { toolbar() }
         }
         .analyticsScreen(name: "ContentView")
+        .environment(router)
     }
 
     @ViewBuilder
@@ -59,6 +59,15 @@ struct ContentView: View {
             }
         }
     }
+}
+
+@Observable
+class Router {
+    var path = NavigationPath()
+    
+    func push(_ route: any Hashable) { path.append(route) }
+    func pop() { path.removeLast() }
+    func popToRoot() { path.removeLast(path.count) }
 }
 
 #Preview {

@@ -10,11 +10,9 @@
 
 import Shared
 import SwiftUI
-import SwiftDate
 import Algorithms
 import OrderedCollections
 
-@MainActor
 @Observable
 class ScheduleViewModel {
     @ObservationIgnored 
@@ -47,7 +45,7 @@ class ScheduleViewModel {
                 let sched = try? await PortalHelper.shared.getSchedule(eventId: self.eventID, forceReload: false)
                 return (.cache, .success(sched))
             }
-            
+             
             while let (source, result) = await group.next() {
                 switch result {
                 case .success(let schedule):

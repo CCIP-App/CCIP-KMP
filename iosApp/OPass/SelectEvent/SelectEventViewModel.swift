@@ -14,7 +14,7 @@ import SwiftUI
 
 private let logger = Logger(subsystem: "OPassApp", category: "SelectEventViewModel")
 
-@MainActor @Observable
+@Observable
 class SelectEventViewModel {
     enum ViewState {
         case ready([Event])

@@ -10,7 +10,6 @@
 
 import SwiftUI
 
-
 struct BlurView: UIViewRepresentable {
     var style: UIBlurEffect.Style = .dark
 

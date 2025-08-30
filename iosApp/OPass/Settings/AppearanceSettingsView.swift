@@ -11,11 +11,9 @@
 import SwiftUI
 
 struct AppearanceSettingsView: View {
-    // MARK: - Variable
     @AppStorage("HapticFeedback") private var hapticFeedback = true
     @AppStorage("DarkMode") private var darkMode: DarkMode = .system
 
-    // MARK: - View
     var body: some View {
         Form {
             Section {

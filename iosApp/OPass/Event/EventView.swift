@@ -11,15 +11,14 @@
 import Shared
 import SwiftUI
 
-@MainActor
 struct EventView: View {
-    // MARK: - Variable
+    @Environment(\.colorScheme) private var colorScheme
+    @Environment(Router.self) private var router
+    
+    @AppStorage("EventID") private var eventID = ""
+    
     @State private var viewModel = EventViewModel()
 
-    @Environment(\.colorScheme) private var colorScheme
-    @AppStorage("EventID") private var eventID = ""
-
-    // MARK: - View
     var body: some View {
         Group {
             if let config = viewModel.config {
@@ -30,6 +29,7 @@ struct EventView: View {
         }
         .analyticsScreen(name: "EventView")
         .background(.section)
+        .eventDestinations()
     }
 
     @ViewBuilder
@@ -81,9 +81,31 @@ struct EventView: View {
     @ViewBuilder
     private func featureButton(_ feature: Feature) -> some View {
         VStack {
-            NavigationLink(destination: {
-                ScheduleView()
-            }, label: {
+            Button {
+                switch feature.type {
+                case .fastPass:
+                    print("###")
+                    print("##\(router.path)")
+                    router.push(EventDestinations.fastpass)
+                    print("##\(router.path)")
+                case .ticket: router.push(EventDestinations.ticket)
+                case .schedule: router.push(EventDestinations.schedule)
+                case .announcement: router.push(EventDestinations.announcement)
+                case .wifi:
+                    if let wifi = feature.wifi {
+                        if wifi.count == 1 {
+                            NEHotspot.connect(wifi: wifi[0])
+                        } else {
+                            router.push(EventDestinations.wifi(wifi))
+                        }
+                    }
+                    
+                case .telegram:
+                    router.push(EventDestinations.fastpass)
+                default:
+                    router.push(EventDestinations.webview)
+                }
+            } label: {
                 CachedAsyncImage(url: URL(string: feature.iconUrl ?? "")) { phase in
                     switch phase {
                     case .success(let image):
@@ -99,12 +121,7 @@ struct EventView: View {
                             .padding(3)
                     }
                 }
-            })
-//            Button {
-//
-//            } label: {
-//
-//            }
+            }
             .buttonStyle(.bordered)
             .tint(feature.color)
             .frame(width: 50, height: 50)

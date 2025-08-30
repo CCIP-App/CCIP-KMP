@@ -11,18 +11,15 @@
 import Shared
 import SwiftUI
 
-@MainActor
 struct SelectEventView: View {
-    // MARK: - Variable
-    @State private var viewModel = SelectEventViewModel()
-
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.dismiss) private var dismiss
 
-    @AppStorage("EventID") private var eventID = ""
     @AppStorage("HapticFeedback") private var hapticFeedback = true
+    @AppStorage("EventID") private var eventID = ""
+    
+    @State private var viewModel = SelectEventViewModel()
 
-    // MARK: - View
     var body: some View {
         NavigationStack {
             Group {

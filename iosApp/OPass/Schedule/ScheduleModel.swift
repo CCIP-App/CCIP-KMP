@@ -13,11 +13,11 @@ import SwiftDate
 import OrderedCollections
 
 struct ScheduleData {
-    var sessions: [(DateInRegion, [(DateInRegion, ArraySlice<Session>)])]
-    var speakers: OrderedDictionary<String, Speaker>
-    var types: OrderedDictionary<String, LocalizedObject>
-    var rooms: OrderedDictionary<String, LocalizedObject>
-    var tags: OrderedDictionary<String, LocalizedObject>
+    let sessions: [(DateInRegion, [(DateInRegion, ArraySlice<Session>)])]
+    let speakers: OrderedDictionary<String, Speaker>
+    let types: OrderedDictionary<String, LocalizedObject>
+    let rooms: OrderedDictionary<String, LocalizedObject>
+    let tags: OrderedDictionary<String, LocalizedObject>
 }
 
 enum ScheduleViewState {

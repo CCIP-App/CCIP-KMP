@@ -11,7 +11,6 @@
 import SwiftUI
 
 struct SettingsView: View {
-    // MARK: - Variable
     private let websiteURL = URL(string: "https://opass.app")!
     private let gitHubURL = URL(string: "https://github.com/CCIP-App/CCIP-KMP")!
     private let policyURL = URL(string: "https://opass.app/privacy-policy.html")!
@@ -23,7 +22,6 @@ struct SettingsView: View {
     @State private var safariUrl = URL(string: "https://opass.app")!
     @State private var safariPresented = false
 
-    // MARK: - View
     var body: some View {
         Form {
             introductionSection()

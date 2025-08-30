@@ -11,6 +11,9 @@
         }
       }
     },
+    "Announcement Place Holder" : {
+
+    },
     "Appearance" : {
       "localizations" : {
         "zh-Hant" : {
@@ -69,6 +72,9 @@
           }
         }
       }
+    },
+    "FastPass Place Holder" : {
+
     },
     "General" : {
 
@@ -228,6 +234,9 @@
         }
       }
     },
+    "Ticket Place Holder" : {
+
+    },
     "Version %@ (%@)" : {
       "localizations" : {
         "zh-Hant" : {
@@ -237,6 +246,12 @@
           }
         }
       }
+    },
+    "Webview Place Holder" : {
+
+    },
+    "Wifi Place Holder" : {
+
     }
   },
   "version" : "1.0"
