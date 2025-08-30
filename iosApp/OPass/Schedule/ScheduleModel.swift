@@ -9,8 +9,15 @@
 //
 
 import Shared
+import SwiftUI
 import SwiftDate
 import OrderedCollections
+
+enum ScheduleViewState {
+    case ready(ScheduleData)
+    case failed(Error)
+    case loading
+}
 
 struct ScheduleData {
     let sessions: [(DateInRegion, [(DateInRegion, ArraySlice<Session>)])]
@@ -20,8 +27,18 @@ struct ScheduleData {
     let tags: OrderedDictionary<String, LocalizedObject>
 }
 
-enum ScheduleViewState {
-    case ready(ScheduleData)
-    case failed(Error)
-    case loading
+struct ScheduleFilter: Hashable {
+    var speaker: Set<String> = []
+    var type: Set<String> = []
+    var room: Set<String> = []
+    var tag: Set<String> = []
+    var liked = false
+    var count = 0
+}
+
+struct OffsetKey: PreferenceKey {
+    static var defaultValue: CGFloat = .zero
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+        value = nextValue()
+    }
 }

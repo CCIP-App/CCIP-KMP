@@ -10,6 +10,7 @@
 
 import Shared
 import SwiftUI
+import SwiftDate
 import Algorithms
 import OrderedCollections
 
@@ -18,11 +19,14 @@ class ScheduleViewModel {
     @ObservationIgnored 
     @AppStorage("EventID") private var eventID = ""
     
-    private(set) var schedule: ScheduleData?
+    private(set) var data: ScheduleData?
     private(set) var error: Error?
     
+    var filters = ScheduleFilter()
+    var selectedDay: Int? = 0
+    
     var viewState: ScheduleViewState {
-        if let schedule { return .ready(schedule) }
+        if let data { return .ready(data) }
         if let error { return .failed(error) }
         return .loading
     }
@@ -75,12 +79,29 @@ class ScheduleViewModel {
         let rooms = OrderedDictionary(schedule.rooms.map({ ($0.id, $0) }), uniquingKeysWith: { $1 })
         let tags = OrderedDictionary(schedule.tags.map({ ($0.id, $0) }), uniquingKeysWith: { $1 })
         
-        return self.schedule = .init(
+        self.selectedDay = sessions.firstIndex { $0.0.isToday } ?? 0
+        
+        return self.data = .init(
             sessions: sessions,
             speakers: speakers,
             types: types,
             rooms: rooms,
             tags: tags
         )
+    }
+    
+    func filterSessions(_ sessions: [(DateInRegion, [(DateInRegion, ArraySlice<Session>)])]) -> [(DateInRegion, [(DateInRegion, ArraySlice<Session>)])] {
+        if filters.count == 0 { return sessions }
+        let s =  sessions.map { day in
+            let daySessions = day.1.compactMap { section in
+                let filteredSessions = section.1.filter { session in
+                    if !filters.speaker.isEmpty, filters.speaker.isDisjoint(with: session.speakers) { return false }
+                    return true
+                }
+                return filteredSessions.isEmpty ? nil : (section.0, ArraySlice(filteredSessions))
+            }
+            return (day.0, daySessions)
+        }
+        return s
     }
 }
