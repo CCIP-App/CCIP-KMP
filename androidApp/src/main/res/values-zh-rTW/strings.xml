@@ -48,7 +48,7 @@
     <string name="enter_token_manually_desc">手動輸入你從電子郵件或是主辦方接收的票券。</string>
     <string name="ticket_verification_help_desc">票券可能跑到電子郵件收件夾或是垃圾郵件夾，如果你還沒有收，請聯繫活動主辦方。</string>
     <string name="ticket_privacy_help_title">請保護好你的票券</string>
-    <string name="ticket_privacy_help_desc">這張票券是用來識別你㑸人，所以不要與活動報到台之外的人分享。</string>
+    <string name="ticket_privacy_help_desc">這張票券用於驗證你的身分。請不要與工作人員和活動攤位以外的人分享。</string>
     <string name="session_bookmark">將議程加入書籤</string>
     <string name="session_alarm">設定議程提醒</string>
     <string name="notification_session_start_message"><xliff:g id="session_title">%1$s</xliff:g> 在 10 分鐘之後在 <xliff:g id="room">%2$s</xliff:g> 開始</string>
