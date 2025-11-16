@@ -11,6 +11,8 @@
 		D30235DB2CDC7AA80033D599 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30235DA2CDC7AA80033D599 /* BlurView.swift */; };
 		D307A8812C76039D00BB00FB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D307A8802C76039D00BB00FB /* GoogleService-Info.plist */; };
 		D307A8932C760F8E00BB00FB /* AppearanceSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D307A8922C760F8E00BB00FB /* AppearanceSettingsView.swift */; };
+		D31F83B22EC9B8FA00463E2E /* InAppWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31F83B12EC9B8F500463E2E /* InAppWebView.swift */; };
+		D31F83B42EC9B90400463E2E /* InAppWebViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31F83B32EC9B8FF00463E2E /* InAppWebViewModel.swift */; };
 		D334ABD22E5F3ECB00E2B1E8 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = D334ABD12E5F3ECB00E2B1E8 /* OrderedCollections */; };
 		D334ABD52E5F443B00E2B1E8 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = D334ABD42E5F443B00E2B1E8 /* Algorithms */; };
 		D34BEECB2C723BC6008F9A4C /* OPassApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34BEECA2C723BC6008F9A4C /* OPassApp.swift */; };
@@ -85,6 +87,8 @@
 		D30235DA2CDC7AA80033D599 /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		D307A8802C76039D00BB00FB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D307A8922C760F8E00BB00FB /* AppearanceSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceSettingsView.swift; sourceTree = "<group>"; };
+		D31F83B12EC9B8F500463E2E /* InAppWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppWebView.swift; sourceTree = "<group>"; };
+		D31F83B32EC9B8FF00463E2E /* InAppWebViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppWebViewModel.swift; sourceTree = "<group>"; };
 		D34BEEC72C723BC6008F9A4C /* OPass.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OPass.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D34BEECA2C723BC6008F9A4C /* OPassApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OPassApp.swift; sourceTree = "<group>"; };
 		D34BEECC2C723BC6008F9A4C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -173,6 +177,15 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		D31F83B02EC9B8B800463E2E /* InAppWeb */ = {
+			isa = PBXGroup;
+			children = (
+				D31F83B12EC9B8F500463E2E /* InAppWebView.swift */,
+				D31F83B32EC9B8FF00463E2E /* InAppWebViewModel.swift */,
+			);
+			path = InAppWeb;
+			sourceTree = "<group>";
+		};
 		D34BEEBE2C723BC6008F9A4C = {
 			isa = PBXGroup;
 			children = (
@@ -203,6 +216,7 @@
 				D3883CD32E61D9990085DA75 /* FassPass */,
 				D3883CD42E61D9AB0085DA75 /* Ticket */,
 				D3883CD52E61D9B60085DA75 /* Announcement */,
+				D31F83B02EC9B8B800463E2E /* InAppWeb */,
 				D307A8912C760F5100BB00FB /* Settings */,
 				D3B1E77E2C774609002DBA07 /* Common */,
 				D300355A2C85E3010049B7B3 /* Shared+Extension */,
@@ -392,7 +406,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1540;
-				LastUpgradeCheck = 1640;
+				LastUpgradeCheck = 2610;
 				TargetAttributes = {
 					D34BEEC62C723BC6008F9A4C = {
 						CreatedOnToolsVersion = 15.4;
@@ -511,6 +525,8 @@
 				D3D1B8A02C7475A00075A747 /* SettingsView.swift in Sources */,
 				D30235DB2CDC7AA80033D599 /* BlurView.swift in Sources */,
 				D35A64EF2CDB00CD0085D41F /* CachedAsyncImage.swift in Sources */,
+				D31F83B42EC9B90400463E2E /* InAppWebViewModel.swift in Sources */,
+				D31F83B22EC9B8FA00463E2E /* InAppWebView.swift in Sources */,
 				D34BEECD2C723BC6008F9A4C /* ContentView.swift in Sources */,
 				D3FA31322C8C457800949ECF /* GeneralSettingsView.swift in Sources */,
 				D3BE9CE32E5CB1C10003666A /* ScheduleViewModel.swift in Sources */,
@@ -611,6 +627,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -669,6 +686,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -694,7 +712,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -730,7 +748,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -756,7 +774,7 @@
 				INFOPLIST_FILE = OneSignalNotificationServiceExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = OneSignalNotificationServiceExtension;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -784,7 +802,7 @@
 				INFOPLIST_FILE = OneSignalNotificationServiceExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = OneSignalNotificationServiceExtension;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

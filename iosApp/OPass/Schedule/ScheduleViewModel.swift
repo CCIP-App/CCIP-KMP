@@ -104,4 +104,20 @@ class ScheduleViewModel {
         }
         return s
     }
+    
+    func getSpeaker(_ id: String) -> Speaker? {
+        return data?.speakers[id]
+    }
+    
+    func getType(_ id: String) -> LocalizedObject? {
+        return data?.types[id]
+    }
+    
+    func getRoom(_ id: String) -> LocalizedObject? {
+        return data?.rooms[id]
+    }
+    
+    func getTag(_ id: String) -> LocalizedObject? {
+        return data?.tags[id]
+    }
 }

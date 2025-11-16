@@ -78,6 +78,7 @@ struct SelectEventView: View {
                 }
             }
         }
+        .contentMargins(.top, 15)
         .animation(events.isEmpty ? nil : .default, value: events)
         .scrollDismissesKeyboard(.interactively)
         .sensoryFeedback(.success, trigger: eventID) { _, _ in hapticFeedback }

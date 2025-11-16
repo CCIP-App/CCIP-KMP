@@ -1,7 +1,21 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "%@ (%@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ (%2$@"
+          }
+        }
+      }
+    },
+    "About" : {
+
+    },
     "ABOUT" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hant" : {
           "stringUnit" : {
@@ -80,6 +94,7 @@
 
     },
     "GENERAL" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hant" : {
           "stringUnit" : {
@@ -118,6 +133,9 @@
         }
       }
     },
+    "More" : {
+
+    },
     "Official Website" : {
       "localizations" : {
         "zh-Hant" : {
@@ -138,6 +156,9 @@
         }
       }
     },
+    "Open in Safari" : {
+
+    },
     "Open Pass & All Pass - A Community Checkin with Interactivity Project for iOS" : {
       "localizations" : {
         "zh-Hant" : {
@@ -157,6 +178,9 @@
           }
         }
       }
+    },
+    "Reload" : {
+
     },
     "Reset Appearance" : {
       "localizations" : {
@@ -189,6 +213,7 @@
       }
     },
     "Settings" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hant" : {
           "stringUnit" : {
@@ -197,6 +222,9 @@
           }
         }
       }
+    },
+    "Share" : {
+
     },
     "Something went wrong" : {
       "localizations" : {
@@ -243,9 +271,6 @@
           }
         }
       }
-    },
-    "Webview Place Holder" : {
-
     },
     "Wifi Place Holder" : {
 

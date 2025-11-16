@@ -38,7 +38,7 @@ class SelectEventViewModel {
                 }
 
             return events!.filter { event in
-                let name = event.name
+                let name = event.name.lowercased()
                 for component in components {
                     guard name.contains(component) else {
                         return false

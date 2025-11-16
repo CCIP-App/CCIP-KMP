@@ -34,8 +34,8 @@ struct SettingsView: View {
         }
         .safariViewSheet(url: safariUrl, isPresented: $safariPresented)
         .analyticsScreen(name: "SettingsView")
-        .navigationBarTitleDisplayMode(.large)
-        .navigationTitle("Settings")
+//        .navigationBarTitleDisplayMode(.large)
+//        .navigationTitle("Settings")
         .listSectionSpacing(0)
     }
 
@@ -43,11 +43,12 @@ struct SettingsView: View {
     private func introductionSection() -> some View {
         VStack(spacing: 5) {
             Image(.opassIcon)
-                //.interpolation(.high)
+//                .interpolation(.none)
                 .resizable()
                 .scaledToFit()
                 .frame(width: 70)
                 .clipShape(.rect(cornerRadius: 15.6)) // radius = width * 2/9
+                .glassEffect(in: .rect(cornerRadius: 15.6))
 
             Text("OPass")
                 .font(.title2)
@@ -56,6 +57,7 @@ struct SettingsView: View {
             Text("Open Pass & All Pass - A Community Checkin with Interactivity Project for iOS")
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 5)
+                .foregroundStyle(.gray)
         }
         .frame(maxWidth: .infinity, alignment: .center)
         .padding(.vertical, 5)
@@ -63,7 +65,7 @@ struct SettingsView: View {
 
     @ViewBuilder
     private func generalSection() -> some View {
-        Section("GENERAL") {
+        Section("General") {
             NavigationLink {
                 GeneralSettingsView()
             } label: {
@@ -96,7 +98,7 @@ struct SettingsView: View {
 
     @ViewBuilder
     private func aboutSection() -> some View {
-        Section("ABOUT") {
+        Section("About") {
             Button {
                 safariUrl = websiteURL
                 safariPresented.toggle()

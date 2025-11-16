@@ -17,7 +17,7 @@ enum EventDestinations: Hashable {
     case schedule
     case announcement
     case wifi([WiFi])
-    case webview
+    case webview(URL, String?)
 }
 
 extension View {
@@ -34,8 +34,8 @@ extension View {
                 ProgressView("Announcement Place Holder")
             case .wifi(let wifi):
                 ProgressView("Wifi Place Holder")
-            case .webview:
-                ProgressView("Webview Place Holder")
+            case .webview(let url, let title):
+                InAppWebView(url: url, title: title)
             }
         }
     }
