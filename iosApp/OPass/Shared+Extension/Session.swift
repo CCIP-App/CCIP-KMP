@@ -19,4 +19,8 @@ extension Shared.Session {
     var endDate: DateInRegion {
         return end.toISODate(region: .current)!
     }
+    
+    var hasAnyFeature: Bool {
+        return qa != nil || record != nil || slide != nil || liveUrl != nil || coWriteUrl != nil
+    }
 }

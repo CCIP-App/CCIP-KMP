@@ -1,15 +1,8 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "%@ (%@" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$@ (%2$@"
-          }
-        }
-      }
+    "%@" : {
+
     },
     "About" : {
 
@@ -55,6 +48,9 @@
 
     },
     "Clean cache will only remove unnecessary cache to free up space. Some essential cache required for the app to operate will remain intact." : {
+
+    },
+    "Co-Write" : {
 
     },
     "Dark Mode" : {
@@ -107,7 +103,7 @@
     "Haptic Feedback" : {
 
     },
-    "Hello, World!" : {
+    "Live" : {
 
     },
     "Loading" : {
@@ -179,6 +175,12 @@
         }
       }
     },
+    "QA" : {
+
+    },
+    "Record" : {
+
+    },
     "Reload" : {
 
     },
@@ -224,6 +226,9 @@
       }
     },
     "Share" : {
+
+    },
+    "Slide" : {
 
     },
     "Something went wrong" : {

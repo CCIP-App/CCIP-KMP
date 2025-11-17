@@ -21,16 +21,19 @@ struct ScheduleView: View {
         VStack {
             switch viewModel.viewState {
             case .ready(let schedule):
-                if schedule.sessions.count == 1 {
-                    sessionList(schedule.sessions[0].1)
-                } else {
-                    scheduleList(schedule.sessions)
+                Group {
+                    if schedule.sessions.count == 1 {
+                        sessionList(schedule.sessions[0].1)
+                    } else {
+                        scheduleList(schedule.sessions)
+                    }
                 }
+                .searchable(text: .constant(""))
             case .failed(let error):
                 ContentUnavailableView(
                     "Something Went Wrong",
                     systemImage: "",
-                    description: .init("\(error.localizedDescription) (\(error)")
+                    description: .init("\(error.localizedDescription)")
                 )
             case .loading:
                 ProgressView("Loading Schedule")
@@ -68,24 +71,73 @@ struct ScheduleView: View {
             .scrollTargetBehavior(.paging)
             .scrollIndicators(.never)
             .ignoresSafeArea(.all, edges: .bottom)
-//            .background(.listBackground)
         }
     }
     
     private func sessionList(_ sessions: [(DateInRegion, ArraySlice<Session>)]) -> some View {
-            ScrollView(.vertical) {
-                LazyVStack {
-                    ForEach(sessions, id: \.0) { (_, sectionSessions) in
-                        LazyVStack(alignment: .leading, spacing: 0) {
-                            ForEach(sectionSessions, id: \.id) {
-                                Text($0.title)
+            Form {
+                ForEach(sessions, id: \.0) { (sectionTime, sectionSessions) in
+                    Section {
+                        ForEach(sectionSessions, id: \.id) { session in
+                            NavigationLink {
+                                SessionDetailView(viewModel: viewModel, session: session)
+                            } label: {
+                                VStack(alignment: .leading) {
+                                    HStack {
+                                        Button(viewModel.getRoom(session.room)?.name ?? session.room) {
+                                            // TODO: Click it to have it filtered.
+                                        }
+                                        .buttonStyle(.borderedProminent)
+                                        .controlSize(.mini)
+                                        .font(.caption)
+                                        
+                                        
+                                        let start = session.startDate, end = session.endDate
+                                        Text(String(format: "%d:%02d ~ %d:%02d",
+                                                    start.hour, start.minute,
+                                                    end.hour, end.minute))
+                                        .foregroundStyle(.gray)
+                                        .font(.footnote)
+                                    }
+                                    
+                                    Text(session.title)
+                                    
+                                    if let tags = session.tags {
+                                        ScrollView(.horizontal) {
+                                            HStack {
+                                                ForEach(tags, id: \.self) { tag in
+                                                    if let tagName = viewModel.getTag(tag)?.name {
+                                                        Button(tagName) {
+                                                            // TODO: Click it to have it filtered.
+                                                        }
+                                                        .buttonStyle(.bordered)
+                                                        .controlSize(.mini)
+                                                        .font(.caption)
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    } header: {
+                        HStack {
+                            Text(String(format: "%d:%02d", sectionTime.hour, sectionTime.minute))
+                            VStack {
+                                Divider()
                             }
                         }
                     }
                 }
-                .padding()
-
+                
+                Rectangle()
+                    .frame(height: 50)
+                    .foregroundStyle(.clear)
+                    .listRowBackground(Color.clear)
             }
+            .contentMargins(.top, 15)
+            .listSectionSpacing(0)
             .containerRelativeFrame(.horizontal)
             .scrollIndicators(.automatic)
 //            .overlay {
