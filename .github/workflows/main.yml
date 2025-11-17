@@ -43,5 +43,5 @@ jobs:
             -project iosApp/OPass.xcodeproj \
             -scheme OPass \
             -configuration Debug \
-            -destination "platform=iOS Simulator,name=iPhone 16 Pro Max,OS=latest" \
+            -destination "platform=iOS Simulator,name=iPhone 17 Pro Max,OS=latest" \
             build
