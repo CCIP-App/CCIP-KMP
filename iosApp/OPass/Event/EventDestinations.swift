@@ -33,7 +33,7 @@ extension View {
             case .announcement:
                 ProgressView("Announcement Place Holder")
             case .wifi(let wifi):
-                ProgressView("Wifi Place Holder")
+                ProgressView("Wi-Fi Place Holder")
             case .webview(let url, let title):
                 InAppWebView(url: url, title: title)
             }

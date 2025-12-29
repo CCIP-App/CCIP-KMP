@@ -36,7 +36,7 @@ struct AppearanceSettingsView: View {
                 .sensoryFeedback(.success, trigger: darkMode) { _, _ in hapticFeedback }
             }
 
-            Button("Reset Appearance") {
+            Button("Reset Appearance Settings") {
                 darkMode = .system
             }
             .foregroundStyle(.red)
