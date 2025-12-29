@@ -85,7 +85,7 @@ struct SessionDetailView: View {
                                     .clipShape(.rect(cornerRadius: 15))
                             }
                             
-                            Text("QA")
+                            Text("Q & A")
                                 .font(.caption2)
                         }
                     }

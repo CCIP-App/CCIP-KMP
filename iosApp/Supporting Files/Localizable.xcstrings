@@ -5,10 +5,6 @@
 
     },
     "About" : {
-
-    },
-    "ABOUT" : {
-      "extractionState" : "stale",
       "localizations" : {
         "zh-Hant" : {
           "stringUnit" : {
@@ -87,10 +83,6 @@
 
     },
     "General" : {
-
-    },
-    "GENERAL" : {
-      "extractionState" : "stale",
       "localizations" : {
         "zh-Hant" : {
           "stringUnit" : {
@@ -175,7 +167,7 @@
         }
       }
     },
-    "QA" : {
+    "Q & A" : {
 
     },
     "Record" : {
@@ -189,7 +181,7 @@
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "重置外觀"
+            "value" : "重設外觀"
           }
         }
       }
