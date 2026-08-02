@@ -1,3 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="select_event">행사 선택</string>
+    <string name="fast_pass">패스트 패스</string>
+    <string name="schedule">일정</string>
+    <string name="announcement">공지사항</string>
+    <string name="puzzle">스탬프 투어</string>
+    <string name="telegram">Telegram</string>
+    <string name="venue">행사장</string>
+    <string name="sponsors">후원사</string>
+    <string name="staffs">스태프</string>
+    <string name="event">행사</string>
+    <string name="share">공유</string>
+    <string name="select_from_gallery">갤러리에서 선택</string>
+    <string name="switch_language">언어 변경</string>
+    <string name="lang_translated_name_x_default">시스템 기본값</string>
+    <string name="lang_translated_name_en_us">영어</string>
+    <string name="lang_translated_name_hi_in">힌디어</string>
+    <string name="lang_translated_name_ja_jp">일본어</string>
+    <string name="lang_translated_name_nan_hant_tw">민난어(번체 한자)</string>
+    <string name="lang_translated_name_nan_latn_tw_pehoeji">민난어(백화자)</string>
+    <string name="lang_translated_name_nan_latn_tw_tailo">민난어(대만 로마자)</string>
+    <string name="lang_translated_name_nb_no">노르웨이어(보크몰)</string>
+    <string name="lang_translated_name_ta_in">타밀어</string>
+    <string name="lang_translated_name_zh_hans_cn">중국어(간체)</string>
+    <string name="lang_translated_name_zh_hant_tw">중국어(번체)</string>
 </resources>
