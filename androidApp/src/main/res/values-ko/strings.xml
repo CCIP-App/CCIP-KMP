@@ -28,12 +28,12 @@
     <string name="wifi">Wi-Fi</string>
     <string name="search_session">세션 검색</string>
     <string name="add_to_calendar">캘린더에 추가</string>
-    <string name="add_to_calendar_failed">세션을 캘린더에 추가하지 못했습니다!</string>
-    <string name="share_failed">공유할 세션 링크가 없습니다!</string>
-    <string name="menu">메뉴</string>
+    <string name="add_to_calendar_failed">세션을 캘린더에 추가하지 못했습니다</string>
+    <string name="share_failed">공유할 세션 링크가 없습니다</string>
+    <string name="menu">더보기</string>
     <string name="session">세션</string>
-    <string name="session_bookmark">세션 북마크 설정</string>
-    <string name="session_alarm">세션 알림 설정</string>
+    <string name="session_bookmark">세션 북마크</string>
+    <string name="session_alarm">세션 알림</string>
     <string name="notification_session_start_message">10분 후에 <xliff:g id="session_title">%1$s</xliff:g> 세션이 <xliff:g id="room">%2$s</xliff:g>에서 시작됩니다</string>
     <string name="notification_session_start_title">다가오는 세션!</string>
     <string name="close">닫기</string>
@@ -45,10 +45,10 @@
     <string name="enter_token_manually_desc">이메일이나 주최 측에서 받은 티켓을 직접 입력하세요.</string>
     <string name="verifying">티켓 인증 중</string>
     <string name="ticket_verification_help_title">티켓을 인증해 주세요</string>
-    <string name="ticket_verification_help_desc">티켓은 이메일 받은메일함이나 스팸함에 있을 수 있습니다. 아직 받지 못했다면 주최 측에 문의해 주세요.</string>
-    <string name="ticket_verification_failed">티켓 인증에 실패했습니다!</string>
+    <string name="ticket_verification_help_desc">티켓은 이메일 받은편지함이나 스팸함에 있을 수 있습니다. 아직 받지 못했다면 주최 측에 문의해 주세요.</string>
+    <string name="ticket_verification_failed">티켓 인증에 실패했습니다</string>
     <string name="ticket_privacy_help_title">티켓을 안전하게 보관하세요</string>
     <string name="ticket_privacy_help_desc">이 티켓은 본인 인증에 사용됩니다. 스태프와 부스 운영자 외에는 누구와도 공유하지 마세요.</string>
-    <string name="action_logout_confirmation_title">로그아웃 하시겠습니까?</string>
+    <string name="action_logout_confirmation_title">로그아웃</string>
     <string name="action_logout_confirmation_message">정말 로그아웃하시겠습니까?</string>
 </resources>
