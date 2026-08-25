@@ -51,7 +51,7 @@
     <string name="ticket_verification_help_desc">通常票券佇你的電子批來信抑是垃圾遐，若是你猶未收著，請連絡活動主辦方。</string>
     <string name="ticket_verification_failed">驗證票券失敗矣！</string>
     <string name="ticket_privacy_help_title">請共你的票券保護好</string>
-    <string name="ticket_privacy_help_desc">這張票券是予人驗證你的身份。請你毋通佮活動工作人員以外的人分享。</string>
+    <string name="ticket_privacy_help_desc">這張票券是予人驗證你的身分。請你毋通佮活動工作人員以外的人分享。</string>
     <string name="action_logout_confirmation_message">你敢確定欲登出？</string>
     <string name="lang_translated_name_ja_jp">日本語</string>
 </resources>
